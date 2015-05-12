@@ -1,0 +1,67 @@
+
+%\usepackage{etex}
+\usepackage[left=3cm,right=2.0cm,top=2cm,bottom=2.5cm,includehead,includefoot]
+{geometry}
+%Math
+\usepackage{amsfonts,amsmath,amssymb,amsthm, amstext}
+%Language, encoding, ...
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{t1enc, lmodern, textcomp}
+%Pictures
+\usepackage{graphicx, color}
+%Colors
+\usepackage{xcolor}
+%Nice a/b fractions
+\usepackage{xfrac}
+%Make it possible to write (fat) upright greek letters
+\usepackage{upgreek}
+
+%For indices
+\newcommand{\ix}[1]{_{\mathrm{#1}}}
+\newcommand{\Ix}[1]{^{\mathrm{#1}}}
+
+%Directly include svg images
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\executeiffilenewer}[3]{%
+    \ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+    {\pdffilemoddate{#2}}>0%
+    {\immediate\write18{#3}}\fi%
+}
+\newcommand{\includesvg}[1]{%
+    \executeiffilenewer{#1.svg}{#1.pdf}%
+    {inkscape -z -D --file=#1.svg %
+    --export-pdf=#1.pdf --export-latex}%
+    \input{#1.pdf_tex}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Make captions look okay
+\usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
+
+%Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+            pdflang=en-EN,
+            unicode=true,
+            pdfauthor={Thomas Staudt, Erik Schultheis},
+}
+
+%Differential d's
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tdif}[2]{\ensuremath{\frac{\dif#1}{\dif#2}}}
+\newcommand{\pdif}[2]{\ensuremath{\frac{\partial#1}{\partial#2}}}
+\newcommand{\ppdif}[2]{\ensuremath{\frac{\partial^{2}#1}{\partial#2^{2}}}}
+%Degree
+\newcommand{\degr}{^\circ}
+
+\renewcommand{\refname} {Literature}
+\renewcommand{\figurename}{\bf Figure}
+
+
+%Bibliography
+\usepackage[babel]{csquotes}
+\usepackage[backend=bibtex8]{biblatex}
+
+%\bibliography{sources}

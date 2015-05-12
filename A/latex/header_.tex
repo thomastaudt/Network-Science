@@ -1,0 +1,185 @@
+%\documentclass[12pt,a4paper,titlepage,headinclude]{scrartcl}
+\usepackage{etex}
+\usepackage[left=3cm,right=2.0cm,top=2cm,bottom=2.5cm,includehead,includefoot]
+{geometry}
+%Matheunterstützung
+\usepackage{amsfonts,amsmath,amssymb,amsthm, amstext}
+%\usepackage[nointegrals]{wasysym}
+%Sprach- und Schriftunterstützung, etc.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{t1enc, lmodern, textcomp}
+%\usepackage{uniinput}
+%\usepackage{eurosym}
+%Bildunterstützung
+\usepackage{graphicx, color}
+%\usepackage{gnuplottex}
+%SI-Units
+%\usepackage{booktabs}
+%\usepackage{cancel}
+%\usepackage{colortbl}
+%\usepackage{helvet}
+%\usepackage{mathpazo}
+%\usepackage{multirow}
+%\usepackage{listings}
+%\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{icomma}
+\usepackage{xfrac}
+%\usepackage[per=frac, fraction=frac]{siunitx}
+%\usepackage{pbox}
+%\usepackage{enumitem}
+%\usepackage{sectsty}
+%\usepackage{setspace}
+\usepackage{upgreek}
+
+% Anpassen des Paragraph-Kopfes
+%\usepackage{titlesec}
+%\titleformat*{\paragraph}{\normalsize\bfseries}
+%\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\[0.1\baselineskip]}
+
+
+
+% Damit man schneller die Schriftgröße variieren kann
+\newcommand{\s}[1]{\small #1}
+\newcommand{\f}[1]{\footnotesize #1}
+\newcommand{\ix}[1]{_{\mathrm{#1}}}
+\newcommand{\Ix}[1]{^{\mathrm{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Direktes, aktuelles Einfügen von Inkscape-svgs:
+\newcommand{\executeiffilenewer}[3]{%
+    \ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+    {\pdffilemoddate{#2}}>0%
+    {\immediate\write18{#3}}\fi%
+}
+\newcommand{\includesvg}[1]{%
+    \executeiffilenewer{#1.svg}{#1.pdf}%
+    {inkscape -z -D --file=#1.svg %
+    --export-pdf=#1.pdf --export-latex}%
+    \input{#1.pdf_tex}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Für mehrspaltige(getrennte) Tabellen:
+\usepackage{multicol}
+
+%Kopf- und Fußzeile
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyheadoffset{0.2cm}
+\fancyhead[RO,LE]{\small \nouppercase \leftmark}
+%\fancyheadoffset{0.2cm}
+\fancyfoot[C]{\thepage}
+
+\fancypagestyle{myfancy}{
+  \renewcommand\headrulewidth{0.0pt}
+  \fancyhf{}
+  \fancyhead[]{}
+  \fancyfoot[C]{\thepage}
+  \pagestyle{fancy}
+}
+
+%Captions für Abbildungen
+\usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
+%für die Aufnahme des Abb. und Lit-verzeichnisses in den ToC:
+%%%\usepackage[nottoc, numbib]{tocbibind}
+%%%\tocsection
+% damit die Gleichungen stetig durchgezählt werden:
+%%%\usepackage{chngcntr}
+%%%\counterwithout{equation}{section}
+% Hyperlinks für pdf
+\usepackage{hyperref}
+\hypersetup{
+pdflang=en-EN,
+unicode=true,
+pdfauthor={Thomas Staudt},
+}
+
+\renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\hatvec}[1]{\hat{\boldsymbol{\mathbf{#1}}}}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Trennung
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Definitionen
+
+%Times 10^n
+\newcommand{\ee}[1]{\cdot 10^{#1}}
+%Units
+\newcommand{\unit}[1]{\,\mathrm{#1}}
+%Differential d's
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tdif}[2]{\ensuremath{\frac{\dif#1}{\dif#2}}}
+\newcommand{\pdif}[2]{\ensuremath{\frac{\partial#1}{\partial#2}}}
+\newcommand{\ppdif}[2]{\ensuremath{\frac{\partial^{2}#1}{\partial#2^{2}}}}
+%Degree
+\newcommand{\degr}{^\circ}
+%Degree Celsius (C) symbol
+\newcommand{\cel}{\,^\circ\mathrm{C}}
+% Das qed Kästchen
+%\newcommand{\qed}{\begin{flushright} $ ^\blacksquare $ \end{flushright} }
+%Äquivalentzeichen
+\newcommand{\hateq}{\ensuremath{\hat{=}}}
+% Befehl für "Entspricht"-Zeichen
+\newcommand{\corresponds}{\ensuremath{\mathrel{\widehat{=}}}}
+
+
+\renewcommand{\refname} {Literature}
+\renewcommand{\figurename}{\bf Fig.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Hilfe
+
+% Text umfließt Graphiken und Tabellen
+% Beispiel:
+% \begin{wrapfigure}[Zeilenanzahl]{"l" oder "r"}{breite}
+%   \centering
+%   \includegraphics[width=...]{grafik}
+%   \caption{Beschriftung} 
+%   \label{fig:grafik}
+% \end{wrapfigure}
+\usepackage{wrapfig}
+
+% Mehrere Abbildungen nebeneinander
+% Beispiel:
+% \begin{figure}[htb]
+%   \centering
+%   \subfigure[Beschriftung 1\label{fig:label1}]
+%   {\includegraphics[width=0.49\textwidth]{grafik1}}
+%   \hfill
+%   \subfigure[Beschriftung 2\label{fig:label2}]
+%   {\includegraphics[width=0.49\textwidth]{grafik2}}
+%   \caption{Beschriftung allgemein}
+%   \label{fig:label-gesamt}
+% \end{figure}
+\usepackage{subfig}
+\captionsetup[subtable]{position=top}
+
+
+
+% Caption neben Abbildung
+% Beispiel:
+% \sidecaptionvpos{figure}{"c" oder "t" oder "b"}
+% \begin{SCfigure}[rel. Breite (normalerweise = 1)][hbt]
+%   \centering
+%   \includegraphics[width=0.5\textwidth]{grafik.png}
+%   \caption{Beschreibung}
+%   \label{fig:}
+% \end{SCfigure}
+\usepackage{sidecap}
+
+
+% für Bibliographie:
+\usepackage[babel]{csquotes}
+\usepackage[backend=bibtex8]{biblatex}
+
+\bibliography{quellen}
+
+%\sisetup{locale=EN}
+
