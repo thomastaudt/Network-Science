@@ -4,14 +4,14 @@
 \begin{document}
 
 \begin{titlepage}\centering
-\textsc{\Large Department of \\[1.5ex] Universität Göttingen}
+\textsc{\Large Institute For Nonlinear Dynamics \\[1.5ex] Universität Göttingen}
 
 \vspace*{2cm}
-{\Large A Practical Course On Network Science}
+{\huge A Practical Course On Network Science}
 \vspace*{2cm}
 
 \rule{\textwidth}{1pt}\\[0.5cm]
-{\bfseries \huge Block A: \\[0.5cm] \huge \bfseries Scale-Free Networks and Robustness\\[0.5cm]}
+{\bfseries \huge Block A: \\[0.5cm] \huge \bfseries Random Networks\\[0.5cm]}
 \rule{\textwidth}{1pt}
 
 \vspace*{4cm}
@@ -50,7 +50,45 @@
 
 \section{Scale-Free Networks and Robustness}
 \subsection{Generating and Visualizing Barab\'asi-Albert}
-\subsection{Task 2}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{pictures/21_begin.pdf}
+    \caption{The first steps of the Barab\'asi-Albert algorithm with $m
+    = m_0 = 3$. From left to right and from top to bottom single nodes are
+    first added before edges are chosen according to the preferential
+    attachment probabilities printed in blue. The last picture shows the network
+    after 47 nodes have been added.}
+    \label{fig:21_begin}
+\end{figure}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{pictures/21_end.pdf}
+    \caption{The same network as in figure \ref{fig:21_begin} after 15000
+    nodes have been added (left: without drawing the edges, and right: with
+    drawing the edges). The color and the size of the nodes printed in the left
+    and right picture describe the degree of the respective node. The
+    picture in the middle shows the degree distribution (with the same color
+    keys as in the node coloring).}
+    \label{fig:21_end}
+\end{figure}
+
+\subsection{The Degree Distribution of Barab\'asi-Albert Algorithm}
+\begin{figure}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6,3}]{pictures/22_plot.gp}
+    \caption{Degree distribution for a simulation with $N=500000$ nodes
+    in total, using different values for $m=m_0$. The line has a slope of
+    $-3$.}
+    \label{fig:22_plot}
+\end{figure}
+\begin{figure}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6,3}]{pictures/22_logplot.gp}
+    \caption{The same degree distribution as in figure \ref{fig:22_plot}
+    using logarithmic binning so that the the points plotted are the average
+    values over equidistant bins on the logarithmic axis (i.e. the bin width
+    increases exponentially).}
+    \label{fig:22_logplot}
+\end{figure}
+
 \subsection{Task 3}
 \subsection{Task 4}
 \subsection{Task 5}
