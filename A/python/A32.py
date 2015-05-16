@@ -22,9 +22,9 @@ def generic_product_rule(g, op):
         g.add_edge(*sel1)
         return sel1
              
-def product_rule(g, *args): return generic_product_rule(g, lambda x,y: x > y)
+def product_rule(g, *args): return generic_product_rule(g, lambda x,y: x < y)
 
-def anti_product_rule(g, *args): return generic_product_rule(g, lambda x,y: x < y)
+def anti_product_rule(g, *args): return generic_product_rule(g, lambda x,y: x > y)
 
 def er_rule(g, *args):
     #sel = random.choice(list(nx.non_edges(g)))
@@ -64,11 +64,11 @@ def percolation_transition(rule, N, n, trials=10):
             comp1[i] += len(comps[-1])
             rule(g)
     plt.scatter(time_steps, comp1/N/trials)
-    return time_steps, comp1
+    return time_steps, comp1/trials
 
-t, er_comp1 = percolation_transition(er_rule, 500, 2000, trials = 500)
-t, pr_comp1 = percolation_transition(product_rule, 500, 2000, trials = 500 )
-t, apr_comp1 = percolation_transition(anti_product_rule, 500, 2000, trials = 500 )
+t, er_comp1 = percolation_transition(er_rule, 500, 2000, trials = 1)
+t, pr_comp1 = percolation_transition(product_rule, 500, 2000, trials = 1 )
+t, apr_comp1 = percolation_transition(anti_product_rule, 500, 2000, trials = 1 )
 t, br_comp1 = percolation_transition(brute_rule, 500, 2000, trials = 1 )
 t, abr_comp1 = percolation_transition(anti_brute_rule, 500, 2000, trials = 1 )
 

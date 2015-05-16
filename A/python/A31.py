@@ -136,33 +136,42 @@ def plot_percolation_data(gvals, m, M):
 ## DIMENSION 2 ##
 # Generate an mxm grid, so that we have a graph of dimension 2
 #m = 25
-#g1 = nx.grid_2d_graph(m, m)
-#g1vals = backwards_percolation_analysis(g1, 1, 500, start = 0.40, end = 0.60)
+#g2 = nx.grid_2d_graph(m, m)
+#g2vals = backwards_percolation_analysis(g2, 1, 500, start = 0, end = 1)
+#save_percolation_data('3_perc2d', g2vals)
 #print(percolation_coefficients(g1vals, 0.5))
 
 ## DIMENSION \infty ##
 
 m = 0.25*1e-3
 M = 0.1*1e-2
-N = 500
+N = 250
 pc = 1./N
 
 g2 = nx.complete_graph(N)
-g1vals = backwards_percolation_analysis(g2, 2, 400, start = 0., end = 0.005)
-save_percolation_data('inf_20', g1vals)
-print(percolation_coefficients(g1vals, pc, m, M))
-plot_percolation_data(g1vals, pc+m, pc+M)
+g1vals = backwards_percolation_analysis(g2, 1, 500, start = 0., end = 0.05)
+save_percolation_data('3_perc', g1vals)
+#print(percolation_coefficients(g1vals, pc, m, M))
+#plot_percolation_data(g1vals, pc+m, pc+M)
 
 # logarithmic scatter
-mask1 = np.array([  M > p - pc > m for p in g1vals['p']  ])
-mask2 = g1vals['p'] < pc - m
+#mask1 = np.array([  M > p - pc > m for p in g1vals['p']  ])
+#mask2 = g1vals['p'] < pc - m
 
-plt.title('log of avg_fcsizes')
-plt.scatter(np.log10(g1vals['p'][mask1]-pc), np.log10(g1vals['avg_fcsizes'][mask1]))
-plt.scatter(np.log10(-g1vals['p'][mask2]+pc), np.log10(g1vals['avg_fcsizes'][mask2]), color='r')
-plt.show()
+#plt.title('log of avg_fcsizes')
+#plt.scatter(np.log10(g1vals['p'][mask1]-pc), np.log10(g1vals['avg_fcsizes'][mask1]))
+#plt.scatter(np.log10(-g1vals['p'][mask2]+pc), np.log10(g1vals['avg_fcsizes'][mask2]), color='r')
+#plt.show()
 
-plt.title('log of P')
-plt.scatter(np.log10(g1vals['p'][mask1]-pc), np.log10(g1vals['P'][mask1]))
-plt.show()
+#plt.title('log of P')
+#plt.scatter(np.log10(g1vals['p'][mask1]-pc), np.log10(g1vals['P'][mask1]))
+#plt.show()
+
+#save data
+# for the header:
+ps = str(g2vals['p'][0:1001:100])
+cdists = g2vals['cdist'][0:1001:100,:].T
+ddists = g2vals['ddist'][0:1001:100,:].T
+np.savetxt("cdist_2d_N625.dat", cdists, header=ps)
+np.savetxt("ddist_2d_N625.dat", ddists, header=ps)
 
