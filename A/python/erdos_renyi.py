@@ -39,7 +39,7 @@ def A11():
                              
 
 def node_hist(N, p):
-    TRIALS = 100
+    TRIALS = 200
     summed = None
     for i in range(0, TRIALS):
         graph = nx.erdos_renyi_graph(N, p)
@@ -66,6 +66,12 @@ def A12_a():
     for N in [50, 100, 500]:
         h = node_hist(N, p) 
         x = np.arange(0.0, len(h)) / (N*p)
+        txtdata = np.empty(( 4, len(x)))
+        txtdata[0,:] = N
+        txtdata[1,:] = p
+        txtdata[2] = x
+        txtdata[3] = h
+        np.savetxt("er_hist_N=%g_p=%g.dat"%(N,p), txtdata.T, header="N\tp\tk\tp(k)")        
         plt.plot(x, h, label="N = %g"%(N))
     plt.legend()
     plt.xlabel("k/(Np)")
@@ -73,11 +79,17 @@ def A12_a():
     
     # varying p for constant N
     plt.figure()
-    N = 250 # we need a high number to get a smoth graph for low p
+    N = 350 # we need a high number to get a smoth graph for low p
     #TOOD how do we plot this data, to make it look nice?
-    for p in [0.005, 0.05, 0.5]:
+    for p in [0.01, 0.05, 0.25]:
         h = node_hist(N, p) 
-        x = np.arange(0.0, len(h))# / (N*p)
+        x = np.arange(0.0, len(h)) / (N)
+        txtdata = np.empty(( 4, len(x)))
+        txtdata[0,:] = N
+        txtdata[1,:] = p
+        txtdata[2] = x
+        txtdata[3] = h
+        np.savetxt("er_hist_N=%g_p=%g.dat"%(N,p), txtdata.T, header="N\tp\tk\tp(k)")    
         plt.plot(x, h, label="p = %g"%(p))
     plt.legend()
     plt.xlabel("k/(Np)")
