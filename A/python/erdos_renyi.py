@@ -31,11 +31,11 @@ def generate_erdos_renyi(N, n, base = None):
 def A11():
     graph = generate_erdos_renyi(20, 10)
     nx.draw_circular(graph, edge_color = [e[2]['t'] for e in graph.edges(data=True)], 
-                                 edge_cmap=plt.get_cmap("cool"), edge_vmax = 20, node_size=100)
+                                 edge_cmap=plt.get_cmap("gray"), edge_vmax = 20, node_size=100)
     plt.figure()
     graph= generate_erdos_renyi(20, 10, graph)
     nx.draw_circular(graph, edge_color = [e[2]['t'] for e in graph.edges(data=True)], 
-                                 edge_cmap=plt.get_cmap("cool"), edge_vmax = 20, node_size=100)
+                                 edge_cmap=plt.get_cmap("gray"), edge_vmax = 20, node_size=100)
                              
 
 def node_hist(N, p):
