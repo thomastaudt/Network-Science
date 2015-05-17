@@ -94,8 +94,45 @@ To find out under which conditions a Watts-Strogatz graph fulfills the small wor
 
 \clearpage
 \section{Scale-Free Networks and Robustness}
-\subsection{Generating and Visualizing Barab\'asi-Albert}
+\subsection{Barab\'asi-Albert Networks}
+Real networks often exhibit the so called \emph{scale-free property},
+meaning that their degree distribution $P_\mathrm{d}(k)$, which is the probability
+that a randomly selected node has degree $k$, follows a power law
+\begin{equation}
+    P_\mathrm{d}(k) \sim k^{-\gamma}
+\end{equation}
+with the \emph{scaling exponent} $\gamma$. One usually has $2 \le \gamma \le 4$.
 
+In 1991, Barab\'asi and Albert proposed an algorithm that generates
+scale-free networks, which is based on \emph{growth} and \emph{preferential
+attachment}: Starting with an initial graph $G_0$, one adds one node $n$ and
+$m$ edges connecting the added node to $m$ other nodes $j$ in every timestep.
+These $m$ edges are determined using the attachment probabilities
+\begin{equation}
+    \Pi(j) = \frac{\mathrm{deg}(j)}{\sum_{i\neq n} \mathrm{deg}(i)}~,
+\end{equation}
+which is regarded as the probability that $n$ is connected to the node $j$.
+
+\marginnote{A.2.1} This algorithm was used to generate Barab\'asi-Albert
+networks and visualize them (see figures \ref{fig:21_begin} and \ref{fig:21_end}).
+As initial condition an empty graph of $m$ nodes was used and in the first
+time step the newly added node was simply connected to all initial nodes
+(this is the standard way to initialize the algorithm, e.g.\ also found in
+the \texttt{networkx} library).
+
+\marginnote{A.2.2} Next it was checked that the generated networks are indeed scale-free.
+To do so, the raw degree distribution of a large Barab\'asi-Albert network
+was plotted in a log-log plot (see figure \ref{fig:22_plot}). Though the
+scaling-property is clearly visible with an exponent of $\gamma = 3$, just
+as the theory predicts, this way of presenting the degree distribution is
+not optimal: For higher degree values one has many zero probabilities
+(which of course do not appear in the log-log plot), because many degrees are
+simply not taken exactly. One possible remedy is to calculate average
+values over certain regions of degrees, which was done in figure
+\ref{fig:22_logplot}, where logarithmic binning was used. These results
+again confirm the scale-free property of Barab\'asi-Albert networks in a firm way.
+
+\subsection{Robustness of Networks}
 \begin{figure}
     \includegraphics[width=\textwidth]{pictures/21_begin.pdf}
     \caption{The first steps of the Barab\'asi-Albert algorithm with $m
@@ -117,7 +154,6 @@ To find out under which conditions a Watts-Strogatz graph fulfills the small wor
     \label{fig:21_end}
 \end{figure}
 
-\subsection{The Degree Distribution of Barab\'asi-Albert Algorithm}
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6,3}]{pictures/22_plot.gp}
     \caption{Degree distribution for a simulation with $N=500000$ nodes
@@ -134,6 +170,239 @@ To find out under which conditions a Watts-Strogatz graph fulfills the small wor
     \label{fig:22_logplot}
 \end{figure}
 \clearpage
+\clearpage
+
+
 \section{Random Network Percolation}
+The process of percolation appears in many systems of interest to physics
+and network science in general. The main feature of networks (with a fixed
+number $N$ of nodes) undergoing percolation is the (often sudden) emergence
+of a single \emph{giant component} when the number of edges is increased.
+
+The critical threshold value $p_c$ for the \emph{occupation probability}
+(the fraction of present edges to all possible edges), for which the
+probability that a giant component arises becomes non-zero, is usually
+different for different networks. There are however some indicative
+quantities for percolation whose scaling behavior depends only on the
+\emph{dimension} of the network in question. In this context the dimension $d$
+of a graph is the smallest natural number for which the graph can be embedded in
+$\mathbb{Z}^d$ so that every edge only connects nodes with manhattan distance 1.
+A special case are graphs with dimension $d=\infty$, which can not be embedded in any
+$\mathbb{Z}^d$ meeting the above criterium.
+
+Two important indicative quantities for percolation are the
+\emph{percolation probability} $P$, which is the probability that a node
+belongs to the \emph{giant component}, and the (finite) \emph{average
+cluster size} $\langle s \rangle^\mathrm{f}$, which measures the average
+cluster size of the finitely large components. According to percolation theory, one has
+\begin{equation}\label{eq:coefficients}
+\begin{aligned}
+    P(p) \sim (p - p_c)^\beta \\
+    \langle s \rangle^\mathrm{f}(p) \sim (p - p_c)^\gamma
+\end{aligned}
+\end{equation}
+for suitable scaling exponents $\beta$ and $\gamma$ (that depend on the dimension only).
+
+
+\subsection{Percolation in two and infinitely many dimensions}
+\marginnote{A.3.1} Simulations that create percolation behavior for $d=2$
+and $d=\infty$ were conducted in the following manner:
+\begin{itemize}
+    \item Create a network with $N$ nodes and the maximal number of edges
+        for the respective dimension. For $d=2$ this simply was a completely
+        connected two dimensional grid with $N = n^2$ nodes; for $d=\infty$
+        this was a completely connected graph of size $N$.
+    \item Now randomly select edges which are to be removed in every step.
+    \item For every such step, several quantities were recorded: 
+    \begin{itemize}
+        \item The occupation probability $p = \frac{\text{current number of
+            edges}}{\text{initial number of edges}}$.
+        \item The sizes $\mathrm{max}_C$ and $\mathrm{max}_C^\mathrm{f}$ of the largest and
+            second largest components. The $^\mathrm{f}$ stands for the
+            maximal size over the \enquote{finite} clusters, meaning all
+            but the largest.
+        \item The average cluster size $\langle s\rangle$ and the finite 
+            average cluster size $\langle s\rangle^\mathrm{f}$.
+        \item The degree distribution $P_\mathrm{d}(k)$ and the cluster size distribution $P_C(k)$.
+    \end{itemize}
+\end{itemize}
+The obtained results can be seen in figures \ref{fig:31_2d} and
+\ref{fig:31_2d_dist} for $d=2$ as well as \ref{fig:31_infty} and
+\ref{fig:31_infty_dist} for $d=\infty$.
+
+\marginnote{A.3.2} Next, the data retrieved in the simulation described
+previously was used to estimate the scaling exponents $\beta$ and $\gamma$
+for $d=2$ as well as $d=\infty$. For this end, the formulas in
+\eqref{eq:coefficients} were applied by conducting a linear regression of
+$\log P$ respectively $\log \langle s\rangle^\mathrm{f}$ against
+$\log(p-p_c)$.
+There are two things one must pay attention to: First of all, the given
+formulas only hold exactly in the limit of $N\to\infty$, so for a example
+a real divergence expected for $\langle s\rangle^\mathrm{f}$ at $p_c$
+cannot take place. This means, that the data will certainly deviate from
+the power-law if too near to $p_c$. On the other hand however, the given
+formulas only hold near $p_c$, so one must fix both a minimal value $m>0$
+and a maximal value $M>0$ so that the points that enter the regression are
+described by $m < p-p_c < M$. 
+
+The corresponding log-log plots as well as the resulting fitting line
+together with the choice of $m$ and $M$ for the four different situations
+($\alpha$ and $\beta$ for both $d=2$ and $d=\infty$) are depicted in
+figures \ref{fig:32_2d} and \ref{fig:32_infty}. For the simulation the
+quantity $P$ was identified with the relative size of the largest component
+and $\langle s\rangle^\mathrm{f}$ was taken to be the average cluster size
+for all but the largest cluster. The obtained values $\beta$ and $\gamma$,
+compared to the theoretical ones (denoted by $\beta_\mathrm{theo}$ and
+$\gamma_\mathrm{theo}$, are as follows:
+
+\begin{center}
+    \begin{tabular}{r@{\qquad\qquad}c@{\quad}c@{\qquad\quad}c@{\quad}c}
+    $d$ & $\beta$ & $\beta_\mathrm{theo}$ & $\gamma$ & $\gamma_\mathrm{theo}$ \\
+    \hline
+    $2$ & $0.288$ & $0.14$ & $-3.56$ & $-2.25$   \\
+    $\infty$ & $0.718$ & $1$ & $-2.085$ & $-1$ \\
+\end{tabular}
+\end{center}
+
+Comparing the produced values and the predicted ones, the results obtained
+by simulation can only be regarded as a very rough estimate. Problems
+leading to this are probably the low value of $N$, the arbitrariness when
+deciding on $m$ and $M$, as well as the fact that e.g. for $d=\infty$ the used
+value $p_c=1/N$ is only true for large $N$.
+
+
+\subsection{Explosive Percolation}
+Percolation processes in different systems possess different shapes -- the
+transitions can be rather smooth or very sharp. The latter phenomenon is
+labeled \emph{explosive percolation}. The original publication (SOURCE??)
+talking about explosive percolation suggested a certain rule of stepwisely
+selecting edges in an empty network which produces explosive percolation,
+the \emph{product rule}.
+
+\marginnote{A.3.3} Firstly, simulations were conducted to compare the
+percolation processes of the Erdös-Renyi rule of adding edges and the
+product rule. To do so, empty networks with $N$ nodes were initialized and
+successively filled with edges, according to the respective algorithm. At
+every step the quantity $P$ (the relative size of the largest cluster, see
+above) was determined and plotted (see figure \ref{fig:33_perc} a)). The
+sharpness of the rise is then a (qualitative) measure for the
+\enquote{explosiveness} of the percolation transition.
+
+The obtained results show that the product rule indeed produces a more
+explosive transition than the Erdos-Renyi rule.
+
+\marginnote{A.3.4} Of course there are many other rules that produce
+explosive percolation (partially even much sharper than the product rule)
+and also rules that prevent the percolation from being explosive
+altogether. In order to make this clear, two extreme cases, labeled
+\enquote{extreme} and \enquote{anti-extreme}, have been introduced (see
+next paragraph).  As a second example of non-explosive percolation (besides
+the \enquote{anti-extreme} rule) an \enquote{anti-product} rule was
+introduced, which simply switches the sign of the
+\enquote{greater-or-equal} relation in the decision process to read
+\enquote{smaller-or-equal}. The resulting percolation transitions for these
+three models are visualized in figure \ref{fig:33_perc} b).
+
+The \enquote{extreme} rule always connects nodes from \emph{different}
+clusters of \emph{minimal} size. This makes sure that the largest component
+stays small for quite some time but will then grow even faster than
+exponentially. 
+The \enquote{anti-extreme} rule also always connects nodes from different clusters,
+but picks nodes from the clusters with \emph{maximal} size. This way the explosion process
+is completely prevented and the growth of $P$ is linear.
+
+\begin{figure}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/31_2d.gp}
+    \caption{Several quantities plotted as function of the occupation probability
+        $p$, describing the percolation process in two dimensions for
+        $N=625$. Figure \textbf{a)} shows the size $\mathrm{max}_C$ of the
+        largest cluster (which would be the infinite cluster for $N
+        = \infty$) as well as the average cluster size $\langle s\rangle$.
+        Figure \textbf{b)} contains the size $\mathrm{max}_C^\mathrm{f}$ of
+        the second largest cluster (which would be the biggest
+        \enquote{finite} cluster for $N=\infty$) and the average cluster
+        size $\langle s\rangle^\mathrm{f}$ for all but the largest cluster.
+        The results were averaged over 500 trials and the simulation was
+        conducted backwardsly by stepwisely removing random edges of a full
+        2d-graph. The grey line marks the percolation threshold $p_c=0.5$ for
+        this simulation.}
+    \label{fig:31_2d}
+\end{figure}
+
+\begin{figure}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/31_2d_dist.gp}
+    \caption{Results for the degree distribution $P_\mathrm{d}(k)$ and the
+        cluster size distribution $P_\mathrm{C}(s)$ for different
+        values of the occupation probability $p$ for 2d percolation with
+        a network size of $N=625$ (see also figure \ref{fig:31_2d}). Note that the
+        lines connecting the dots (there are only discrete values for the
+        probabilities) are meaningless and only included to make it easier to
+        keep track of the distributions.}
+    \label{fig:31_2d_dist}
+\end{figure}
+
+\begin{figure}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/31_infty.gp}
+    \caption{The same quantities as presentend in figure \ref{fig:31_2d}
+        for an infinite dimensional grid. This time, edges were successively
+        removed from a fully connected graph with 250 nodes. Again, 500 trials were
+        averaged. Next to the grey line at $p=1/250=0.004$, which would be the theoretic prediction of the
+        percolation threshold for large $N$, the red line at $p\approx 0.0046$
+        marks the maximum of $\langle s \rangle^\mathrm{f}$. This second value works better
+        for $p_c$ than the theoretical prediction in this case,
+        probably because $N$ is too small.}
+    \label{fig:31_infty}
+\end{figure}
+
+\begin{figure}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/31_infty_dist.gp}
+    \caption{The degree distribution (\textbf{a)}) and cluster size
+        distribution (\textbf{b)}) for different values of $p$ for infinite
+        dimensional percolation. The data were collected in the simulation
+        described in figure \ref{fig:31_infty}.}
+    \label{fig:31_infty_dist}
+\end{figure}
+
+\begin{figure}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/32_2d.gp}
+    \caption{Log-log plots of \textbf{a)} the largest cluster's size
+        $\mathrm{max}_C$ and \textbf{b)} the average finite cluster size
+        $\langle s\rangle^\mathrm{f}$ as function of $p-p_c$ for 2d
+        percolation, where $p_c=0.5$. The grey area marks the points that were
+        used for the linear regression in order to find the percolation
+        coefficients.}
+    \label{fig:32_2d}
+\end{figure}
+
+\begin{figure}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/32_infty.gp}
+    \caption{Log-log plots of \textbf{a)} the largest cluster's size
+        $\mathrm{max}_C$ and \textbf{b)} the average finite cluster size
+        $\langle s\rangle^\mathrm{f}$ as function of $p-p_c$ for infinite dimensional
+        percolation, where $p_c=0.004$ is the theoretic prediction of the
+        percolation threshold. The area marks the points used for the linear
+        regression in order to find the percolation exponents.}
+    \label{fig:32_infty}
+\end{figure}
+
+\begin{figure}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/33_perc.gp}
+    \caption{Percolation transitions for different rules for adding edges,
+        starting with an empty network of $n=500$ nodes. Figure \textbf{a)}
+        compares the Erdös-Renyi and the product rule, whereas figure
+        \textbf{b)} shows the transitions for three other rules that either create
+        smoother transitions than the Erdös-Renyi and product rule
+        (anti-product and anti-extreme rule) or create an even much sharper
+        transition (extreme rule). }
+        %The \textbf{\enquote{anti-product} rule} simply changes the
+        %'less-or-equal' relation of the product rule in
+        %a 'greater-or-equal' relation. The \textbf{\enquote{extreme} rule}
+        %systematically connects the two smallest existing components in every
+        %step, which causes an extremely explosive transition. The \textbf{\enquote{anti-extreme} rule}
+        %systematically connects the two largest components in every step, which makes the growth
+        %linear and thus strongly unexplosive.}
+    \label{fig:33_perc}
+\end{figure}
+
 
 \end{document}

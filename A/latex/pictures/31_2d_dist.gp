@@ -2,7 +2,7 @@
 folder = 'pictures/data/'
 
 set bmargin scr 0.1
-set tmargin scr 0.95
+set tmargin scr 0.90
 
 set ylabel 'degree dist. $P_\mathrm{d}(k)$'
 set ylabel offset 1 
@@ -16,9 +16,9 @@ set multiplot
 set lmargin scr 0.095
 set rmargin scr 0.460
 set title '\textbf{a)}'
-plot folder . '31_2d_ddist.dat' u 0:($4/625)  w lp pt 7 ps 1.5 t '$p=0.25$', \
-     folder . '31_2d_ddist.dat' u 0:($7/625)  w lp pt 7 ps 1.5 t '$p=0.50$', \
-     folder . '31_2d_ddist.dat' u 0:($10/625) w lp pt 7 ps 1.5 t '$p=0.75$', \
+plot folder . '31_2d_ddist.dat' u 0:($4/625)  w lp pt 7 ps 1.0 t '\fs{$p=0.25$}', \
+     folder . '31_2d_ddist.dat' u 0:($7/625)  w lp pt 7 ps 1.0 t '\fs{$p=0.50$}', \
+     folder . '31_2d_ddist.dat' u 0:($10/625) w lp pt 7 ps 1.0 t '\fs{$p=0.75$}', \
 
 set title '\textbf{b)}'
 set key right
@@ -47,6 +47,6 @@ set ytics 0,0.1,0.3
 set label '\textbf{$\git$}' at screen 0.57+(0.95-0.57)/2,0.1 front
 set ylabel offset 1.3
 
-plot folder . '31_2d_cdist.dat' u (scaler($0)):($4)  w lp pt 7 ps 0.6 t '$p=0.25$', \
-     folder . '31_2d_cdist.dat' u (scaler($0)):($10) w lp pt 7 ps 0.6 t '$p=0.75$', \
+plot folder . '31_2d_cdist.dat' u (scaler($0)):($4)  w lp pt 7 ps 0.6 t '\fs{$p=0.25$}', \
+     folder . '31_2d_cdist.dat' u (scaler($0)):($10) w lp pt 7 ps 0.6 t '\fs{$p=0.75$}', \
 

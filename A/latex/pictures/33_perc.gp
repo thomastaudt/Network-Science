@@ -16,8 +16,8 @@ set xrange [-0.1:2]
 set lmargin scr 0.1
 set rmargin scr 0.50
 set title '\textbf{a)}'
-plot folder . '34_35_pec_transitions.dat' u ($1/1000):($2/250000) w lp pt 7 ps 0.3 t 'Erdös-Renyi', \
-     folder . '34_35_pec_transitions.dat' u ($1/1000):($4/250000) w lp pt 7 ps 0.3 t 'product', \
+plot folder . '34_35_pec_transitions.dat' u ($1/1000):($2/250000) w lp pt 7 ps 0.3 t '\fs{Erdös-Renyi}', \
+     folder . '34_35_pec_transitions.dat' u ($1/1000):($4/250000) w lp pt 7 ps 0.3 t '\fs{product}', \
      #folder . 'er_hist_N=350_p=0.25.dat' u 3:4 w lp pt 7 t '$p=0.25$', \
 
 unset ylabel
@@ -28,6 +28,7 @@ set rmargin scr 0.95
 set xrange [-0.1:2]
 
 set title '\textbf{b)}'
-plot folder . '34_35_pec_transitions.dat' u ($1/1000):($3/250000) w lp pt 7 ps 0.3 t 'anti-product', \
-     folder . '34_35_pec_transitions.dat' u ($1/1000):($5/250000*500) w lp pt 7 ps 0.3 t 'extreme', \
-     folder . '34_35_pec_transitions.dat' u ($1/1000):($6/250000*500) w lp pt 7 ps 0.3 t 'anti-Extreme', \
+plot folder . '34_35_pec_transitions.dat' u ($1/1000):($3/250000) w lp pt 7 ps 0.3 t '\fs{\enquote{anti-product}}', \
+     folder . '34_35_pec_transitions.dat' u ($1/1000):($5/250000*500) w lp pt 7 ps 0.3 t '\fs{\enquote{extreme}}', \
+     folder . '34_35_pec_transitions.dat' u ($1/1000):($6/250000*500) w lp pt 7 ps 0.3 t '\fs{\enquote{anti-extreme}}', \
+
