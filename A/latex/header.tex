@@ -2,6 +2,8 @@
 %\usepackage{etex}
 \usepackage[left=3cm,right=2.0cm,top=2cm,bottom=2.5cm,includehead,includefoot]
 {geometry}
+\usepackage{marginnote}
+\reversemarginpar
 %Math
 \usepackage{amsfonts,amsmath,amssymb,amsthm, amstext}
 %Language, encoding, ...
@@ -17,7 +19,9 @@
 %\usepackage{moreverb}
 \usepackage[shell]{gnuplottex}
 %Colors
-\usepackage{xcolor}
+\usepackage[svgnames]{xcolor}
+\definecolor{darkblue}{rgb}{0.0, 0.2, 0.6}
+\renewcommand*{\marginfont}{\bf\color{darkblue}}
 %Nice a/b fractions
 \usepackage{xfrac}
 %Make it possible to write (fat) upright greek letters
@@ -43,7 +47,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Make captions look okay
-\usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
+\usepackage[font=small,format=plain,labelfont=bf,up,up]{caption}
 
 %Hyperlinks
 \usepackage{hyperref}
@@ -63,6 +67,7 @@
 
 \renewcommand{\refname} {Literature}
 \renewcommand{\figurename}{\bf Figure}
+\newcommand{\fs}[1]{\footnotesize #1}
 %double slash
 \newcommand{\git}{\mathbin{
   \mathchoice{\textbackslash\mkern-6mu\textbackslash}% \displaystyle
