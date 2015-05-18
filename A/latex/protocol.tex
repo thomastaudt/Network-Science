@@ -52,18 +52,18 @@ P(k) = \left( \stackrel{n(n-1) }{k} \right) p^k (1-p)^{n(n-1)-k}.
 \end{align}
 Since we know that all edges are equally probable, we now can first determine the total number of edges present according to $P$, and then just select the appropriate amount of edges randomly from all possibilities. The runtime scales with the number of edges and thus is $O(n^2 p)$, i.e. it is still quadratic in $n$ but gets faster as the probability for edges decreases.
 
-The results of this algorithm can be seen in fig. \ref{}, where we have used a preselected number of edges instead of an edge probability to generate the graphs.
+The results of this algorithm can be seen in fig. \ref{11_er}, where we have used a preselected number of edges instead of an edge probability to generate the graphs.
 
-The degree distribution eq. \eqref{eq:degree_hist} is vizualized in figure \ref{}.
+The degree distribution eq. \eqref{eq:degree_hist} is vizualized in figure \ref{fig:12_deg_dist}.
 
 \subsection{Watts-Strogatz Networks and Small World Effect}
-Many real world networks exhibit so called small world behaviour, i.e. most connections are local (high clustering coefficient) but there are sufficently many global shortcuts (small average path length). This cannot be achieved with Erdös-Rényi networks, however, the description above already gives us a starting point for a new graph generator algorithm: Start with a graph that only has local connections, and then rewire each edge with probability $p$ to a long range connection. This is what the Watts Strogatz Algorithm does. Starting from a regular ring, where each node is connected to $k$ neighbours, we rewire each edge with probability $k$. This can be seen in figure \ref{}.
+Many real world networks exhibit so called small world behaviour, i.e. most connections are local (high clustering coefficient) but there are sufficently many global shortcuts (small average path length). This cannot be achieved with Erdös-Rényi networks, however, the description above already gives us a starting point for a new graph generator algorithm: Start with a graph that only has local connections, and then rewire each edge with probability $p$ to a long range connection. This is what the Watts Strogatz Algorithm does. Starting from a regular ring, where each node is connected to $k$ neighbours, we rewire each edge with probability $k$. This can be seen in figure \ref{13_ws}.
 
 To find out under which conditions a Watts-Strogatz graph fulfills the small world condition, we look at average path length and clustering coefficient in dependece of $p$. For $k=2$, there is almost no clustering because the initial regular ring does not contain any triangles. Therefore, we look at $k=4$, which is depicted in fig. \ref{}. We see that over a wide range of the rewiring parameter $p$, the average path length is low and local clustering is high. Therefore, the Watts-Strogatz algorithm is well suited for generating small world networks.
 
 We would like to make an analgue investigation for Erdös-Rényi graphs. However, we cannot directly compare the behaviour of Erdös-Rényi and Watts-Strogatz networks with respect to $p$, because the parameter describes two totally different things in those models: For Erdös-Rényi, the number of edges depends on $p$. In particular, $p=0$ implies an edgefree graph, so the average path length is undefined. 
 
-Nonetheless, we can plot $AVG PATH LENGTH$ and $CLUSTERING$ over $p$, to find if there also is a parameter region for which Erdös-Rényi produces a small world graph. Is evident in figure \ref{}, there is none.
+Nonetheless, we can plot the average pathlength $\bar{p}$ and clustering coefficient $CLUSTERING$ over $p$, to find if there also is a parameter region for which Erdös-Rényi produces a small world graph. Is evident in figure \ref{}, there is none.
 
 \subsection{Watts-Strogatz on a Regular Grid}
 Finally, we investiage the Watts Strogatz algorithm applied to regular grid instead of a ring topology. We limited our investigation to square lattices with a manhatten metric. We chose the parameter $k$ to denote the maximum length of the initial connections, i.e. every grid node is connected to every other node within a circle of radius $k$. We then rewire edges with probability $p$. Such a grid is visualized in fig. \ref{}. 
@@ -92,6 +92,7 @@ Finally, we investiage the Watts Strogatz algorithm applied to regular grid inst
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/12_er_hist.gp}
     \caption{Degree distribution of Erdös-Renyi networks for \textbf{a)} fixed $n=350$ and varying values of $p$ and \textbf{b)} varying values of $n$ and fixed $p=0.1$.}
+		\label{fig:12_deg_dist}
 \end{figure}
 
 \clearpage
@@ -135,6 +136,22 @@ values over certain regions of degrees, which was done in figure
 again confirm the scale-free property of Barab\'asi-Albert networks in a firm way.
 
 \subsection{Robustness of Networks}
+Robustness of networks describes how easily a network looses its connectivity when nodes (and thus all connecting edges) are removed. We differentiate between random failures, i.e. randomly removed edges, and targeted attacks, in which nodes are removed according to a certain rule whose aim is to maximize network damage (where failure is just the special case of random selection). The severity of the damage sustained depends on the attack/failure type and the structure of the targeted network. 
+
+For targeted attacks, we assign weight to each node and always remove the node with the heighest weight. In the updated graph, the weight are recalculated. We consider the following to weigh algorithms:
+\begin{itemize}
+\item Remove the nodes in order of their degree. In this case, we always remove the node with the heighest local connectiviy
+\item Remove the nodes in order of their path relevance, which we define by the following algorithm:
+	\begin{enumerate}
+	\item Assign all nodes and edges the path relevance of zero.
+	\item For every pair of nodes, calculate the shortest connection.
+	\item The path relevance for each edge in the path is incremented by one.
+	\item The path relevance of each node is the sum of path relevances of its edges.
+	\end{enumerate}
+\end{itemize}
+
+
+
 \begin{figure}
     \includegraphics[width=\textwidth]{pictures/21_begin.pdf}
     \caption{The first steps of the Barab\'asi-Albert algorithm with $m
@@ -171,8 +188,6 @@ again confirm the scale-free property of Barab\'asi-Albert networks in a firm wa
     increases exponentially).}
     \label{fig:22_logplot}
 \end{figure}
-
-\subsection{Robustness of Networks}
 
 \clearpage
 \clearpage

@@ -43,10 +43,10 @@ nx.draw_networkx(g, node_color=[n[1]['importance'] for n in g.nodes_iter(data="T
 
 def test_network(graph, N, selector):
   network = graph.copy()
-  Svals = np.zeros(N)
-  pl = np.zeros(N)
-  s_vals = np.zeros(N)
-  num_of_cmp = np.zeros(N)
+  Svals = np.zeros(N) # relative largest component size
+  pl = np.zeros(N)    # avg shortest path length
+  s_vals = np.zeros(N)  # avg cluster size excluding largest
+  num_of_cmp = np.zeros(N)  # number of components
   for i in range(0, N):
     kill = selector(network)
     network.remove_node(kill)
@@ -55,7 +55,7 @@ def test_network(graph, N, selector):
     if len(components[0]) > 1:
       pl[i] = nx.average_shortest_path_length(components[0])
     if len(components) > 0:
-      for j in range(0, len(components)): #largest included now
+      for j in range(1, len(components)): #largest included now
         s_vals[i] += len(components[j])
       s_vals[i] /= float(len(components)-1)
     num_of_cmp[i] = len(components)
