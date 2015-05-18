@@ -63,10 +63,13 @@ To find out under which conditions a Watts-Strogatz graph fulfills the small wor
 
 We would like to make an analgue investigation for Erdös-Rényi graphs. However, we cannot directly compare the behaviour of Erdös-Rényi and Watts-Strogatz networks with respect to $p$, because the parameter describes two totally different things in those models: For Erdös-Rényi, the number of edges depends on $p$. In particular, $p=0$ implies an edgefree graph, so the average path length is undefined. 
 
-Nonetheless, we can plot the average pathlength $\bar{p}$ and clustering coefficient $CLUSTERING$ over $p$, to find if there also is a parameter region for which Erdös-Rényi produces a small world graph. Is evident in figure \ref{}, there is none.
+Nonetheless, we can plot the average pathlength $\bar{p}$ and clustering coefficient $C$ over $p$, to find if there also is a parameter region for which Erdös-Rényi produces a small world graph. Is evident in figure, the only way to achieve 
 
 \subsection{Watts-Strogatz on a Regular Grid}
 Finally, we investiage the Watts Strogatz algorithm applied to regular grid instead of a ring topology. We limited our investigation to square lattices with a manhatten metric. We chose the parameter $k$ to denote the maximum length of the initial connections, i.e. every grid node is connected to every other node within a circle of radius $k$. We then rewire edges with probability $p$. Such a grid is visualized in fig. \ref{}. 
+
+Due to its two dimensional nature, the grid offers even without rewiring, much relativelive short path lengths and high clustering, because distances only grow with $\sqrt{N}$ as opposed to $N$ in the ring topology. This can be seen in figure \ref{}: We see only a slight reduction in average path length as $p$ increases, because we already start with a low values. If our initial grid had been larger, this difference would be more significant. We can estimate the minimum possible average path length as follows:
+Let each node be, on average, connected to $K$ nodes. Then we can reach $K^l$ nodes after $l$ steps, for the average path length to all other nodes we have $K^l \sim N$ and thus $l \sim \log N$. Therefore, we expect this behaviour for $p \rightarrow 1$, so the path length will fall from $\sqrt{N}$ to $\log N$, which will be much more noticable for larger grids. We chose $N=484$ in figure to make the data comparable to the other graphs in figure \ref{}. 
 
 \begin{figure}
     \centering
