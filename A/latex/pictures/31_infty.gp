@@ -18,7 +18,7 @@ set lmargin scr 0.1
 set rmargin scr 0.49
 set title '\textbf{a)}'
 set arrow from first 4.,graph 0 to first 4.,graph 1 nohead lt -1 lc rgb "#777777"
-set arrow from first 4.5622,graph 0 to first 4.5622,graph 1 nohead lt -1 lc rgb "#aa0000"
+#set arrow from first 4.5622,graph 0 to first 4.5622,graph 1 nohead lt -1 lc rgb "#aa0000"
 plot folder . '31_infty.dat' u ($1*1e3):3 w lp pt 7 ps 0.5 t '\fs{$\mathrm{max}_C$}', \
      folder . '31_infty.dat' u ($1*1e3):5 w lp pt 7 ps 0.5 t '\fs{$\langle s\rangle$}', \
 

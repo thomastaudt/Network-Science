@@ -23,7 +23,7 @@
                    & \textit{thomas.staudt@stud.uni-goettingen.de}  \\[1.0cm]
 
        \textbf{Tutors:}        & Dr. Nora Molkenthin, Benjamin Schäfer, Malte Schröder  \\[1.0cm]
-       \textbf{Deadline:}      & 21.05.2015
+       \textbf{Deadline:}      & 19.05.2015
 \end{tabular}\end{Large}
 
 \vspace*{1.5cm}
@@ -100,17 +100,40 @@ Let each node be, on average, connected to $K$ nodes. Then we can reach $K^l$ no
     divided by the value $p(N-1)$ for which the degree distribution $P$
     (theoretically) takes its maximum, so that the different shapes of the
     distributions are highlighted.}
+    \label{fig:12_er}
 \end{figure}
 
 
 \begin{figure}
-    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/13_ws.gp}
-    \caption{Degree distribution of Erdös-Renyi networks for \textbf{a)}
-    fixed $n=350$ and varying values of $p$ and \textbf{b)} varying values
-    of $n$ and fixed $p=0.1$. For figure \textbf{b)} the degree value $k$ was
-    divided by the value $p(N-1)$ for which the degree distribution $P$
-    (theoretically) takes its maximum, so that the different shapes of the
-    distributions are highlighted.}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/13_sm.gp}
+    \caption{Comparison of the small-world effect for \textbf{a)}
+    Watts-Strogatz networks and \textbf{b)} Erdös-Renyi networks. In both
+    cases the average path length $L$ and the clustering coefficient $C$
+    were given as function of the parameter $p$ of the respective model.
+    Note that $p_\mathrm{r}$ in the Watts-Strogatz model denotes the
+    \emph{rewire probability} and has nothing to do with the
+    \emph{occupation probability} $p_\mathrm{o}$ (which is also the reason
+    for the different notations here). For better comparability all values
+    of $L$ and $C$ were normed with the initial values ($p_r=0$) of the
+    Watts-Strogatz network.}
+    \label{fig:13_sm_effect}
+\end{figure}
+
+\begin{figure}
+    %\gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/15_2d.gp}
+    \input{pictures/15_2d_full.pdf_tex}
+    \caption{Figure \textbf{a)}: The small world effect for the
+        Watts-Strogatz algorithm in two dimensions. A $22\times22$ grid was used with $k=3$
+        for a simulation over 10 trials (analogous to the simulations
+        conducted for figure \ref{fig:13_sm_effect}). For reasons of
+        comparison, both $L$ and $C$ were divided by the same initial values
+        $L_\mathrm{WS}(0)$ and
+        $C_\mathrm{WS}(0)$ that were also used in figure
+        \ref{fig:13_sm_effect}. Figure \textbf{b)}: Visualization of the
+        Watts-Strogatz algorithm in a 2d grid of size $5\times 5$ with $k = 1$ and $p = 0.2$. The
+        dashed lines are existent edges before the algorithm is applied. After it is
+        applied, the dashed lines become the red ones instead.}
+    \label{fig:15_sm_2d}
 \end{figure}
 
 \clearpage
@@ -193,9 +216,9 @@ For targeted attacks, we assign weight to each node and always remove the node w
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6,3}]{pictures/22_plot.gp}
-    \caption{Degree distribution for a simulation with $N=500000$ nodes
-    in total, using different values for $m=m_0$. The line has a slope of
-    $-3$.}
+    \caption{Degree distribution for a simulation of a Barab\'asi-Albert
+    network with $N=500000$ nodes in total, using different values for
+    $m$. The line has a slope of $-3$.}
     \label{fig:22_plot}
 \end{figure}
 \begin{figure}
@@ -205,6 +228,24 @@ For targeted attacks, we assign weight to each node and always remove the node w
     values over equidistant bins on the logarithmic axis (i.e. the bin width
     increases exponentially).}
     \label{fig:22_logplot}
+\end{figure}
+
+\begin{figure}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.2,4}]{pictures/24_ba.gp}
+    \caption{Numerical stability analysis for Barab\'asi-Albert (BA) networks
+    (as model for scale-free networks) and Erdös-Renyi (ER) networks under
+    the influence of different strains (failure, hub attacks and
+    \enquote{evil} attacks, described in the text). In each case, networks
+    of the size $N=500$ were first created and then stepwisely disassembled
+    by taking away nodes (and thus increasing $p_\mathrm{lost}$. The
+    parameter for the Barabasi-Albert networks was $m = 4$ (??), while
+    $p=0\cdots$ (??) was used for the Erdös-Renyi networks. The vertical
+    lines stopping at the respective maximal values of the (finite) average
+    cluster size $\langle s\rangle^\mathrm{f}$ can be used to read off
+    estimates for the percolation thresholds $p_c$ of the respective
+    processes. So if the $p_\mathrm{lost}$ value of such a vertical line is
+    $p$, then the corresponding percolation threshold is $p_c = 1-p$.}
+    \label{fig:24_ba}
 \end{figure}
 
 \clearpage
@@ -311,11 +352,10 @@ value $p_c=1/N$ is only true for large $N$.
 
 \subsection{Explosive Percolation}
 Percolation processes in different systems possess different shapes -- the
-transitions can be rather smooth or very sharp. The latter phenomenon is
-labeled \emph{explosive percolation}. The original publication (SOURCE??)
-talking about explosive percolation suggested a certain rule of stepwisely
-selecting edges in an empty network which produces explosive percolation,
-the \emph{product rule}.
+transitions can be rather smooth or very sharp. Under certain
+circumstances, the latter phenomenon is labeled \emph{explosive
+percolation}. A common rule to generate explosive percolation
+is the \emph{product rule}.
 
 \marginnote{A.3.3} Firstly, simulations were conducted to compare the
 percolation processes of the Erdös-Renyi rule of adding edges and the
@@ -361,8 +401,8 @@ is completely prevented and the growth of $P$ is linear.
         \enquote{finite} cluster for $N=\infty$) and the average cluster
         size $\langle s\rangle^\mathrm{f}$ for all but the largest cluster.
         The results were averaged over 500 trials and the simulation was
-        conducted backwardsly by stepwisely removing random edges of a full
-        2d-graph. The grey line marks the percolation threshold $p_c=0.5$ for
+        conducted backwardly by stepwisely removing random edges from a full
+        2d graph. The grey line marks the percolation threshold $p_c=0.5$ for
         this simulation.}
     \label{fig:31_2d}
 \end{figure}
@@ -384,11 +424,13 @@ is completely prevented and the growth of $P$ is linear.
     \caption{The same quantities as presentend in figure \ref{fig:31_2d}
         for an infinite dimensional grid. This time, edges were successively
         removed from a fully connected graph with 250 nodes. Again, 500 trials were
-        averaged. Next to the grey line at $p=1/250=0.004$, which would be the theoretic prediction of the
-        percolation threshold for large $N$, the red line at $p\approx 0.0046$
-        marks the maximum of $\langle s \rangle^\mathrm{f}$. This second value works better
-        for $p_c$ than the theoretical prediction in this case,
-        probably because $N$ is too small.}
+        averaged. They grey line is drawn at $p=1/N=1/250=0.004$, which is the theoretic prediction
+        of the percolation threshold for large $N$.}
+        %Next to the grey line at $p=1/250=0.004$, which would be the theoretic prediction of the
+        %percolation threshold for large $N$, the red line at $p\approx 0.0046$
+        %marks the maximum of $\langle s \rangle^\mathrm{f}$. This second value works better
+        %for $p_c$ than the theoretical prediction in this case,
+        %probably because $N$ is too small.}
     \label{fig:31_infty}
 \end{figure}
 
@@ -418,8 +460,11 @@ is completely prevented and the growth of $P$ is linear.
         $\mathrm{max}_C$ and \textbf{b)} the average finite cluster size
         $\langle s\rangle^\mathrm{f}$ as function of $p-p_c$ for infinite dimensional
         percolation, where $p_c=0.004$ is the theoretic prediction of the
-        percolation threshold. The area marks the points used for the linear
-        regression in order to find the percolation exponents.}
+        percolation threshold. The grey area marks the points used for the linear
+        regression in order to find the percolation exponents. Using other
+        values of $p_c$, for example the maximum of $\langle
+        s\rangle^\mathrm{f}$ (see figure \ref{fig:31_infty} b)) did not yield
+        more linear graphs or better coefficients.}
     \label{fig:32_infty}
 \end{figure}
 

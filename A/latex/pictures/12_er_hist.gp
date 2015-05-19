@@ -25,6 +25,7 @@ set lmargin scr 0.55
 set rmargin scr 0.95
 set xrange [0:2]
 
+set xlabel '$k/ (p(N-1))$'
 set title '\textbf{b)}'
 plot folder . 'er_hist_N=50_p=0.1.dat' u 3:4 w lp pt 7 t '\fs{$n=50$}', \
      folder . 'er_hist_N=100_p=0.1.dat' u 3:4 w lp pt 7 t '\fs{$n=100$}', \

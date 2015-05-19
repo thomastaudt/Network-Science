@@ -76,6 +76,7 @@ set ytics (0.1, 1, 10, 100)
 set key at 0.0018, 0.016
 set key reverse Left
 
+set xlabel '$p-p_c$'
 set label 1 sprintf('\fs{$\gamma \approx %.3f$}', a) at graph 0.1,graph 0.5
 plot folder.'31_2d.dat' u ($1-pc):6 w lp pt 7 ps 0.5 t '\fs{$\langle s\rangle^\mathrm{f}$}', \
      10**b * x**a t '\fs{$\sim(p-p_c)^\gamma$}' lt -1 lc rgb "#666666"

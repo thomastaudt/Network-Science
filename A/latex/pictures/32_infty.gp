@@ -83,6 +83,7 @@ set ytics offset 0.65
 set key reverse Left
 set key at graph 0.55, 0.25
 
+set xlabel '$(p-p_c)\times 10^3$'
 set label 1 sprintf('\fs{$\gamma \approx %.3f$}', a) at graph 0.1,graph 0.5
 plot folder.'31_infty.dat' u (($1-pc)*1e3):($6) w lp pt 7 ps 0.5 t '\fs{$\langle s\rangle^\mathrm{f}$}', \
      10**b * (x/1e3)**a t '\fs{$\sim(p-p_c)^\gamma$}' lt -1 lc rgb "#666666"

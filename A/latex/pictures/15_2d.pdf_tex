@@ -1,0 +1,84 @@
+%% Creator: Inkscape inkscape 0.91, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file '15_2d.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{437.79282144bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.60604656)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{pictures/15_2d.pdf}}%
+    \put(0.08350982,0.10669516){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{0}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{pictures/15_2d.pdf}}%
+    \put(0.08350982,0.1724797){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{0.2}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{pictures/15_2d.pdf}}%
+    \put(0.08350982,0.23826424){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{0.4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{pictures/15_2d.pdf}}%
+    \put(0.08350982,0.30404879){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{0.6}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{pictures/15_2d.pdf}}%
+    \put(0.08350982,0.3696506){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{0.8}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{pictures/15_2d.pdf}}%
+    \put(0.08350982,0.43543514){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{1}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{pictures/15_2d.pdf}}%
+    \put(0.08350982,0.50121968){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{1.2}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{pictures/15_2d.pdf}}%
+    \put(0.09867681,0.07380289){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$10^{-4}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{pictures/15_2d.pdf}}%
+    \put(0.19735362,0.07380289){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$10^{-3}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{pictures/15_2d.pdf}}%
+    \put(0.29584769,0.07380289){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$10^{-2}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{pictures/15_2d.pdf}}%
+    \put(0.3945245,0.07380289){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$10^{-1}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{pictures/15_2d.pdf}}%
+    \put(0.49320131,0.07380289){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$10^{0}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{pictures/15_2d.pdf}}%
+    \put(0.29584769,0.55055808){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{\textbf{a)}}}}%
+    \put(0.37058626,0.46832741){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{\fs$C(p)$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{pictures/15_2d.pdf}}%
+    \put(0.37058626,0.43543514){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{\fs$L(p)$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{pictures/15_2d.pdf}}%
+    \put(0.77826766,0.55055808){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{\textbf{b)}}}}%
+  \end{picture}%
+\endgroup%
