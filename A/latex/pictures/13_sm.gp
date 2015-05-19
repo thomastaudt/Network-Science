@@ -23,6 +23,7 @@ plot folder . 'small_world_strogatz_k=5_N=500.dat' u (logs($0)):($1/0.5) w lp pt
     folder . 'small_world_strogatz_k=5_N=500.dat' u (logs($0)):($2/62.875) w lp pt 7 t '\fs{$L(p)$}', \
           
 #set arrow from 4./500,graph 0 to 4./500,graph 1
+set title '\textbf{b)}'
 set key left
 set xrange [1e-2:1]
 set yrange [0:1.2]

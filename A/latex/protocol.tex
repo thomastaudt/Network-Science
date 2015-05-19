@@ -71,7 +71,11 @@ Let each node be, on average, connected to $K$ nodes. Then we can reach $K^l$ no
     \centering
     \def\svgwidth{0.8\columnwidth}
     \input{pictures/11_er_lat.pdf_tex}
-    \caption{Visualization of Erdös-Renyi networks with $n=20$ nodes and $k = 10$ (figure \textbf{a)}) as well as $k = 20$ (figure \textbf{b)}) edges. Thus the fraction of existent edges are $p \approx 0.0526$ respectively $p \approx 0.1053$. The color of the edges indicate the time steps at which the corresponding edge was added.}
+    \marginnote{A.1.1}
+    \caption{Visualization of Erdös-Renyi networks with $n=20$ nodes and $10$ (figure \textbf{a)}) as well as $20$ (figure \textbf{b)})
+        edges. Thus the fraction of existent edges are $p \approx 0.0526$
+        respectively $p \approx 0.1053$. The colors of the edges indicate the time
+        steps at which it was added.}
     \label{11_er}
 \end{figure}
 
@@ -79,6 +83,7 @@ Let each node be, on average, connected to $K$ nodes. Then we can reach $K^l$ no
     \centering
     \def\svgwidth{0.8\columnwidth}
     \input{pictures/13_ws_lat.pdf_tex}
+    \marginnote{A.1.3}
     \caption{Visualization of Watts-Strogatz networks with two different
         sets of parameters. In figure \textbf{a)} $n=10$, $k=2$, and
         $p=0.4$, and in figure \textbf{b)} $n=16$, $k=4$, and $p=0.2$. In
@@ -90,6 +95,7 @@ Let each node be, on average, connected to $K$ nodes. Then we can reach $K^l$ no
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/12_er_hist.gp}
+    \marginnote{A.1.2}
     \caption{Degree distribution of Erdös-Renyi networks for \textbf{a)}
     fixed $n=350$ and varying values of $p$ and \textbf{b)} varying values
     of $n$ and fixed $p=0.1$. For figure \textbf{b)} the degree value $k$ was
@@ -99,9 +105,20 @@ Let each node be, on average, connected to $K$ nodes. Then we can reach $K^l$ no
     \label{fig:12_er}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 5,2.0}]{pictures/12_largest.gp}
+    \marginnote{A.1.2}
+    \caption{The size of the largest cluster for Erdös-Renyi networks of
+        size 500 in dependence of the parameter $p$. In order to obtain the
+        values, 500 trials were done for every point of data.}
+    \label{fig:12_largest}
+\end{figure}
+
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/13_sm.gp}
+    \marginnote{A.1.2 A.1.4}
     \caption{Comparison of the small-world effect for \textbf{a)}
     Watts-Strogatz networks and \textbf{b)} Erdös-Renyi networks. In both
     cases the average path length $L$ and the clustering coefficient $C$
@@ -118,6 +135,7 @@ Let each node be, on average, connected to $K$ nodes. Then we can reach $K^l$ no
 \begin{figure}
     %\gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/15_2d.gp}
     \input{pictures/15_2d_full.pdf_tex}
+    \marginnote{A.1.5}
     \caption{Figure \textbf{a)}: The small world effect for the
         Watts-Strogatz algorithm in two dimensions. A $22\times22$ grid was used with $k=3$
         for a simulation over 10 trials (analogous to the simulations
@@ -190,7 +208,9 @@ For targeted attacks, we assign a weight $w$ to each node and always remove the 
 
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{pictures/21_begin.pdf}
+    \centering
+    \includegraphics[width=0.9\textwidth]{pictures/21_begin.pdf}
+    \marginnote{A.2.1}
     \caption{The first steps of the Barab\'asi-Albert algorithm with $m
     = m_0 = 3$. From left to right and from top to bottom single nodes are
     first added before edges are chosen according to the preferential
@@ -201,6 +221,7 @@ For targeted attacks, we assign a weight $w$ to each node and always remove the 
 
 \begin{figure}
     \includegraphics[width=\textwidth]{pictures/21_end.pdf}
+    \marginnote{A.2.1 A.2.2}
     \caption{The same network as in figure \ref{fig:21_begin} after 15000
     nodes have been added (left: without drawing the edges, and right: with
     drawing the edges). The color and the size of the nodes printed in the left
@@ -212,6 +233,7 @@ For targeted attacks, we assign a weight $w$ to each node and always remove the 
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6,3}]{pictures/22_plot.gp}
+    \marginnote{A.2.2}
     \caption{Degree distribution for a simulation of a Barab\'asi-Albert
     network with $N=500000$ nodes in total, using different values for
     $m$. The line has a slope of $-3$.}
@@ -219,6 +241,7 @@ For targeted attacks, we assign a weight $w$ to each node and always remove the 
 \end{figure}
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6,3}]{pictures/22_logplot.gp}
+    \marginnote{A.2.2}
     \caption{The same degree distribution as in figure \ref{fig:22_plot}
     using logarithmic binning so that the the points plotted are the average
     values over equidistant bins on the logarithmic axis (i.e. the bin width
@@ -228,13 +251,15 @@ For targeted attacks, we assign a weight $w$ to each node and always remove the 
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.2,4}]{pictures/24_ba.gp}
-    \caption{Numerical stability analysis for Barab\'asi-Albert (BA) networks
+    \vspace*{-0.75cm}
+    \marginnote{A.2.3 A.2.4 A.2.5}
+    \caption{Numerical robustness analysis for Barab\'asi-Albert (BA) networks
     (as model for scale-free networks) and Erdös-Renyi (ER) networks under
     the influence of different strains (failure, hub attacks and
     \enquote{evil} attacks, described in the text). In each case, networks
     of the size $N=500$ were first created and then stepwisely disassembled
     by taking away nodes (and thus increasing $p_\mathrm{lost}$. The
-    parameter for the Barabasi-Albert networks was $m = 4$ (??), while
+    parameter for the Barab\'asi-Albert networks was $m = 4$ (??), while
     $p=0\cdots$ (??) was used for the Erdös-Renyi networks. The vertical
     lines stopping at the respective maximal values of the (finite) average
     cluster size $\langle s\rangle^\mathrm{f}$ can be used to read off
@@ -387,6 +412,7 @@ is completely prevented and the growth of $P$ is linear.
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/31_2d.gp}
+    \marginnote{A.3.1}
     \caption{Several quantities plotted as function of the occupation probability
         $p$, describing the percolation process in two dimensions for
         $N=625$. Figure \textbf{a)} shows the size $\mathrm{max}_C$ of the
@@ -405,6 +431,7 @@ is completely prevented and the growth of $P$ is linear.
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/31_2d_dist.gp}
+    \marginnote{A.3.1}
     \caption{Results for the degree distribution $P_\mathrm{d}(k)$ and the
         cluster size distribution $P_\mathrm{C}(s)$ for different
         values of the occupation probability $p$ for 2d percolation with
@@ -417,6 +444,7 @@ is completely prevented and the growth of $P$ is linear.
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/31_infty.gp}
+    \marginnote{A.3.1}
     \caption{The same quantities as presentend in figure \ref{fig:31_2d}
         for an infinite dimensional grid. This time, edges were successively
         removed from a fully connected graph with 250 nodes. Again, 500 trials were
@@ -432,6 +460,7 @@ is completely prevented and the growth of $P$ is linear.
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/31_infty_dist.gp}
+    \marginnote{A.3.1}
     \caption{The degree distribution (\textbf{a)}) and cluster size
         distribution (\textbf{b)}) for different values of $p$ for infinite
         dimensional percolation. The data were collected in the simulation
@@ -441,6 +470,7 @@ is completely prevented and the growth of $P$ is linear.
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/32_2d.gp}
+    \marginnote{A.3.2}
     \caption{Log-log plots of \textbf{a)} the largest cluster's size
         $\mathrm{max}_C$ and \textbf{b)} the average finite cluster size
         $\langle s\rangle^\mathrm{f}$ as function of $p-p_c$ for 2d
@@ -452,6 +482,7 @@ is completely prevented and the growth of $P$ is linear.
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/32_infty.gp}
+    \marginnote{A.3.2}
     \caption{Log-log plots of \textbf{a)} the largest cluster's size
         $\mathrm{max}_C$ and \textbf{b)} the average finite cluster size
         $\langle s\rangle^\mathrm{f}$ as function of $p-p_c$ for infinite dimensional
@@ -466,6 +497,7 @@ is completely prevented and the growth of $P$ is linear.
 
 \begin{figure}
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.0}]{pictures/33_perc.gp}
+    \marginnote{A.3.3 A.3.4}
     \caption{Percolation transitions for different rules for adding edges,
         starting with an empty network of $n=500$ nodes. Figure \textbf{a)}
         compares the Erdös-Renyi and the product rule, whereas figure
