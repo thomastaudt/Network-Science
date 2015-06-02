@@ -1,0 +1,173 @@
+\documentclass{scrartcl}
+\input{header.tex}
+
+\begin{document}
+
+\begin{titlepage}\centering
+\textsc{\Large Institute For Nonlinear Dynamics \\[1.5ex] Universität Göttingen}
+
+\vspace*{2cm}
+{\huge A Practical Course On Network Science}
+\vspace*{2cm}
+
+\rule{\textwidth}{1pt}\\[0.5cm]
+{\bfseries \huge Block B: \\[0.5cm] \huge \bfseries Oscillating Networks [?]\\[0.5cm]}
+\rule{\textwidth}{1pt}
+
+\vspace*{4cm}
+
+\begin{Large}\begin{tabular}{rl}
+        \textbf{Participants:}  & Erik Schultheis                                \\    
+                   & \textit{erik.schultheis@stud.uni-goettingen.de}\\[0.5cm]
+                   & Thomas Staudt                                  \\
+                   & \textit{thomas.staudt@stud.uni-goettingen.de}  \\[1.0cm]
+
+       \textbf{Tutors:}        & Dr. Nora Molkenthin, Benjamin Schäfer, Malte Schröder  \\[1.0cm]
+       \textbf{Deadline:}      & 09.05.2015
+\end{tabular}\end{Large}
+
+\vspace*{1.5cm}
+
+
+\end{titlepage}
+
+\tableofcontents
+\clearpage
+
+\section{Synchronization in Complex Networks}
+\subsection{Kuramoto Oscillators}
+The \emph{Kuramoto model} describes the phase coupling of a network of
+oscillators. A network with $\mathrm{N}$ oscillators that have phases
+$(\phi\ix{i}(t))\ix{i=1}\Ix{N}$ at time $t$ and which possess preferential
+frequencies $(\omega\ix{i})\ix{i=1}\Ix{N}$ is coupled in the Kuramoto model via the
+following system of differential equations:
+\begin{equation}
+    \label{eq:kuramoto}
+    \dot{\phi}\ix{i}(t) = \omega\ix{i} - \sigma~\sum\ix{j=1}\Ix{N} a\ix{ij} \sin\big(\phi\ix{i}(t) - \phi\ix{j}(t)\big)~.
+\end{equation}
+Here $\sigma$ describes the \emph{coupling strength} and
+$(a\ix{ij})\ix{i,j=1}\Ix{N}$ is the adjacency matrix of the unweighted graph of
+the network, meaning that $a\ix{ij} \in \{0, 1\}$ for all $1\le
+\mathrm{i},\mathrm{j}\le \mathrm{N}$. Besides $\sigma$ the variable $K$
+is sometimes used to characterize the coupling strength, where one has the
+relation
+\begin{equation}
+    \sigma = \frac{K}{\mathrm{\langle k \rangle}}
+\end{equation}
+with the average degree $\langle k \rangle$ of the network.
+A possible measure for the synchronization of the oscillators is given by
+\begin{equation}
+    r(t) = \frac{1}{N}~\left| \sum\ix{j=0}^N \mathrm{e}^{i~\phi\ix{j}(t)} \right|~,
+\end{equation}
+which is near $0$ for unsynchronized networks and near $1$ for synchronized
+ones. The quantity $r$ (averaged over some period of time at the end of
+a long simulation) understood as function of the coupling strength
+$K$ for a fixed network $a\ix{ij}$ can be used to examine percolation, where
+the system suddenly changes from an unsynchronized to a strongly
+synchronized state. The critical percolation value $\sigma_c$ for this process is named
+the \emph{critical coupling strength}.
+
+
+\subsection{Critical Coupling for Different Kuramoto Oscillators}
+For all of the following simulation results, networks of size $\mathrm{N}=100$ were used.
+Single values of $r$ were calculated by numerically solving equation
+\eqref{eq:kuramoto} with $\dif t=0.01$ from $t\ix{start} = 0$ up to
+$t\ix{end} = 10$ by a simple Euler algorithm, using
+values for $\omega_i$ drawn from a standard normal distribution $g \sim
+\mathcal{N}(0, 1)$. Then $r$ was taken to be the mean of $r(t)$ over the
+last $100$ time steps. 
+In order to compare the obtained results with analytic predictions, the
+following mean-field approximation was used to calculate $\sigma_c$:
+\begin{equation}\label{eq:s_crit}
+    \sigma_c = \frac{2}{\pi\,g(0)}~\frac{\langle k \rangle}{\langle k^2 \rangle} = 2\,\sqrt{\frac{2}{\pi}}~\frac{\langle k \rangle}{\langle k^2 \rangle}~.
+\end{equation}
+Here the second equality holds because of $g \sim \mathcal{N}(0, 1)$.
+
+\paragraph{Completely Connected Networks}
+The first simulations were carried out for completely connected networks,
+making the coupling \enquote{all-to-all}. In this case, $\omega\ix{ij} = 1$
+for all $1\le \mathrm{i},\mathrm{j}\le \mathrm{N}$ and $\langle k \rangle
+= \mathrm{N}$ as well as $\langle k^2 \rangle = \mathrm{N}^2$. The results obtained are
+presented in figure \ref{fig:B11}. One can see that the analytically
+predicted value $\sigma_c = 2/\big(\pi\,g(0)\,\mathrm{N}\big)\approx 0.016$ of
+the critical coupling strength is consistent with the results obtained.
+
+\paragraph{Erdös-Renyi Networks}
+Next the coupling behaviour of (undirected) Erdös-Renyi networks was
+analyzed for three different values of the parameter $p$: $p\in\{0.1, 0.3, 0.5\}$.
+Here the predicted values for $\sigma_c$ were calculated numerically by
+averaging formula \eqref{eq:s_crit} over 30 trial networks each and are
+included in figure \ref{fig:B12} a) together with the simulation results.
+
+One again discerns that the analytic predictions work quite well for
+describing the percolation process.  The reason that the needed coupling
+strength for synchronization is higher than for the fully connected network
+is of course that fewer connections cause weaker mutual influences of the
+single oscillators.
+
+\paragraph{Scale Free Networks}
+The last network type examined for synchronizing were scale free networks,
+implemented by using Barab\'asi-Albert networks with numbers $m\in\{5, 10,
+15\}$ of edges added in each step. The critical values were again
+calculated numerically as stated in the last paragraph.  The results can be
+seen in figure \ref{fig:B12} b), where the analytic values once more seem
+to describe the percolation appropriately.
+
+(MISSING: Why are the values the way they are??)
+
+\subsection{Synchronization Conditions}
+There are several conditions that are necessary for the network to be able
+to synchronize. A very simple requirement is that the network's graph must
+be \emph{connected}, since different connected components can't influence the phasing
+of one another at all (depicted in figure \ref{fig:B13} a). In general of
+course, the stronger the interconnectivity of the oscillators, the better
+the synchronization works. 
+
+Another way to destroy the ability to synchronize (besides taking more than
+one connected component) is to introduce directed edges and provide some
+restrictions for allowed edges. For example, a central component $C$ could
+be connected to two other components $A$ and $B$ only by arrows from $A$
+and $B$ pointing to $C$ (see figure \ref{fig:B13} b). Then $A$ and $B$
+can't influence one another and thus won't synchronize.
+
+\begin{figure}
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 5,2.0}]{pictures/11.gp}
+    \caption{The synchronization $r$ of the \enquote{all-to-all} Kuramoto
+            model as function of the coupling strength $\sigma$. As
+            described in the text, the network size for this an all further
+            simulations was chosen to be $N=100$.}
+    \label{fig:B11}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,2.5}]{pictures/12.gp}
+    \caption{Synchronization of (a) Erdös-Renyi and (b) Barab\'asi-Albert
+            networks in the Kuramoto model as function of the coupling
+            strength. The results were obtained by averaging over 100 trial
+            networks (with varying frequencies $\omega_i$).}
+    \label{fig:B12}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \def\svgwidth{0.8\textwidth}
+    \input{pictures/13.pdf_tex}
+    \caption{Schematic drawing of possible systems that won't synchronize. In
+        figure \textbf{(a)} the network is divided in three connected
+        components $A$, $B$, and $C$. Figure \textbf{(b)} shows a constellation where the network
+        can be split up in three distinct components $A$, $B$, and $C$ such that $A$ and
+        $B$ are connected to $C$ only by directed edges going to $C$. In this
+        case the oscillations of $A$ and $B$ are completely independend, whereas
+        the oscillation of $C$ is influenced by both $A$ and $B$.}
+    \label{fig:B13}
+\end{figure}
+
+
+\clearpage
+\section{Power Grids}
+
+\section{Secret!!!}
+
+\end{document}
