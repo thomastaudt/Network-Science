@@ -29,9 +29,9 @@ set arrow 1 from 0.147987,graph 0 to 0.147987,graph 1 lt -1 lw 2.5 lc rgb "#38aa
 set arrow 2 from 0.052478,graph 0 to 0.052478,graph 1 lt -1 lw 2.5 lc rgb "#2929bb" nohead
 set arrow 3 from 0.031933,graph 0 to 0.031933,graph 1 lt -1 lw 2.5 lc rgb "#bb3333" nohead
 
-set label 3 '\footnotesize $p=0.1$' at 0.175,1.4 center
-set label 2 '\footnotesize $p=0.3$' at 0.175,1.3 center
-set label 1 '\footnotesize $p=0.5$' at 0.175,1.2 center
+set label 3 '\textcolor{OliveGreen}{\footnotesize $p=0.1$}' at 0.175,1.4 center
+set label 2 '\textcolor{Blue}{\footnotesize $p=0.3$}' at 0.175,1.3 center
+set label 1 '\textcolor{Red}{\footnotesize $p=0.5$}' at 0.175,1.2 center
 a = 1.05
 plot folder.'11_erd1.txt' u 1:2 w p pt 7 ps a*1.55 lc rgb "#006600" t '',\
      folder.'11_erd1.txt' u 1:2 w p pt 7 ps a*1.00 lc rgb "#77ee77" t '',\
@@ -51,9 +51,9 @@ set arrow 1 from 0.109991,graph 0 to 0.109991,graph 1 lt -1 lw 2.5 lc rgb "#38aa
 set arrow 2 from 0.064900,graph 0 to 0.064900,graph 1 lt -1 lw 2.5 lc rgb "#2929bb" nohead
 set arrow 3 from 0.047713,graph 0 to 0.047713,graph 1 lt -1 lw 2.5 lc rgb "#bb3333" nohead
 
-set label 3 '\footnotesize $m=5$' at 0.16,1.4 center
-set label 2 '\footnotesize $m=10$' at 0.16,1.3 center
-set label 1 '\footnotesize $m=15$' at 0.16,1.2 center
+set label 3 '\textcolor{OliveGreen}{\footnotesize $m=5~\,$}' at 0.16,1.4 center
+set label 2 '\textcolor{Blue}{\footnotesize $m=10$}' at 0.16,1.3 center
+set label 1 '\textcolor{Red}{\footnotesize $m=15$}' at 0.16,1.2 center
 
 plot folder.'11_ba5.txt' u 1:2 w p pt 7 ps a*1.55 lc rgb "#006600" t '',\
      folder.'11_ba5.txt' u 1:2 w p pt 7 ps a*1.00 lc rgb "#77ee77" t '',\

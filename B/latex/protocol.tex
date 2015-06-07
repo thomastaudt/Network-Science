@@ -1,6 +1,15 @@
 \documentclass{scrartcl}
 \input{header.tex}
 
+
+
+\newcommand*{\defeq}{\mathrel{\vcenter{\baselineskip0.5ex \lineskiplimit0pt
+                     \hbox{\scriptsize.}\hbox{\scriptsize.}}}%
+                     =}
+
+
+
+
 \begin{document}
 
 \begin{titlepage}\centering
@@ -166,15 +175,162 @@ can't influence one another and thus won't synchronize.
 
 
 \clearpage
-\section{Power Grids}
 
-\begin{figure}
+\section{Power Grids}
+In order to describe the phase dynamics of \emph{power grids}, models that
+are similar to the Kuramoto model from the last section can be used.  In
+order to derive these models certain assumptions are made, e.g. that all
+consumers and generators work with a similar standard frequency and that
+the deviations from this frequency remain small. For so called \emph{smart power
+grids}, that try to stabilize the network by local measurements only, one
+can furthermore take delayed reactions into account.
+
+One exemplary model for such a smart power grid consisting of two nodes
+only -- one generator with phase $\theta_1$ and one consumer with phase
+$\theta_2$ -- is given by the following  \emph{delayed differential
+equation} (DDE) at time $t$:
+
+\begin{equation}
+\begin{aligned}
+    \ddot{\theta}_1(t) &= P_1 - \alpha_1\,\dot{\theta}_1(t) + 
+                         K\,\sin\big(\theta_2(t) - \theta_1(t)\big) - 
+                         \gamma_1\,\dot{\theta}_1(t - \tau)\\
+    \ddot{\theta}_2(t) &= P_2 - \alpha_2\,\dot{\theta}_2(t) + 
+                         K\,\sin\big(\theta_1(t) - \theta_2(t)\big) - 
+                         \gamma_2\,\dot{\theta}_2(t - \tau)~.
+\end{aligned}
+\end{equation}
+Here $P_1, P_2$ are the powers generated/consumed, $\alpha_1, \alpha_2\ge 0$ are
+damping constants, $K$ describes the (symmetric) coupling strength, and
+$\gamma_1, \gamma_2$ introduce additional delayed damping effects. The
+parameter $\tau$ determines the actual time delay of the DDE.
+
+Usually one is only interested in the phase difference $\Delta\theta
+\defeq \theta_1 - \theta_2$ as well as $\Delta\omega\defeq \dot{\theta}_1
+- \dot{\theta}_2$, since synchronicity of the power grid is already granted
+if $\Delta\theta$ stays constant. By assuming that $\alpha \defeq \alpha_1
+= \alpha_2$, $\gamma \defeq \gamma_1 = \gamma_2$, and setting $\Delta
+P \defeq P_1 - P_2$, one can take the difference of the two above equations and
+turn it into two coupled equations of order one:
+\begin{equation}\label{eq:smart_grid}
+\begin{aligned}
+    \Delta\dot{\theta}(t) &= \Delta\omega(t) \\
+    \Delta\dot{\omega}(t) &= \Delta P - \alpha\,\omega(t)
+    - 2K\,\sin\big(\Delta\theta(t)\big) - \gamma\,\Delta\omega(t-\tau)~.
+\end{aligned}
+\end{equation}
+In the above equations, the delivered power is given by $P\Ix{D}(t)
+= K\,\sin\big(\Delta\theta(t))$.
+
+\subsection{Power Grid Oscillators Without Delayed Control}
+The first problem to be solved was to simulate the simple power grid
+described above without delayed effects (meaning $\gamma = 0$). The
+coefficients were taken to be $\alpha = 0.1$, $K = 8$, $P_1 = 1$, and $P_2
+= -1$. 
+
+The simulations were carried out using a simple Euler algorithm with
+$dt=0.001$ for $0 \le t \le 100$; the results obtained for different
+initial conditions can be seen in the figure \ref{fig:B21_1} to \ref{fig:B21_3}.
+As long as the initial difference $\Delta\omega_0$ was not chosen to be too
+big, the system converged. For great differences however, the system
+diverged linearly without carrying out oscillations at all.
+
+
+\subsection{Simple Delayed Differential Equations}
+Before considering similar simulations to the above ones with additional
+delayed control, some simple delayed differential equations of the form
+\begin{equation}\label{eq:simple_dde}
+    \dot{x}(t) = \kappa\,x(t - 1)
+\end{equation}
+were solved for $\kappa\in\{-1, 1\}$. In figure \ref{fig:B22_1} solutions
+for this equation with constant histories are depicted. Plots of $x(t)$
+for some other histories (sine waves) are given in figure \ref{fig:B22_2}.
+The simulations were carried out using the \texttt{pydelay} python library.
+
+\subsection{Power Grid Oscillators With Delayed Control}
+For this problem, simulations of the delayed differential equation
+\eqref{eq:smart_grid} were conducted for $\gamma = 0.25$ and $\tau\in\{0, 0.4,
+0.8, 1.2, 1.6\}$. The histories were chosen to be $\Delta\theta(t)
+= \Delta\omega(t) = 0$ on $t\in[-\tau, 0]$ and the simulation was again
+conducted with \texttt{pydelay}. The results are shown in figure
+\ref{fig:B23}.
+
+One can see that the stability decreases with increasing $\tau$. While for
+$\tau = 1.2$ the convergence is considerably slower than for $\tau = 0.8$,
+the networks seems not to converge for $\tau = 1.6$ at all.
+
+
+
+
+
+\begin{figure}[h]
     \centering
-    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 5,2.0}]{pictures/21.gp}
-    \caption{BlahBlah BlahBlahBlah!}
-    \label{fig:B21}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 5,2.5}]{pictures/21_1.gp}
+    \caption{Simulation of a power grid consisting of one generator ($P_1
+    = 1$) and one consumer ($P_2 = -1$) without delayed control ($\gamma
+    = 0$) using the parameters $K=8$ and $\alpha=0.1$. The initial values
+    were $\theta_1(0) = \theta_2(0) = 0$,
+    $\omega_1(0) = \omega_2(0) = 0$. Figure (a) shows the time development of
+    $\theta_1$, $\theta_2$, as well as $\theta_1 - \theta_2$, while (b) shows
+    the phase space trajectories $t\mapsto \big(\omega(t), \theta(t)\big)$ for
+    both the generator and the consumer.}
+    \label{fig:B21_1}
 \end{figure}
 
+\begin{figure}[h]
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 5,2.5}]{pictures/21_2.gp}
+    \caption{The same simulation as in figure \ref{fig:B21_1} but with
+    initial values $\omega_1(0) = 0.1$ and $\omega_2(0) = -0.05$.}
+    \label{fig:B21_2}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
+    5,2.5}]{pictures/21_3.gp} \caption{The same simulation as in figure
+        \ref{fig:B21_1} but with initial values $\omega_1(0) = 5$ and
+        $\omega_2(0) = -2.5$. In contrast to figures \ref{fig:B21_1} and
+        \ref{fig:B21_2} the system is diverging in this case.}
+    \label{fig:B21_3}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
+    5,2.5}]{pictures/22_const.gp} \caption{Solutions of the delayed
+        differential equation
+        \eqref{eq:simple_dde} with $\kappa=+1$ in (a) and $\kappa=-1$ in
+        (b). The histories are chosen as constants on $t\in[-1, 0]$.
+        For $\kappa=+1$ all solutions diverge, while for $\kappa=-1$ all
+        solutions converge.}
+    \label{fig:B22_1}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
+    5,2.5}]{pictures/22_sinus.gp} \caption{Solutions of the delayed
+        differential equation
+        \eqref{eq:simple_dde} with $\kappa=+1$ in (a) and $\kappa=-1$ in
+        (b). The histories are chosen as  $x(t) = \sin(c\,\pi\,t)$ with
+        $c\in[1, 2.5]$ for $t\in[-1, 0]$. Again, for $\kappa=+1$ all solutions
+        diverge, while for $\kappa=-1$ all solutions converge.}
+    \label{fig:B22_2}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
+    5,2.5}]{pictures/23.gp} 
+    \caption{Delayed smart grid control simulation of equation
+        \eqref{eq:smart_grid} for $\gamma = 0.25$ and $\tau\in \{0, 0.4,
+        0.8, 1.2, 1.6\}$. All other parameters were chosen like in the
+        simulations done for figure \ref{fig:B21_1}.}
+    \label{fig:B23}
+\end{figure}
+
+\clearpage
 
 \section{Challenges in Power Grids}
 \subsection{Braess' Paradox}
@@ -197,9 +353,19 @@ P/(2K) &= \sin \left( \Delta \theta \right)\\
 \Delta \theta &= \arcsin \left( \frac{P}{2K}\right) = \arcsin{0.9} = 1.14.
 \end{align}
  
-We also used this configuration as an initial condition for the modified network, even though it is exacly at the networks fixed point for the second case. In figure \ref{}, we show the workload of a single connection of neighbouring nodes. We see that the diagonal connection triggers a Braess' paradox.
+We also used this configuration as an initial condition for the modified network, even though it is exacly at the networks fixed point for the second case. In figure \ref{fig:B31}, we show the workload of a single connection of neighbouring nodes. We see that the diagonal connection triggers a Braess' paradox.
 
- 
+\begin{figure}[h]
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
+    5,2.5}]{pictures/23.gp} 
+    \caption{Delayed smart grid control simulation of equation
+        \eqref{eq:smart_grid} for $\gamma = 0.25$ and $\tau\in \{0, 0.4,
+        0.8, 1.2, 1.6\}$. All other parameters were chosen like in the
+        simulations done for figure \ref{fig:B21_1}.}
+    \label{fig:B31}
+\end{figure}
+
 
 
 
