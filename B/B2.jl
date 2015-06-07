@@ -19,27 +19,30 @@ function integrate(ω_0, θ_0, α, P, Pij)
 
   # gathered data
   θs = zeros( (length(ω_0), div(steps,10)) )
+  ωs = zeros( (length(ω_0), div(steps,10)) )
   for i = 1:steps
     dω, dθ = df(ω, θ, α, P, Pij)
     ω += dt * dω
     θ += dt * dθ
     if i % 10 == 0
       θs[:, div(i,10)] = θ
+      ωs[:, div(i,10)] = ω
     end
   end
-  return θs
+  return θs, ωs
 end
 
 function simple()
   α = 0.1
   P = [1;-1]
-  Pij = 1.5*[0 1; 1 0]
-  ω_0 = [0;0]
+  Pij = 8*[0 1; 1 0]
+  ω_0 = [+0.1,-0.05]
   θ_0 = [0;0]
   integrate(ω_0, θ_0, α, P, Pij)
 end
 
-a =  simple()'
-print(size(a))
-p = sin(a[:, 1] - a[:, 2])
-writedlm("phases.txt", [a p])
+θ, ω = simple()
+θ = θ'
+ω = ω'
+#=p = 1.5*sin(θ[:, 1] - θ[:, 2])=#
+writedlm("21_2.txt", [θ ω])
