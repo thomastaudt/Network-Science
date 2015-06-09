@@ -340,20 +340,14 @@ diverging oscillations were observed (in accordance with the expectations).
 
 \section{Challenges in Power Grids}
 \subsection{Braess' Paradox}
-The phenomenon that a networks performance can deteriorate upon the
-insertion of additional links is known as \emph{Braess' Paradox}. In the
-case of power grids, it means that the network can become unstable (i.e.
-the critical coupling decreases) when a power lines are built. This can be
-demonstrated in a grid with three producers and three consumers of equal
-strength, alternately coupled in a ring topology (fig. \ref{}). 
+The phenomenon that a network's performance can deteriorate upon the insertion of additional links is known as \emph{Braess' Paradox}. 
+In the case of power grids, this means that the network can become unstable (i.e. the critical coupling decreases) when additional power lines are built. 
+This can be demonstrated in a grid with three producers and three consumers of equal strength, alternately coupled in a ring topology (fig. \ref{fig:B31svg}). 
 
-
-
-Due two the systems symmetry, there are only three qualitatively different
-possibilities for adding a single new connection:
+Due two the systems symmetry, there are only two qualitatively different possibilities for adding a single new connection:
 \begin{enumerate}
- \item connect two sources, or two sinks (this only differs in a sign, dashed lines)
- \item connect a sink with a source diagonally (solid lines).
+ \item connect two sources, or two sinks (dashed lines; this only differs in a sign)
+ \item connect a sink with a source diagonally (red, solid lines).
 \end{enumerate}
 
 To determine the systems stability, we need to find out how it behaves if
@@ -369,15 +363,15 @@ The fixed point condition is (using cyclic indices)
 \end{align}
 If we look for a solution that shares the symmetry of the system, there are
 only two different phases: those at producers and those at consumers.
-Setting one to zero, the other now has to fulfill
+Setting one to zero, the other has to fulfill
 \begin{align}
 P/(2K) &= \sin \left( \Delta \theta \right)\\
 \Delta \theta &= \arcsin \left( \frac{P}{2K}\right) = \arcsin{0.9} = 1.14.
 \end{align}
  
 We also used this configuration as an initial condition for the modified
-network, even though it is exacly at the networks fixed point for the
-second case. In figure \ref{fig:B31}, we show the workload of a single
+networks, even though it is exacly at the network's fixed point only for the
+first case. In figure \ref{fig:B31}, we show the workload of a single
 connection of neighbouring nodes. We see that the diagonal connection
 triggers Braess' paradox. 
 
@@ -385,7 +379,7 @@ Note that our investigation does not guaratee that there is no stable fixed
 point in the third configuration, because we approximated the initial
 conditions with those from the symmetric case. However, if one such
 fixedpoint existed, it either has to be far from the symetric fixed point,
-or bassin of attraction is vary small. For practical applications this
+or its bassin of attraction is vary small. For practical applications this
 still means that the system is most likely unstable.
 
 
