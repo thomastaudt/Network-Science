@@ -215,7 +215,7 @@ turn it into two coupled equations of order one:
 \begin{equation}\label{eq:smart_grid}
 \begin{aligned}
     \Delta\dot{\theta}(t) &= \Delta\omega(t) \\
-    \Delta\dot{\omega}(t) &= \Delta P - \alpha\,\omega(t)
+    \Delta\dot{\omega}(t) &= \Delta P - \alpha\,\Delta\omega(t)
     - 2K\,\sin\big(\Delta\theta(t)\big) - \gamma\,\Delta\omega(t-\tau)~.
 \end{aligned}
 \end{equation}
@@ -255,17 +255,23 @@ For this problem, simulations of the delayed differential equation
 conducted with \texttt{pydelay}. The results are shown in figure
 \ref{fig:B23}.
 
-One can see that the stability decreases with increasing $\tau$. While for
-$\tau = 1.2$ the convergence is considerably slower than for $\tau = 0.8$,
-the networks seems not to converge for $\tau = 1.6$ at all.
-
-
+One can see that the stability is worse for $\tau=0.4$ and $\tau=1.2$ when
+compared to $\tau=0$ and $\tau=1.6$, whereas the system even diverges
+exponentially for $\tau = 0.8$. This behavior can be explained by looking
+at the period length $T$ of the oscillation of $\Delta\theta$, which is in
+fact around $T \approx 1.6$. This means that the contribution made
+by the delayed term $\omega(t - 0.8)$ is opposite in sign with
+$\omega(t)$, since for $\tau = T/2$ one has $\gamma\,\omega(t - T/2)
+= -\gamma\,\omega(t)$. So in case of $\tau = 0.8$ the parameter $\gamma=0.25$
+actively works against the damping induced by $\alpha=0.1$ -- and wins. In
+fact, for several simulations carried out with $\alpha > \gamma$ no
+diverging oscillations were observed (in accordance with the expectations).
 
 
 
 \begin{figure}[h]
     \centering
-    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 5,2.5}]{pictures/21_1.gp}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6,2.5}]{pictures/21_1.gp}
     \caption{Simulation of a power grid consisting of one generator ($P_1
     = 1$) and one consumer ($P_2 = -1$) without delayed control ($\gamma
     = 0$) using the parameters $K=8$ and $\alpha=0.1$. The initial values
@@ -279,7 +285,7 @@ the networks seems not to converge for $\tau = 1.6$ at all.
 
 \begin{figure}[h]
     \centering
-    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 5,2.5}]{pictures/21_2.gp}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6,2.5}]{pictures/21_2.gp}
     \caption{The same simulation as in figure \ref{fig:B21_1} but with
     initial values $\omega_1(0) = 0.1$ and $\omega_2(0) = -0.05$.}
     \label{fig:B21_2}
@@ -288,7 +294,7 @@ the networks seems not to converge for $\tau = 1.6$ at all.
 \begin{figure}[h]
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
-    5,2.5}]{pictures/21_3.gp} \caption{The same simulation as in figure
+    6,2.5}]{pictures/21_3.gp} \caption{The same simulation as in figure
         \ref{fig:B21_1} but with initial values $\omega_1(0) = 5$ and
         $\omega_2(0) = -2.5$. In contrast to figures \ref{fig:B21_1} and
         \ref{fig:B21_2} the system is diverging in this case.}
@@ -298,7 +304,7 @@ the networks seems not to converge for $\tau = 1.6$ at all.
 \begin{figure}[h]
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
-    5,2.5}]{pictures/22_const.gp} \caption{Solutions of the delayed
+    6,2.5}]{pictures/22_const.gp} \caption{Solutions of the delayed
         differential equation
         \eqref{eq:simple_dde} with $\kappa=+1$ in (a) and $\kappa=-1$ in
         (b). The histories are chosen as constants on $t\in[-1, 0]$.
@@ -310,7 +316,7 @@ the networks seems not to converge for $\tau = 1.6$ at all.
 \begin{figure}[h]
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
-    5,2.5}]{pictures/22_sinus.gp} \caption{Solutions of the delayed
+    6,2.5}]{pictures/22_sinus.gp} \caption{Solutions of the delayed
         differential equation
         \eqref{eq:simple_dde} with $\kappa=+1$ in (a) and $\kappa=-1$ in
         (b). The histories are chosen as  $x(t) = \sin(c\,\pi\,t)$ with
@@ -322,7 +328,7 @@ the networks seems not to converge for $\tau = 1.6$ at all.
 \begin{figure}[h]
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
-    5,2.5}]{pictures/23.gp} 
+    6,2.5}]{pictures/23.gp} 
     \caption{Delayed smart grid control simulation of equation
         \eqref{eq:smart_grid} for $\gamma = 0.25$ and $\tau\in \{0, 0.4,
         0.8, 1.2, 1.6\}$. All other parameters were chosen like in the
