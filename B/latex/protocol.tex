@@ -430,31 +430,30 @@ exist interdependencies within the network of banks itself.
 
 %An example more like the case considered in the lecture an be cosntructed if we split the financial relations into credits loaned and received, i.e. we consider two directed graphs. Then, if 
 
+\begin{figure}
+    \centering
+    \def\svgwidth{0.32\textwidth}
+    \input{pictures/ringnet.pdf_tex}
+    \caption{Schematic of the network used to demonstrate Braess' paradox. Green nodes represent sources, red represent consumers. The outer connections are present in the starting configurations. Adding one of the dashed lines does not disrupt the stability of the stability of the network, whereas adding one of the solid, red lines destabilizes it.}
+    \label{fig:B31svg}
+\end{figure}
+
 \begin{figure}[h]
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
     5,3.5}]{pictures/31.gp} 
     \caption{Relative power transferred by the connection
         $ 2 \leftrightarrow 3$ for different additional lines (compare
-        figure \ref{}). For a) and b), the initial perturbation decays,
-        whereas the transmission behaves eratically for c). To make the figure
-        clearer, c) is only shown for every fifth data point. }
+        figure \ref{fig:B31svg}). For (a) and (b), the initial perturbation decays,
+        whereas the transmission behaves eratically for (c). }
     \label{fig:B31}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \def\svgwidth{0.32\textwidth}
-    \input{pictures/ringnet.pdf_tex}
-    \caption{TEXT HERE!}
-    \label{fig:B13}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
     5,2.5}]{pictures/32.gp} 
-    \caption{TEXT MISSING}
+    \caption{Relative size of the largest mutually connected cluster of two interdependend Erdös-Rényi graphs, for different initial mean degrees $\left< k \right>$ and network sizes $N$, plotted against $p \left< k \right>$, where $1-p$ is the probability of failure. We see that there is a critical value $p_c \left< k \right> \approx 2.2$ where the network percolates that is independent of $N$ and $\left< k \right>.}
     \label{fig:B32}
 \end{figure}
 \end{document}
