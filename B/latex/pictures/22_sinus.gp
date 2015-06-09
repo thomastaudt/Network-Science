@@ -1,6 +1,6 @@
 folder = "pictures/data/"
 set xlabel 'time $t$'
-set ylabel 'phase difference $\Delta\theta/\mathrm{rad}$'
+set ylabel '$x(t)$'
 set key bottom
 
 set multiplot

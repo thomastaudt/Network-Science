@@ -12,7 +12,10 @@ set key invert
 set rmargin scr 0.50
 set lmargin scr 0.10
 
+set key left reverse Left
+
 set xrange [-5:30]
+set yrange [-0.5:1.0]
 
 plot folder."23_0.dat" u 1:2 w l t '\footnotesize $\tau=0.0$',\
      folder."23_4.dat" u 1:2 w l t '\footnotesize $\tau=0.4$',\
@@ -27,7 +30,10 @@ set title '\textbf{(b)}'
 set key invert
 
 #set xrange
+set xrange [-5:30]
 set yrange [-0.5:3.5]
+set yrange [-0.5:1.0]
+set ytics format ''
 
 set xlabel 'time $t$'
 set lmargin scr 0.59
