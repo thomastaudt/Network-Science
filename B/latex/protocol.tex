@@ -432,24 +432,23 @@ exist interdependencies within the network of banks itself.
 
 %An example more like the case considered in the lecture an be cosntructed if we split the financial relations into credits loaned and received, i.e. we consider two directed graphs. Then, if 
 
+\begin{figure}
+    \centering
+    \def\svgwidth{0.32\textwidth}
+    \input{pictures/ringnet.pdf_tex}
+    \caption{Schematic of the network used to demonstrate Braess' paradox. Green nodes represent sources, red represent consumers. The outer connections are present in the starting configurations. Adding one of the dashed lines does not disrupt the stability of the stability of the network, whereas adding one of the solid, red lines destabilizes it.}
+    \label{fig:B31svg}
+\end{figure}
+
 \begin{figure}[h]
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
     5,2.5}]{pictures/31.gp} 
     \caption{Relative power transferred by the connection
         $ 2 \leftrightarrow 3$ for different additional lines (compare
-        figure \ref{}). For a) and b), the initial perturbation decays,
-        whereas the transmission behaves eratically for c). To make the figure
-        clearer, c) is only shown for every fifth data point. }
+        figure \ref{fig:B31svg}). For (a) and (b), the initial perturbation decays,
+        whereas the transmission behaves eratically for (c). }
     \label{fig:B31}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \def\svgwidth{0.32\textwidth}
-    \input{pictures/ringnet.pdf_tex}
-    \caption{TEXT HERE!}
-    \label{fig:B13}
 \end{figure}
 
 \end{document}
