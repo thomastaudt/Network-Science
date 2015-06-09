@@ -20,7 +20,7 @@
 \vspace*{2cm}
 
 \rule{\textwidth}{1pt}\\[0.5cm]
-{\bfseries \huge Block B: \\[0.5cm] \huge \bfseries Oscillating Networks [?]\\[0.5cm]}
+{\bfseries \huge Block B: \\[0.5cm] \huge \bfseries Oscillating Networks\\[0.5cm]}
 \rule{\textwidth}{1pt}
 
 \vspace*{4cm}
@@ -352,7 +352,7 @@ To determine the systems stability, we need to find out how it behaves if
 it is perturbed around its fixed point. We will only consider actual fixed
 points in the governing equations (i.e. $\dot{\theta} = \omega = 0,
 \dot{\omega} = 0$), even though the conditions for the electrical grid to
-operate undisruted are less strict (e.g. having the same $\dot{\theta}$ at
+operate undisrupted are less strict (e.g. having the same $\dot{\theta}$ at
 each node would still be stable, albeit describing a net not operating at
 $50$ Hz).
 The fixed point condition is (using cyclic indices)
@@ -360,7 +360,7 @@ The fixed point condition is (using cyclic indices)
  0 = P/K + \sin \left(\theta_i - \theta_{i+1} \right) + \sin \left(\theta_i - \theta_{i-1} \right) \quad \forall i \in \left[ 1, 6\right].
 \end{align}
 If we look for a solution that shares the symmetry of the system, there are
-only two different phases: those at producers and those at consumers.
+only two different phases: Those at producers and those at consumers.
 Setting one to zero, the other has to fulfill
 \begin{align}
 P/(2K) &= \sin \left( \Delta \theta \right)\\
@@ -368,15 +368,15 @@ P/(2K) &= \sin \left( \Delta \theta \right)\\
 \end{align}
  
 We also used this configuration as an initial condition for the modified
-networks, even though it is exacly at the network's fixed point only for the
+networks, even though it is exactly at the network's fixed point only for the
 first case. In figure \ref{fig:B31}, we show the workload of a single
 connection of neighbouring nodes. We see that the diagonal connection
 triggers Braess' paradox. 
 
-Note that our investigation does not guaratee that there is no stable fixed
+Note that our investigation does not guarantee that there is no stable fixed
 point in the third configuration, because we approximated the initial
 conditions with those from the symmetric case. However, if one such
-fixedpoint existed, it either has to be far from the symetric fixed point,
+fixed point existed, it either has to be far from the symmetric fixed point,
 or its bassin of attraction is vary small. For practical applications this
 still means that the system is most likely unstable.
 
@@ -399,7 +399,7 @@ subgraphs of $A$ and $B$, which is reasonable as long as both $A$ and $B$
 still have a giant component. 
 
 To speed up the computation, we do not calculate different failure
-probabilities independently, but use one network and sucessivly remove
+probabilities independently, but use one network and successively remove
 random nodes from it. This means that we have to take care when selecting
 the node which to remove, because nodes that failed because of cascading
 failure are still viable options for inherent failure. It also induces some
@@ -409,20 +409,20 @@ nodes at once: Suppose the network separates into two large components of
 almost equal size, and the next steps take away nodes from the larger one,
 such that the other will eventually be larger. If we remove nodes
 successively, it will be deleted as soon as it is separated, even though at
-some point it will actually be the largerst mutually connected cluster if
-we remove nodes simultaniously.  These scenarios, however, become highly
+some point it will actually be the largest mutually connected cluster if
+we remove nodes simultaneously.  These scenarios, however, become highly
 unlikely as the network size increases (there is only one giant cluster),
 so we assume they can be ignored. 
 
 \paragraph{Examples for Interdependent Networks}
-We could model an economic system constisting of banks and companies as
+We could model an economic system consisting of banks and companies as
 follows: The banks form a network where a link represents credits loaned to
 another bank, the companies form a network where links denote production
 chains, i.e. we consider a directed graph.  Both networks are
 interdependent in the sense that, if a bank fails, the companies that rely
 on its credits have to pay them back to the banks creditors and might
-default to.  If enough of the companies a bank has lended money to fail and
-cannot pay back, the bank is bancrupt.  In this model, the interdependency
+default to.  If enough of the companies a bank has lent money to fail and
+cannot pay back, the bank is bankrupt.  In this model, the interdependency
 is no longer a one-to-one mapping as discussed above, because one failing
 bank might ruin many companies, but in reverse might survive if just a few
 companies default.  Also, since the banks loan money to one another, there
@@ -445,7 +445,7 @@ exist interdependencies within the network of banks itself.
     \caption{Relative power transferred by the connection
         $ 2 \leftrightarrow 3$ for different additional lines (compare
         figure \ref{fig:B31svg}). For (a) and (b), the initial perturbation decays,
-        whereas the transmission behaves eratically for (c). }
+        whereas the transmission behaves erratically for (c). }
     \label{fig:B31}
 \end{figure}
 
@@ -453,7 +453,12 @@ exist interdependencies within the network of banks itself.
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
     5,2.5}]{pictures/32.gp} 
-    \caption{Relative size of the largest mutually connected cluster of two interdependend Erdös-Rényi graphs, for different initial mean degrees $\left< k \right>$ and network sizes $N$, plotted against $p \left< k \right>$, where $1-p$ is the probability of failure. We see that there is a critical value $p_c \left< k \right> \approx 2.2$ where the network percolates that is independent of $N$ and $\left< k \right>.}
+    \caption{Relative size of the largest mutually connected cluster of two
+    interdependend Erdös-Rényi graphs, for different initial mean degrees
+$\left< k \right>$ and network sizes $N$, plotted against $p \left<
+k \right>$, where $1-p$ is the probability of failure. We see that there is
+a critical value $p_c \left< k \right> \approx 2.2$ where the network
+percolates that is independent of $N$ and $\left< k \right>$.}
     \label{fig:B32}
 \end{figure}
 \end{document}
