@@ -18,8 +18,8 @@ set yrange [-1:0]
 dt = 0.001
 every = 100
 
-plot folder."phases_ring.txt" u ($0*dt*every):1 w l t '\footnotesize original ring',\
-     folder."phases_same.txt" u ($0*dt*every):1 w l t '\footnotesize source to source',\
-     folder."phases_diag.txt" u ($0*dt*every*5):1  every 5  t'\footnotesize source to sink',\
+plot folder."phases_ring.txt" u ($0*dt*every):1 w l t '\footnotesize a) original ring',\
+     folder."phases_same.txt" u ($0*dt*every):1 w l t '\footnotesize b) sink to sink $1 \rightarrow 3$',\
+     folder."phases_diag.txt" u ($0*dt*every*5):1  every 5  t'\footnotesize c) source to sink $1 \rightarrow 4$',\
 
 	 
