@@ -1,0 +1,83 @@
+
+%\usepackage{etex}
+\usepackage[left=3cm,right=2.0cm,top=1.25cm,bottom=1.75cm,includehead,includefoot]
+{geometry}
+\usepackage{marginnote}
+\reversemarginpar
+%Math
+\usepackage{amsfonts,amsmath,amssymb,amsthm, amstext}
+%Language, encoding, ...
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{t1enc, lmodern, textcomp}
+%Pictures
+\usepackage{graphicx, color}
+%\usepackage{latexsym}
+%\usepackage{keyval}
+%\usepackage{ifthen}
+%\usepackage{moreverb}
+\usepackage[shell]{gnuplottex}
+%Colors
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{darkblue}{rgb}{0.0, 0.2, 0.6}
+\renewcommand*{\marginfont}{\bf\color{darkblue}}
+%Nice a/b fractions
+\usepackage{xfrac}
+%Make it possible to write (fat) upright greek letters
+\usepackage{upgreek}
+
+%For indices
+\newcommand{\ix}[1]{_{\mathrm{#1}}}
+\newcommand{\Ix}[1]{^{\mathrm{#1}}}
+
+%Directly include svg images
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\executeiffilenewer}[3]{%
+    \ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+    {\pdffilemoddate{#2}}>0%
+    {\immediate\write18{#3}}\fi%
+}
+\newcommand{\includesvg}[1]{%
+    \executeiffilenewer{#1.svg}{#1.pdf}%
+    {inkscape -z -D --file=#1.svg %
+    --export-pdf=#1.pdf --export-latex}%
+    \input{#1.pdf_tex}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Make captions look okay
+\usepackage[font=small,format=plain,labelfont=bf,up,up]{caption}
+
+%Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+            pdflang=en-EN,
+            unicode=true,
+            pdfauthor={Thomas Staudt, Erik Schultheis},
+}
+
+%Differential d's
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\tdif}[2]{\ensuremath{\frac{\dif#1}{\dif#2}}}
+\newcommand{\pdif}[2]{\ensuremath{\frac{\partial#1}{\partial#2}}}
+\newcommand{\ppdif}[2]{\ensuremath{\frac{\partial^{2}#1}{\partial#2^{2}}}}
+%Degree
+\newcommand{\degr}{^\circ}
+
+\renewcommand{\refname} {Literature}
+\renewcommand{\figurename}{\bf Figure}
+\newcommand{\fs}[1]{\footnotesize #1}
+%double slash
+\newcommand{\git}{\mathbin{
+  \mathchoice{\textbackslash\mkern-6mu\textbackslash}% \displaystyle
+    {\textbackslash\mkern-6mu\textbackslash}% \textstyle
+    {\textbackslash\mkern-5mu\textbackslash}% \scriptstyle
+    {\textbackslash\mkern-5mu\textbackslash}}}% \scriptscriptstyle
+
+
+%Bibliography
+\usepackage[babel]{csquotes}
+\usepackage[backend=bibtex8]{biblatex}
+
+%\bibliography{sources}
