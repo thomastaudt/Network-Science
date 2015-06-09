@@ -98,7 +98,7 @@ def interdep(N, k0):
 dat = None
 hst = None
 N = 1000
-k0 = 20
+k0 = 40
 for i in range(0, 50):
   print(i)
   if dat is None:
@@ -112,4 +112,4 @@ for i in range(0, 50):
 #factor = (e[2]-e[1]) / (1.0/N * k0)
 plt.plot(hst / 50)
 plt.show()
-np.savetxt("N1000k20", hst / 50)
+np.savetxt("N1000k40", hst / 50)

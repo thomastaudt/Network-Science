@@ -334,17 +334,18 @@ the networks seems not to converge for $\tau = 1.6$ at all.
 
 \section{Challenges in Power Grids}
 \subsection{Braess' Paradox}
-The phenomenon that a networks performance can deteriorate upon the insertion of additional links is known as \empf{Braess' Paradox}. In the case of power grids, it means that the network can become unstable (i.e. the critical coupling decreases) when a power lines are built. This can be demonstrated in a grid with three producers and three consumers of equal strength, alternately coupled in a ring topology (fig. \ref{}). 
+The phenomenon that a network's performance can deteriorate upon the insertion of additional links is known as \emph{Braess' Paradox}. 
+In the case of power grids, this means that the network can become unstable (i.e. the critical coupling decreases) when additional power lines are built. 
+This can be demonstrated in a grid with three producers and three consumers of equal strength, alternately coupled in a ring topology (fig. \ref{fig:B31svg}). 
 
-
-
-Due two the systems symmetry, there are only three qualitatively different possibilities for adding a single new connection:
+Due two the systems symmetry, there are only two qualitatively different possibilities for adding a single new connection:
 \begin{enumerate}
- \item connect two sources, or two sinks (this only differs in a sign, dashed lines)
- \item connect a sink with a source diagonally (solid lines).
+ \item connect two sources, or two sinks (dashed lines; this only differs in a sign)
+ \item connect a sink with a source diagonally (red, solid lines).
 \end{enumerate}
 
-To determine the systems stability, we need to find out how it behaves if it is perturbed around its fixed point. We will only consider actual fixed points in the governing equations (i.e. $\dot{\theta} = \omega = 0, \dot{\omega} = 0$), even though the conditions for the electrical grid to operate undisruted are less strict (e.g. having the same $\dot{\theta}$ at each node would still be stable, albeit describing a net not operating at $50$ Hz).
+To determine the systems stability, we need to find out how it behaves if it is perturbed around its fixed point. 
+We will only consider actual fixed points in the governing equations (i.e. $\dot{\theta} = \omega = 0, \dot{\omega} = 0$), even though the conditions for the electrical grid to operate undisrupted are less strict (e.g. having the same $\dot{\theta}$ at each node would still be stable, albeit describing a net not operating at $50$ Hz).
 The fixed point condition is (using cyclic indices)
 \begin{align}
  0 = P/K + \sin \left(\theta_i - \theta_{i+1} \right) + \sin \left(\theta_i - \theta_{i-1} \right) \quad \forall i \in \left[ 1, 6\right].
@@ -359,11 +360,20 @@ We also used this configuration as an initial condition for the modified network
 
 Note that our investigation does not guaratee that there is no stable fixed point in the third configuration, because we approximated the initial conditions with those from the symmetric case. However, if one such fixedpoint existed, it either has to be far from the symetric fixed point, or bassin of attraction is vary small. For practical applications this still means that the system is most likely unstable.
 
+\begin{figure}
+    \centering
+    \def\svgwidth{0.8\textwidth}
+    \input{pictures/13.pdf_tex}
+    \caption{Schematic drawing of the ring network demonstrating Braess' paradox. 
+		Red nodes are consumers and green ones producers.}
+    \label{fig:B31svg}
+\end{figure}
+
 \begin{figure}[h]
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
     5,2.5}]{pictures/31.gp} 
-    \caption{Relative power transferred by the connection $ 2 \leftrightarrow 3$ for different additional lines (compare figure \ref{}). For a) and b), the initial perturbation decays, whereas the transmission behaves eratically for c). To make the figure clearer, c) is only shown for every fifth data point. }
+    \caption{Relative power transferred by the connection $ 2 \leftrightarrow 3$ for different additional lines (compare figure \ref{fig:B31svg}). For a) and b), the initial perturbation decays, whereas the transmission behaves eratically for c). To make the figure clearer, c) is only shown for every fifth data point. }
     \label{fig:B31}
 \end{figure}
 
@@ -382,7 +392,7 @@ These scenarios, however, become highly unlikely as the network size increases (
 \paragraph{Examples for Interdependent Networks}
 We could model an economic system constisting of banks and companies as follows: 
 The banks form a network where a link represents credits loaned to another bank, the companies form a network where links denote production chains, i.e. we consider a directed graph. 
-Both networks are interdependent in the sense that, if a bank fails, the companies that rely on its credits have to pay them back to the banks creditors and might default to. 
+Both networks are interdependent in the sense that, if a bank fails, the companies that rely on its credits have to pay them back to the banks creditors and might default too. 
 If enough of the companies a bank has lended money to fail and cannot pay back, the bank is bancrupt. 
 In this model, the interdependency is no longer a one-to-one mapping as discussed above, because one failing bank might ruin many companies, but in reverse might survive if just a few companies default. 
 Also, since the banks loan money to one another, there exist interdependencies within the network of banks itself.
