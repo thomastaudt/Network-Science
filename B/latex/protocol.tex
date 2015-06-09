@@ -336,10 +336,12 @@ the networks seems not to converge for $\tau = 1.6$ at all.
 \subsection{Braess' Paradox}
 The phenomenon that a networks performance can deteriorate upon the insertion of additional links is known as \empf{Braess' Paradox}. In the case of power grids, it means that the network can become unstable (i.e. the critical coupling decreases) when a power lines are built. This can be demonstrated in a grid with three producers and three consumers of equal strength, alternately coupled in a ring topology (fig. \ref{}). 
 
+
+
 Due two the systems symmetry, there are only three qualitatively different possibilities for adding a single new connection:
 \begin{enumerate}
- \item connect two sources, or two sinks (this only differs in a sign)
- \item connect a sink with a source diagonally.
+ \item connect two sources, or two sinks (this only differs in a sign, dashed lines)
+ \item connect a sink with a source diagonally (solid lines).
 \end{enumerate}
 
 To determine the systems stability, we need to find out how it behaves if it is perturbed around its fixed point. We will only consider actual fixed points in the governing equations (i.e. $\dot{\theta} = \omega = 0, \dot{\omega} = 0$), even though the conditions for the electrical grid to operate undisruted are less strict (e.g. having the same $\dot{\theta}$ at each node would still be stable, albeit describing a net not operating at $50$ Hz).
@@ -353,18 +355,38 @@ P/(2K) &= \sin \left( \Delta \theta \right)\\
 \Delta \theta &= \arcsin \left( \frac{P}{2K}\right) = \arcsin{0.9} = 1.14.
 \end{align}
  
-We also used this configuration as an initial condition for the modified network, even though it is exacly at the networks fixed point for the second case. In figure \ref{fig:B31}, we show the workload of a single connection of neighbouring nodes. We see that the diagonal connection triggers a Braess' paradox.
+We also used this configuration as an initial condition for the modified network, even though it is exacly at the networks fixed point for the second case. In figure \ref{fig:B31}, we show the workload of a single connection of neighbouring nodes. We see that the diagonal connection triggers Braess' paradox. 
+
+Note that our investigation does not guaratee that there is no stable fixed point in the third configuration, because we approximated the initial conditions with those from the symmetric case. However, if one such fixedpoint existed, it either has to be far from the symetric fixed point, or bassin of attraction is vary small. For practical applications this still means that the system is most likely unstable.
 
 \begin{figure}[h]
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size
     5,2.5}]{pictures/31.gp} 
-    \caption{Relative power transferred by a connection 2->3 (TODO sketch) in the configurations (TODO sketch). For a) and b), the initial perturbation decays, whereas the transmission behaves eratically for c). To make the figure clearer, c) is only shown for every fifth data point. }
+    \caption{Relative power transferred by the connection $ 2 \leftrightarrow 3$ for different additional lines (compare figure \ref{}). For a) and b), the initial perturbation decays, whereas the transmission behaves eratically for c). To make the figure clearer, c) is only shown for every fifth data point. }
     \label{fig:B31}
 \end{figure}
 
 
+\subsection{Interdependent Network Failure}
+During the last part of the course, we examined how the failure of nodes affected the functionality of a network. Now, we are considering two networks $A$ and $B$ that mutually depend on one another, 
+i.e. each node $a$ in $A$ corresponds to a node $b$ in $B$, and if $a$ no longer operates as intended (either because of failure or because it is no longer connected to the giant component) then $b$ also stops working. 
+This can induce a cascade of failure were a single removed node can disable whole areas of the network.
 
+The subset of the network that is still functioning can be determined as the largest mutually connected subgraph. For our simulations, we assume that this is always the intersection between the largest connected subgraphs of $A$ and $B$, which is reasonable as long as both $A$ and $B$ still have a giant component. 
 
+To speed up the computation, we do not calculate different failure probabilities independently, but use one network and sucessivly remove random nodes from it. This means that we have to take care when selecting the node which to remove, because nodes that failed because of cascading failure are still viable options for inherent failure. It also induces some correlation into the data of a single run. 
+There are also situations when this algorithm can produce a different result than removing all failing nodes at once: Suppose the network separates into two large components of almost equal size, and the next steps take away nodes from the larger one, such that the other will eventually be larger. If we remove nodes successively, it will be deleted as soon as it is separated, even though at some point it will actually be the largerst mutually connected cluster if we remove nodes simultaniously.
+These scenarios, however, become highly unlikely as the network size increases (there is only one giant cluster), so we assume they can be ignored. 
+
+\paragraph{Examples for Interdependent Networks}
+We could model an economic system constisting of banks and companies as follows: 
+The banks form a network where a link represents credits loaned to another bank, the companies form a network where links denote production chains, i.e. we consider a directed graph. 
+Both networks are interdependent in the sense that, if a bank fails, the companies that rely on its credits have to pay them back to the banks creditors and might default to. 
+If enough of the companies a bank has lended money to fail and cannot pay back, the bank is bancrupt. 
+In this model, the interdependency is no longer a one-to-one mapping as discussed above, because one failing bank might ruin many companies, but in reverse might survive if just a few companies default. 
+Also, since the banks loan money to one another, there exist interdependencies within the network of banks itself.
+
+%An example more like the case considered in the lecture an be cosntructed if we split the financial relations into credits loaned and received, i.e. we consider two directed graphs. Then, if 
 
 \end{document}
