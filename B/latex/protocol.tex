@@ -96,9 +96,9 @@ Here the second equality holds because of $g \sim \mathcal{N}(0, 1)$.
 The first simulations were carried out for completely connected networks,
 making the coupling \enquote{all-to-all}. In this case, $\omega\ix{ij} = 1$
 for all $1\le \mathrm{i},\mathrm{j}\le \mathrm{N}$ and $\langle k \rangle
-= \mathrm{N}$ as well as $\langle k^2 \rangle = \mathrm{N}^2$. The results obtained are
+= \mathrm{N-1}$ as well as $\langle k^2 \rangle = (\mathrm{N-1})^2$. The results obtained are
 presented in figure \ref{fig:B11}. One can see that the analytically
-predicted value $\sigma_c = 2/\big(\pi\,g(0)\,\mathrm{N}\big)\approx 0.016$ of
+predicted value $\sigma_c = 2/\big(\pi\,g(0)\,(\mathrm{N}-1)\big)\approx 0.016$ of
 the critical coupling strength is consistent with the results obtained.
 
 \paragraph{Erdös-Renyi Networks}
@@ -114,15 +114,13 @@ strength for synchronization is higher than for the fully connected network
 is of course that fewer connections cause weaker mutual influences of the
 single oscillators.
 
-\paragraph{Scale Free Networks}
+\paragraph{Scale-Free Networks}
 The last network type examined for synchronizing were scale free networks,
 implemented by using Barab\'asi-Albert networks with numbers $m\in\{5, 10,
 15\}$ of edges added in each step. The critical values were again
 calculated numerically as stated in the last paragraph.  The results can be
 seen in figure \ref{fig:B12} b), where the analytic values once more seem
 to describe the percolation appropriately.
-
-(MISSING: Why are the values the way they are??)
 
 \subsection{Synchronization Conditions}
 There are several conditions that are necessary for the network to be able
