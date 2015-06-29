@@ -1,0 +1,176 @@
+\documentclass{scrartcl}
+\input{header.tex}
+
+
+
+\begin{document}
+
+\begin{titlepage}\centering
+\textsc{\Large Institute For Nonlinear Dynamics \\[1.5ex] Universität Göttingen}
+
+\vspace*{2cm}
+{\huge A Practical Course On Network Science}
+\vspace*{2cm}
+
+\rule{\textwidth}{1pt}\\[0.5cm]
+{\bfseries \huge Block C: \\[0.5cm] \huge \bfseries Community and Structure\\[0.5cm]}
+\rule{\textwidth}{1pt}
+
+\vspace*{4cm}
+
+\begin{Large}\begin{tabular}{rl}
+        \textbf{Participants:}  & Erik Schultheis                                \\    
+                   & \textit{erik.schultheis@stud.uni-goettingen.de}\\[0.5cm]
+                   & Thomas Staudt                                  \\
+                   & \textit{thomas.staudt@stud.uni-goettingen.de}  \\[1.0cm]
+
+       \textbf{Tutors:}        & Xiaozhu Zhang, Nora Molkenthin, Benjamin Schäfer, Malte Schröder  \\[1.0cm]
+       \textbf{Deadline:}      & 01.07.2015
+\end{tabular}\end{Large}
+
+\vspace*{1.5cm}
+
+
+\end{titlepage}
+
+\tableofcontents
+\clearpage
+\section{Communities in Networks}
+When searching for (local) properties and ways of classifying networks, one
+interesting aspect is the \emph{community structure} of the network in
+question. That is, how can the network reasonably be divided in connected
+components so that the nodes of the same component interact stronger than
+the nodes of different components do (meaning that the components form
+\enquote{communities}).
+
+One way of obtaining the community structure of a network $G = (V,E)$ is by
+disintegrating it (via removing edges) according to the edges' values of
+the \emph{shortest path betweenness centrality} $g$. The betweenness
+centrality $g(e)$ of an edge $e$ measures how \enquote{central} an edge is
+for efficient connectivity in the network. More precisely it describes how
+often $e$ is averagely used when taking the shortest path between two
+nodes, thus
+\begin{equation}\label{eq:betweenness}
+    g(e) = \sum_{s,t\in V} \frac{\sigma(s,t | e)}{\sigma(s,t)}~,
+\end{equation}
+where $\sigma(s,t)$ is the number of shortest paths between the nodes $s$
+and $t$ and $\sigma(s,t |e)$ is the number of those paths that go through
+$e$. So edges with a high value of $g$ are likely to be important for
+mediating between different communities of the graph.
+
+Having obtained a breakdown of the network in connected subgraphs
+(understood as communities) one must next be able to assess the quality and
+strength of this community structure, e.g.\ in order to find an optimal
+number of communities. This can be done by calculating the
+\emph{modularity} $Q(H)$ for a partitioning $H$ of the network $G$ (the
+formula used to calculate $Q$ can be found on the respective handout for
+C.1.1).
+In the following, the variable $h$ will stand for the number of communities
+for a given partitioning $H$ of a graph $G$.
+
+Another property used to characterize given community structures is to
+calculate the stability $r(H, t)$ of the given division $H$ of $G$ in
+partitions for different time scales $t$. This measure tells us, how likely
+it is to end up in the same community $c\in H$ that we started in if
+a random walk of length $t\in\mathbb{N}$ was carried out.Though the
+stability could approximately be calculated by simulating random walks on
+the graph, the analytic approach of the handout for C.1.2 was used for the
+calculations below.
+
+
+\subsection{The Karate Club Network}
+The first network $G_0$ to be analyzed for its group structure was a given
+network for a karate club. The original graph as well as the achieved
+decompositions in communities for $h=2$ and $h=5$ are visualized in
+\ref{fig:12_gr}.
+Next the modularity of each community structure obtained for the different
+numbers $h$ of communities was calculated. This modularity curve is
+depicted in figure \ref{fig:12_mod} and shows that the found partitionings
+with 2 and 5 communities are in fact the ones with the highest modularity
+$Q$.
+
+\subsection{Artificial Networks With Strong Community Structure}
+Besides the karate network $G_0$ the same algorithms for community
+detection and their modularity were used for other networks as well.
+They are visualized -- together with selected decompositions -- in figure
+\ref{fig:12_gr}.
+\begin{itemize}
+    \item [\textbf{$G_1$}] A simple deterministic network consisting of
+        a triangle of center-nodes each connected to hexagons.
+    \item [\textbf{$G_2$}] A more complex deterministic network consisting
+        of 9 center-nodes each connected to 20-gons.
+    \item [\textbf{$G_3$}] A random network with a grouping structure of
+        $4\times 25$ nodes. Each node is connected to nodes in its own
+        group with $p_g=0.75$ and to nodes in other groups with $p_o
+        = 0.1$.
+\end{itemize}
+
+For each of these artificially community-structured networks the
+algorithm based on the shortest-path betweenness centrality managed to find
+the obvious community structures (as is depicted in figure
+\ref{fig:12_gr}) and these obvious communities were indeed global
+maxima of the modularity $Q$ when compared to the other communities
+obtained (see figure \ref{fig:12_mod}).
+
+As a side node, however, the algorithm failed to obtain the community
+structure for $G_3$ if the difference between $p_g$ and $p_i$ was chosen
+to be smaller. For $p_g = 0.65$ and $p_i = 0.15$ e.g.\ the desired
+decomposition in four rings was not achieved.
+
+\subsection{From Random Walks to Community}
+As the last task of this section, we calculated the stability curves
+$t\mapsto r(H, t)$ of the four networks $G_0$, $G_1$, $G_2$, and $G_3$ for
+different partitionings $H$ (obtained in the same way as above). The
+resulting stability curves for time scales $1\le t \le 100$ can be seen in
+figure \ref{fig:13}.
+
+The results are as expected and show that the stability is in most cases
+indeed best for the same communities that also exhibit the highest
+modularity. For large time scales though, one can see for $G_2$ and $G_3$ that
+partitionings with fewer communities than the expected value $h = 9$ and
+$h=4$ are more stable. Since longer random walks cover longer distances on
+this behaviour is not surprising.
+
+\begin{figure}[bcht]
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,4.0}]{pictures/11.gp}
+    \caption{Modularity curves of the networks $G_0$ (karate), $G_1, G_2,$
+        and $G_3$ described in the text. For community structures
+        corresponding to the vertical lines explicit visualizations may be
+        found in figure \ref{fig:12_gr}.}
+    \label{fig:12_mod}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \def\svgwidth{0.8\textwidth}
+    %\input{pictures/12.pdf_tex}
+    \input{12.pdf_tex}
+    \caption{Visualizations of the graphs $G_0$, $G_1$, $G_2$, and $G_3$
+    before ($h = 1$) and after ($h > 1$) the algorithm for finding
+    communities -- using the betweenness centrality -- has been applied,
+    where $h$ denotes the number of communities in the respective
+    partitioning $H$. For $G_0$ the colors were chosen based on the
+    knowledge of the partitioning for $h=2$.  For $G_1$, $G_2$, and $G_3$
+    the colors were chosen according to the obvious community
+    structur we had in mind when creating these networks. All of these
+    obvious structures were found by the algorithm: $h = 3$ for $G_1$,
+    $h=9$ for $G_2$, $h=4$ for $G_4$.}
+    \label{fig:12_gr}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.35,8.0}]{pictures/13.gp}
+    \caption{Double-logarithmic plots of the stability curves for selected
+    partitionings $H$ of the networks $G_0$ (karate), $G_1, G_2,$ and
+    $G_3$ described in the text. The numbers $h_\mathrm{max}$ printed above
+    the graphs correspond to the number of communities for which the
+    stability was highest in the respective time scale interval.}
+    \label{fig:13}
+\end{figure}
+
+
+\end{document}
