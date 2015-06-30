@@ -327,9 +327,106 @@ the message to persons that have the same or similar social characteristics
 as the target person.
 
 \subsection{Creating Artificial Social Networks}
+To create artificial social networks we used the algorithm presented
+in the corresponding seminar talk (and described on the tasks sheet for
+C3). This algorithm uses the following parameters to construct graphs
+together with a suitable measure for social distances:
+\begin{itemize}
+    \item[$S$] The number of social characteristics looked at
+    \item[$l$] The bits of information to describe one social
+        characteristic, i.e.\ there are $2^l$ different social coordinates
+        for every characteristic
+    \item[$k$] The average degree of the graph
+    \item[$g$] The group size: the number of nodes that have the same
+        social coordinates for one of the characteristics
+    \item[$\alpha$] An inverse temperature-like factor that determines how strong the
+        group structures are.
+\end{itemize}
+In the following, graphs for $l = 3, S\in\{1, 2\}, g = 5, k = 8$, and
+$\alpha\in\{1, 5\}$ were analyzed. Note that $k = 8$ instead of $k = 4$ (as
+in the task) was used by us due to a mistake in the algorithm.
+
+The networks generated for only one social characteristic ($S = 1$) can be
+seen in figure \ref{fig:331}, labeled as \enquote{original}. One can
+clearly see, that the \texttt{networkx} drawing routine places nodes that
+are in the same group quite near together. For $\alpha = 5$ this effect is much
+stronger and one can additionally see that structures containing two groups
+each emerge. In this case, each group is connected to the group that has 
+social distance $d = 1$ from it; all other groups have a higher distance.
+
+The networks created by using two social characteristics ($S = 2$) are
+depicted in figure \ref{fig:332}, again labeled as \enquote{original}. One
+can see that networkx places both the colors and the numbers, which are
+used to represent the two characteristics, quite consistently according to
+the group structure. As expected, the networks are much less compartimented
+than for $\alpha = 5$ and $S= 1$.
+
 \subsection{Decomposing Artifical Social Networks}
+Next the four created networks were decomposed into communities, using the
+algorithm based on the egde-betweenness-centrality introduced in C1.
+The decompositions obtained for $h = 4$ and $h = 8$ communities are given
+in figure \ref{fig:331} for $S = 1$ and figure \ref{fig:332}  for $S = 2$.
+
+For $S = 1$ and $\alpha = 1$, the decomposition is not really satisfactory
+at all (though the algorithm seems to somehow avoid seperating social
+groups, at least for $h = 4$).
+The communities obtained for $S=1, \alpha = 5$ respect the group structure
+more consistently and only seldomly separates nodes from its group (the
+three single nodes for $h = 8$).
+
+In case of $S=2$ the decomposition fails completely for $\alpha = 1$ (it
+only separates single nodes), while it generates reasonable communities for
+$\alpha = 5$: One can clearly see that the resulting communities for $h
+= 8$ tend to share either their color or their number with each other, meaning that
+these social characteristics are indeed respected when trying to detect
+communities.  While in some runs the algorithm seemed to mainly focus on
+seperating according to color \textbf{or} number, it uses both
+characteristics in the presented network of figure \ref{fig:332}.
+
+It should be noted that the problem of correctly decomposing the network in
+its original social groups is much harder for $k = 8$ than it would be for
+$k = 4$
+
 \subsection{Message Passing}
+For this section we implemented \emph{message passing}, meaning that
+a message from node $i$ to node $j$ is iteratively relayed to neighbouring
+nodes that have the least social distance to $j$. 
+After having constructed a social Graph $G$, one can thus send messages
+from node $i$ to node $j$, which have a shortest path distance of $d$.  The
+transportation of the message will of course need at least $d$ steps,
+though it could also need more steps, since only the social distance is
+used as measure to pass along the message.
+
+Figure \ref{fig:333} shows the frequency distribution of the length of the
+path that a message takes when communicating between nodes with
+graph-distance $d\in\{1, 2, 3, 4\}$. It is noticable that the distributions
+become more uniformly for higher $d$, which means that the message
+transmissions gets less efficient (compared to the optimal path) for higher
+$d$. The increasing peaks at the value 25 furthermore show that more and
+more messages do not handle the transmission in time.
+
+Again, the choice of $k = 8$ will probably influence the results, making
+random decisions more likely and thus decreasing the quality of the message
+passing system in trend. This is also the reason, why no distribution for
+$d = 5$ was plotted: all graphs created with $ k = 8$ did not contain nodes
+$i,j$ with a shortest path distance $d$ of 5 or more.
+
 \subsection{Relevance of Certain Nodes for Message Passing}
+Looking at the relay distibutions for the message passing processes (not
+plotted here) shows that single nodes indeed possess higher relay values
+than others. The exact reason why these nodes are so important for the
+message passing probably depend on several factors and may be characterized
+by e.g. the following quantities:
+\begin{itemize}
+   \item The degree of the corresponding node. Nodes with a higher degree
+       are of course more likely to get chosen in the passing algorithm.
+   \item The betweenness value of the node. Nodes with higher betweenness
+       tend to communicate between different groups, which is what is
+       needed for efficient message passing.
+\end{itemize}
+When doing scatter plots of the nodes degrees and the betweeness against
+the relay value we indeed found tendencies corroborating these thoughts,
+but no strict, obvious correlations.
 
 
 \begin{figure}
@@ -377,7 +474,7 @@ as the target person.
         created and were then used to conduct $200$ message transferes each
         for $d\in\{1, 2, 3, 4\}$.  Only graphs with a maximum shortest path
         length of 4 or more (which happened very seldomly) were used. }
-    \label{fig:12_mod}
+    \label{fig:333}
 \end{figure}
 
 
