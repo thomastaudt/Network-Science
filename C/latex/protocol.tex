@@ -39,7 +39,7 @@
 \section{Communities in Networks}
 When searching for (local) properties and ways of classifying networks, one
 interesting aspect is the \emph{community structure} of the network in
-question. That is, how can the network reasonably be divided in connected
+question. That is, how can the network reasonably be divided into connected
 components so that the nodes of the same component interact stronger than
 the nodes of different components do (meaning that the components form
 \enquote{communities}).
@@ -61,7 +61,7 @@ mediating between different communities of the graph.
 
 Having obtained a breakdown of the network in connected subgraphs
 (understood as communities) one must next be able to assess the quality and
-strength of this community structure, e.g.\ in order to find an optimal
+strength of this community structure, e.g.\ for finding the optimal
 number of communities. This can be done by calculating the
 \emph{modularity} $Q(H)$ for a partitioning $H$ of the network $G$ (the
 formula used to calculate $Q$ can be found on the respective handout for
@@ -69,11 +69,11 @@ C.1.1).
 In the following, the variable $h$ will stand for the number of communities
 for a given partitioning $H$ of a graph $G$.
 
-Another property used to characterize given community structures is to
-calculate the stability $r(H, t)$ of the given division $H$ of $G$ in
-partitions for different time scales $t$. This measure tells us, how likely
-it is to end up in the same community $c\in H$ that we started in if
-a random walk of length $t\in\mathbb{N}$ was carried out.Though the
+Another property used to characterize given community structures is 
+the stability $r(H, t)$ of the given division $H$ of $G$ in
+partitions for different time scales $t$. This measure tells us how likely
+it is to end up in the same community $c\in H$ that we started in, if
+a random walk of length $t\in\mathbb{N}$ was carried out. Though the
 stability could approximately be calculated by simulating random walks on
 the graph, the analytic approach of the handout for C.1.2 was used for the
 calculations below.
@@ -116,9 +116,9 @@ obtained (see figure \ref{fig:12_mod}).
 As a side node, however, the algorithm failed to obtain the community
 structure for $G_3$ if the difference between $p_g$ and $p_i$ was chosen
 to be smaller. For $p_g = 0.65$ and $p_i = 0.15$ e.g.\ the desired
-decomposition in four rings was not achieved.
+decomposition into four rings was not achieved.
 
-\subsection{From Random Walks to Community}
+\subsection{From Random Walks to Communities}
 As the last task of this section, we calculated the stability curves
 $t\mapsto r(H, t)$ of the four networks $G_0$, $G_1$, $G_2$, and $G_3$ for
 different partitionings $H$ (obtained in the same way as above). The
@@ -129,7 +129,7 @@ The results are as expected and show that the stability is in most cases
 indeed best for the same communities that also exhibit the highest
 modularity. For large time scales though, one can see for $G_2$ and $G_3$ that
 partitionings with fewer communities than the expected value $h = 9$ and
-$h=4$ are more stable. Since longer random walks cover longer distances on
+$h=4$ are more stable. Since longer random walks cover longer distances 
 this behaviour is not surprising.
 
 \begin{figure}[bcht]
@@ -173,23 +173,26 @@ this behaviour is not surprising.
     \label{fig:13}
 \end{figure}
 
-\section{Network Motifs}
+\clearpage
+
+\section{Network Motifs and Optimal Network Design}
+\subsection{Motifs in Erdös-Renyi and Small-World Networks}
 Until now we have looked at network structure only from a global
 perspective (e.g by considering degree histograms, avg. shortest path
 length etc.), but for real network applications much information can
 probabily be found in more local structures. Therefore, we introduce the
-notion of a network motif. This is a connected subgraph that occurs often
-enough in the given graph that we can consider it relevant. One possible
-criterion for relevance is the comparison of occurances in the investigated
-graph compared to a random graph that shares the global characteristics of
-the former, i.e. its nodes have the same degrees.
+notion of a network \emph{motif}. This is a connected subgraph that occurs often
+enough in the given graph $G$ that it can be considered to be relevant.
+One possible criterion for relevance is the comparison of occurances in the
+investigated graph compared to a random graph that shares the global 
+characteristics of the former, i.e. its nodes have the same degrees.
 
 We define the relevance $r$ of a $k$-motif $M$ of a graph $G$ as the
 precentage of $k$-node subgraphs $S_k$ of $G$ that are isomorphic to $M$,
-i.e. where there exists a perutation of its nodes so that it is identical
+i.e. where there exists a permutation of its nodes so that it is identical
 to $M$. Let $\chi_M$ be that characteristic function of $M$, i.e.
-$\chi_M(S) = 1$ iff $S$ is isomorphic to $M$ [WELL, TO ONE REPRESENTANT OF
-M]. We can thus write $r$ as (for finite graphs)
+$\chi_M(S) = 1$ iff $S$ is isomorphic to $M$. 
+For finite graphs, $r$ can thus be calculated by 
 \begin{align}
  r = (\# S_k)^{-1} \cdot \sum_{g \in S_k} \chi_M (g).
 \end{align}
@@ -202,66 +205,76 @@ probability of chosing the sample $g$:
 \end{align}
 
 We now focus our attention on $3$-motifs. Since $M$ is connected, we can
-restrict sampling to connected subgraphs in the following way: \textbf{1)}
-choose a random starting node $A$ \textbf{2)} choose $B$ as a neighbour of
-$A$ \textbf{3)} choose $C$ as a common neighbour of $A$ and $B$. The
-probability of taking this sample is ($N(k)$ denoting neighbours of $k$)
+restrict sampling to connected subgraphs in the following way: 
+\begin{enumerate}
+\item choose a random starting node $A$ 
+\item choose $B$ as a neighbour of $A$
+\item choose $C$ as a common neighbour of $A$ and $B$. 
+\end{enumerate}
+The probability of taking this sample is ($N(k)$ denoting neighbours of $k$)
 \begin{align}
  p(A,B,C) = \underbrace{1/N}_{A} \cdot \underbrace{1/\#N(A)}_{B} \cdot \underbrace{1/\#(N(A) \cap N(B))}_{C}.
 \end{align}
-[TODO do we need to consider permutations here? in the end, this just
-affects the normalisation factor and reative weights stay intact, but it
-would be nice to have a self-contained argument.]
 
 If we assume that the graph in question is large enough, and that there is
 no correlation between individual node degrees and the motifs, the
 different values of $p(A,B,C)$ will average out, and we can disregard the
-dependence to sampling probability [TODO again, this affects normalization,
-right?]. 
+dependence to sampling probability. 
 
 We assume this probability to hold for random directed Erdös-Renyi and
-Watts-Strogatz graphs [This is unrealistic, at least for WS], for which we
-investigate the occurance of 3-motifs.
+Watts-Strogatz graphs, for which we investigate the occurance of 3-motifs.
+For ease of reference, we enumerate the motifs as shown in fig. \ref{fig:motifs}.
+We consider graphs with average degree $8$ ($\left< k\ix{out} \right> = 5$, as required 
+be the exercise, does not make sense for the Watts-Strogatz graph), the rewire
+probability for Watts-Strogatz was chose to be $\SI{10}{\percent}$.
 
 Since $p=4/99$ is low in the Erdös-Renyi network, we get sparse
 connectivity, and thus motifs with less edges are more likely. Since there
-are two possible realisations for motiv $2$ compared to $1$ and $4$, $2$
+are two possible realisations for motif $2$ compared to $1$ and $4$, $2$
 has twice the probability, which is $\SI{45}{\percent}$. For motif $5$
 another connection is required, so it is less probable by a factor
-$p/(1-p)*3 = 0.12$ (the $3$ results from the $6$ total possible edge
+$p/(1-p) \cdot 3 = 0.12$ (the $3$ results from the $6$ total possible edge
 direction distributions that result in this pattern, compared to the two
 for pattern $2$), which gives $r_5=\SI{5.4}{\percent}$ in accordance with
-the numerical findings. Pattern $11$ contains so another edge, so it is
+the numerical findings. Pattern $11$ contains another additional edge, so it is
 again less probable by a factor of order $0.1$.
 
 Since Watts-Strogatz starts off with a ring structure that consists
-entirely of the motifs 13 (neighbouring points) and 8 (if C is not a direct
-neighbour of A and B), these patterns, and slight variations (i.e. 12,
-7 and 3) comprise the majority of motifs encountered in those graphs. We
+entirely of the motifs 13 (neighbouring points) and 8 (if $C$ is not a direct
+neighbour of $A$ and $B$), these patterns, and slight variations (i.e. 12,
+7 and 3) thereof,  comprise the majority of motifs encountered in those graphs. We
 find motif 2 with $\SI{5}{\percent}$ probability, $5$ with
 $\SI{0}{\percent}$ and 11 with $\SI{1}{\percent}$, which means that those
 structures are not significant motifs of Small-World networks compared to
 random Erdös-Renyi networks.
 
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{pictures/motifs.png}
+	\caption{All possible 3-motifs in directed graphs. Grpahic taken from {Milo et al (2002): Network Motifs: Simple Building Blocks of Complex Networks}}
+	\label{fig:motifs}
+\end{figure}
+
 \begin{table}
 	\centering
-		\begin{tabular}{c|*{13}{l}}
+		\begin{tabular}{c|*{13}{r}}
 		\toprule
-		Topology & \num{1} & 2 & 3 & 4 & 5 &6 & 7 & 8 & 9 & 10 &11 & 12& 13  \\ \midrule
-		Watts Strogatz & \SI{2}{\percent} & \SI{5}{\percent} & \SI{15}{\percent} & \SI{2}{\percent} & \SI{0}{\percent} & \SI{1}{\percent} & \SI{15}{\percent} & \SI{25}{\percent} & \SI{0}{\percent} & \SI{1}{\percent} & \SI{1}{\percent} & \SI{12}{\percent} & \SI{21}{\percent} \\
-		Erdös Renyi & \SI{22}{\percent} & \SI{45}{\percent} & \SI{2}{\percent} & \SI{22}{\percent} & \SI{5}{\percent} & \SI{0}{\percent} & \SI{2}{\percent} & \SI{0}{\percent} & \SI{2}{\percent} & \SI{0}{\percent} & \SI{0}{\percent} & \SI{0}{\percent} & \SI{0}{\percent}\\
+		Motif & \num{1} & 2 & 3 & 4 & 5 &6 & 7 & 8 & 9 & 10 &11 & 12& 13  \\ \midrule
+		Watts Strogatz & \num{2} & \num{5} & \num{15} & \num{2} & \num{0} & \num{1} & \num{15} & \num{25} & \num{0} & \num{1} & \num{1} & \num{12} & \num{21} \\
+		Erdös Renyi & \num{22} & \num{45} & \num{2} & \num{22} & \num{5} & \num{0} & \num{2} & \num{0} & \num{2} & \num{0} & \num{0} & \num{0} & \num{0}\\
 		\bottomrule
 		\end{tabular}
-	\caption{Frequency of occurance of motif in directed Watts-Strogatz and Erdös-Renyi networks. Motif numbers are taken from the presentation handout. The results were obtained by taking 10000 samples in 100 different, randomly generated networks of the designated topology. Each graph contained 100 nodes and the average degree was $k_{\mathrm{in}} = k_{\mathrm{out}}=4$, the rewire probability for Watts-Strogatz was chosen to be $\SI{10}{\percent}$.}
+	\caption{Relative percentual frequency of occurance of motifs in directed Watts-Strogatz and Erdös-Renyi networks. Motif numbers are taken from the presentation handout. The results were obtained by taking 10000 samples in 100 different, randomly generated networks of the designated topology. Each graph contained 100 nodes and the average degree was $k_{\mathrm{in}} = k_{\mathrm{out}}=4$, the rewire probability for Watts-Strogatz was chosen to be $\SI{10}{\percent}$.}
 	\label{tab:motifs}
 \end{table}
 
-\paragraph{Motifs in real networks}
+\subsection{Motifs in Real Networks}
 A network describing hierarchical dependencies (e.g. predator-prey networks) will mostly contain the motifs 1 or 4, depending on the direction in which the relationsships are defined, as well as 2. Any motif containing bidirectional edges (3, 6-8, 10-13) or loops (9) will not appear. There might be situations in which structure 5 appears, e.g. omnivores that eat both plants and the animals that eat those.
 
 A road network, on the other hand, will contain mostly bidirectional edges and therefore show mostly motifs 8 and 13. 
 
-\section{Optimal Network Design}
+\subsection{Optimal Network Design}
 For a given set of evenly and randomly spaced points on the unit square, we
 want to determine the set of edges that constitute an optimal (in the sense
 of optimizing both construction/maintenance cost as well as minimizing
@@ -274,7 +287,7 @@ against each other with a factor $\delta$. The total network cost function
 is then a weighted sum of both terms, with a weight of $\alpha$ to relate
 them.  
 
-We also include a scaling factor of $\sqrt{N}$ so that the maintenance and
+Also included is scaling factor of $\sqrt{N}$ such that the maintenance and
 the travel cost obtain the same scaling with $N$. The final cost formula
 thus is
 \begin{align}
@@ -290,25 +303,53 @@ because we are operating on a vast, discrete state space where the function
 $K$ has many local minima. This means that neither methods based on
 jacobians or gradient descent nor an exhaustive search are feasible. 
 An algorithms specifically designed to takle these kind of problems is
-Simulated Annealing, which performs a random walk through the state space,
+\emph{Simulated Annealing}, which performs a random walk through the state space,
 that has the possibility to reject a step if the resulting cost function
-would be higher. The acceptance probability is inspired by thermodynamics
+would be higher. The acceptance probability or worse states is inspired by thermodynamics
 and chosen to be $\exp \Delta K/T$, where the "temperature" $T$ is
 decreased over the course of the algorithm to tune it from exploration to
 minimization. The possibility to go to a worse state prevents the algorithm
 from getting stuck in a local minimum early on.
 
 Applying the method to a network of $25$ locations with a value of
-$\alpha=0.1$ and $\delta \in \{0, 0.5, 1\}$, ($T$ was chosen to be ...
-intially and was decreased by factor 0.99 in each of the ... cooling steps.
+$\alpha=0.1$ and $\delta \in \{0, 0.5, 1\}$, ($T$ was chosen to be 0.01
+intially and was decreased by factor 0.99 in each of the 1000 cooling steps.
 This parameter, however, is not relevant for the model, but affects the
 performance of the annealing and thus the quality of the soution found.)
-
-The resulting optimized networks are shown in figure \ref{}. For
+results in the optimized networks shown in figure \ref{fig:motifs}. For
 $\delta=0$, it resembles a road network, as switching roads is essentially
 free, whereas $\delta=1$ looks like airplane routes, because waiting times
-at airports can constitute a significant amount of the travel time.
+at airports can constitute a significant amount of the travel time, so one 
+central node conneted to many others becomes more attractive to the algorithm.
+The result is not a perfect star topology, because the algorithm only finds
+an approximative solution.
 
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[b]{.45\linewidth}
+	\centering
+	$\delta = 0$
+	\includegraphics[width=\textwidth]{pictures/d0.pdf}
+	\end{minipage}
+	\nolinebreak 
+	\begin{minipage}[b]{.45\linewidth}
+	\centering
+	$\delta = 0.5$
+	\includegraphics[width=\textwidth]{pictures/d5.pdf}
+  \end{minipage}
+	\begin{minipage}[b]{.45\linewidth}
+	\centering
+	$\delta = 1$
+	\includegraphics[width=\textwidth]{pictures/d10.pdf}
+	\end{minipage} \nolinebreak
+	\begin{minipage}[b]{.45\linewidth}
+	\centering
+	European Airports
+	\includegraphics[width=\textwidth]{pictures/europe.pdf}
+	\end{minipage}
+	\caption{Network structure for $25$ random points in the unit square, optimized for $\delta \in \{0, 0.5, 1\}$, and for a network where the node positions were taken as the locations of the 40 busiest european for $\delta = 0.5$. }
+	\label{fig:motifs}
+\end{figure}
 
 
 \clearpage 
