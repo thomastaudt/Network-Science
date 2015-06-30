@@ -24,8 +24,9 @@
                    & Thomas Staudt                                  \\
                    & \textit{thomas.staudt@stud.uni-goettingen.de}  \\[1.0cm]
 
-       \textbf{Tutors:}        & Xiaozhu Zhang, Nora Molkenthin, Benjamin Schäfer, Malte Schröder  \\[1.0cm]
-       \textbf{Deadline:}      & 01.07.2015
+       \textbf{Tutors:}        & Xiaozhu Zhang, Nora Molkenthin, Benjamin Schäfer, \\
+                               & Malte Schröder                                    \\[1.0cm]
+       \textbf{Deadline:}      & 30.06.2015
 \end{tabular}\end{Large}
 
 \vspace*{1.5cm}
@@ -173,30 +174,74 @@ this behaviour is not surprising.
 \end{figure}
 
 \section{Network Motifs}
-Until now we have looked at network structure only from a global perspective (e.g by considering degree histograms, avg. shortest path length etc.), but for real network applications much information can probabily be found in more local structures. Therefore, we introduce the notion of a network motif. This is a connected subgraph that occurs often enough in the given graph that we can consider it relevant. One possible criterion for relevance is the comparison of occurances in the investigated graph compared to a random graph that shares the global characteristics of the former, i.e. its nodes have the same degrees.
+Until now we have looked at network structure only from a global
+perspective (e.g by considering degree histograms, avg. shortest path
+length etc.), but for real network applications much information can
+probabily be found in more local structures. Therefore, we introduce the
+notion of a network motif. This is a connected subgraph that occurs often
+enough in the given graph that we can consider it relevant. One possible
+criterion for relevance is the comparison of occurances in the investigated
+graph compared to a random graph that shares the global characteristics of
+the former, i.e. its nodes have the same degrees.
 
-We define the relevance $r$ of a $k$-motif $M$ of a graph $G$ as the precentage of $k$-node subgraphs $S_k$ of $G$ that are isomorphic to $M$, i.e. where there exists a perutation of its nodes so that it is identical to $M$. Let $\chi_M$ be that characteristic function of $M$, i.e. $\chi_M(S) = 1$ iff $S$ is isomorphic to $M$ [WELL, TO ONE REPRESENTANT OF M]. We can thus write $r$ as (for finite graphs)
+We define the relevance $r$ of a $k$-motif $M$ of a graph $G$ as the
+precentage of $k$-node subgraphs $S_k$ of $G$ that are isomorphic to $M$,
+i.e. where there exists a perutation of its nodes so that it is identical
+to $M$. Let $\chi_M$ be that characteristic function of $M$, i.e.
+$\chi_M(S) = 1$ iff $S$ is isomorphic to $M$ [WELL, TO ONE REPRESENTANT OF
+M]. We can thus write $r$ as (for finite graphs)
 \begin{align}
  r = (\# S_k)^{-1} \cdot \sum_{g \in S_k} \chi_M (g).
 \end{align}
-Since the number of possible $k-$node subgraphs grows exponentially fast, evaluating this sum directly is not feasible for large graphs. Therefore, we sample this sum (i.e. Monte-Carlo technique), where $p(g)$ denotes the probability of chosing the sample $g$:
+Since the number of possible $k-$node subgraphs grows exponentially fast,
+evaluating this sum directly is not feasible for large graphs. Therefore,
+we sample this sum (i.e. Monte-Carlo technique), where $p(g)$ denotes the
+probability of chosing the sample $g$:
 \begin{align}
  r \approx \frac{1}{N} \sum_{i=1}^{N} \frac{\chi_M (g_i)}{p(g_i)}.
 \end{align}
 
-We now focus our attention on $3$-motifs. Since $M$ is connected, we can restrict sampling to connected subgraphs in the following way: \textbf{1)} choose a random starting node $A$ \textbf{2)} choose $B$ as a neighbour of $A$ \textbf{3)} choose $C$ as a common neighbour of $A$ and $B$. The probability of taking this sample is ($N(k)$ denoting neighbours of $k$)
+We now focus our attention on $3$-motifs. Since $M$ is connected, we can
+restrict sampling to connected subgraphs in the following way: \textbf{1)}
+choose a random starting node $A$ \textbf{2)} choose $B$ as a neighbour of
+$A$ \textbf{3)} choose $C$ as a common neighbour of $A$ and $B$. The
+probability of taking this sample is ($N(k)$ denoting neighbours of $k$)
 \begin{align}
  p(A,B,C) = \underbrace{1/N}_{A} \cdot \underbrace{1/\#N(A)}_{B} \cdot \underbrace{1/\#(N(A) \cap N(B))}_{C}.
 \end{align}
-[TODO do we need to consider permutations here? in the end, this just affects the normalisation factor and reative weights stay intact, but it would be nice to have a self-contained argument.]
+[TODO do we need to consider permutations here? in the end, this just
+affects the normalisation factor and reative weights stay intact, but it
+would be nice to have a self-contained argument.]
 
-If we assume that the graph in question is large enough, and that there is no correlation between individual node degrees and the motifs, the different values of $p(A,B,C)$ will average out, and we can disregard the dependence to sampling probability [TODO again, this affects normalization, right?]. 
+If we assume that the graph in question is large enough, and that there is
+no correlation between individual node degrees and the motifs, the
+different values of $p(A,B,C)$ will average out, and we can disregard the
+dependence to sampling probability [TODO again, this affects normalization,
+right?]. 
 
-We assume this probability to hold for random directed Erdös-Renyi and Watts-Strogatz graphs [This is unrealistic, at least for WS], for which we investigate the occurance of 3-motifs.
+We assume this probability to hold for random directed Erdös-Renyi and
+Watts-Strogatz graphs [This is unrealistic, at least for WS], for which we
+investigate the occurance of 3-motifs.
 
-Since $p=4/99$ is low in the Erdös-Renyi network, we get sparse connectivity, and thus motifs with less edges are more likely. Since there are two possible realisations for motiv $2$ compared to $1$ and $4$, $2$ has twice the probability, which is $\SI{45}{\percent}$. For motif $5$ another connection is required, so it is less probable by a factor $p/(1-p)*3 = 0.12$ (the $3$ results from the $6$ total possible edge direction distributions that result in this pattern, compared to the two for pattern $2$), which gives $r_5=\SI{5.4}{\percent}$ in accordance with the numerical findings. Pattern $11$ contains so another edge, so it is again less probable by a factor of order $0.1$.
+Since $p=4/99$ is low in the Erdös-Renyi network, we get sparse
+connectivity, and thus motifs with less edges are more likely. Since there
+are two possible realisations for motiv $2$ compared to $1$ and $4$, $2$
+has twice the probability, which is $\SI{45}{\percent}$. For motif $5$
+another connection is required, so it is less probable by a factor
+$p/(1-p)*3 = 0.12$ (the $3$ results from the $6$ total possible edge
+direction distributions that result in this pattern, compared to the two
+for pattern $2$), which gives $r_5=\SI{5.4}{\percent}$ in accordance with
+the numerical findings. Pattern $11$ contains so another edge, so it is
+again less probable by a factor of order $0.1$.
 
-Since Watts-Strogatz starts off with a ring structure that consists entirely of the motifs 13 (neighbouring points) and 8 (if C is not a direct neighbour of A and B), these patterns, and slight variations (i.e. 12, 7 and 3) comprise the majority of motifs encountered in those graphs. We find motif 2 with $\SI{5}{\percent}$ probability, $5$ with $\SI{0}{\percent}$ and 11 with $\SI{1}{\percent}$, which means that those structures are not significant motifs of Small-World networks compared to random Erdös-Renyi networks.
+Since Watts-Strogatz starts off with a ring structure that consists
+entirely of the motifs 13 (neighbouring points) and 8 (if C is not a direct
+neighbour of A and B), these patterns, and slight variations (i.e. 12,
+7 and 3) comprise the majority of motifs encountered in those graphs. We
+find motif 2 with $\SI{5}{\percent}$ probability, $5$ with
+$\SI{0}{\percent}$ and 11 with $\SI{1}{\percent}$, which means that those
+structures are not significant motifs of Small-World networks compared to
+random Erdös-Renyi networks.
 
 \begin{table}
 	\centering
@@ -217,11 +262,21 @@ A network describing hierarchical dependencies (e.g. predator-prey networks) wil
 A road network, on the other hand, will contain mostly bidirectional edges and therefore show mostly motifs 8 and 13. 
 
 \section{Optimal Network Design}
-For a given set of evenly and randomly spaced points on the unit square, we want to determine the set of edges that constitute an optimal (in the sense of optimizing both construction/maintenance cost as well as minimizing travel times) transportation network.
+For a given set of evenly and randomly spaced points on the unit square, we
+want to determine the set of edges that constitute an optimal (in the sense
+of optimizing both construction/maintenance cost as well as minimizing
+travel times) transportation network.
 
-We approximate the maintenance cost of the network as proportional to the total edge length. For travel times, we take into account both the actual time en route as well as possible mandatory delays at each stop, weighted against each other with a factor $\delta$. The total network cost function is then a weighted sum of both terms, with a weight of $\alpha$ to relate them.  
+We approximate the maintenance cost of the network as proportional to the
+total edge length. For travel times, we take into account both the actual
+time en route as well as possible mandatory delays at each stop, weighted
+against each other with a factor $\delta$. The total network cost function
+is then a weighted sum of both terms, with a weight of $\alpha$ to relate
+them.  
 
-We also include a scaling factor of $\sqrt{N}$ so that the maintenance and the travel cost obtain the same scaling with $N$. The final cost formula thus is
+We also include a scaling factor of $\sqrt{N}$ so that the maintenance and
+the travel cost obtain the same scaling with $N$. The final cost formula
+thus is
 \begin{align}
  K = \alpha \sum_{i,j} r_{ij} A_{ij} + \left< l \right>,
 \end{align}, where $r_{ij}$ denotes the geographical distance between the points $i$ and $j$, $A_{ij}$ is the adjacency matrix.
@@ -230,12 +285,101 @@ The path length between two connected points is
  l_ij = (1-\delta) \sqrt{N} r_{ij} + \delta.
 \end{align}
  
-Finding the network for which $K$ is minimized is next to impossible, because we are operating on a vast, discrete state space where the function $K$ has many local minima. This means that neither methods based on jacobians or gradient descent nor an exhaustive search are feasible. 
-An algorithms specifically designed to takle these kind of problems is Simulated Annealing, which performs a random walk through the state space, that has the possibility to reject a step if the resulting cost function would be higher. The acceptance probability is inspired by thermodynamics and chosen to be $\exp \Delta K/T$, where the "temperature" $T$ is decreased over the course of the algorithm to tune it from exploration to minimization. The possibility to go to a worse state prevents the algorithm from getting stuck in a local minimum early on.
+Finding the network for which $K$ is minimized is next to impossible,
+because we are operating on a vast, discrete state space where the function
+$K$ has many local minima. This means that neither methods based on
+jacobians or gradient descent nor an exhaustive search are feasible. 
+An algorithms specifically designed to takle these kind of problems is
+Simulated Annealing, which performs a random walk through the state space,
+that has the possibility to reject a step if the resulting cost function
+would be higher. The acceptance probability is inspired by thermodynamics
+and chosen to be $\exp \Delta K/T$, where the "temperature" $T$ is
+decreased over the course of the algorithm to tune it from exploration to
+minimization. The possibility to go to a worse state prevents the algorithm
+from getting stuck in a local minimum early on.
 
-Applying the method to a network of $25$ locations with a value of $\alpha=0.1$ and $\delta \in \{0, 0.5, 1\}$, ($T$ was chosen to be ... intially and was decreased by factor 0.99 in each of the ... cooling steps. This parameter, however, is not relevant for the model, but affects the performance of the annealing and thus the quality of the soution found.)
+Applying the method to a network of $25$ locations with a value of
+$\alpha=0.1$ and $\delta \in \{0, 0.5, 1\}$, ($T$ was chosen to be ...
+intially and was decreased by factor 0.99 in each of the ... cooling steps.
+This parameter, however, is not relevant for the model, but affects the
+performance of the annealing and thus the quality of the soution found.)
 
-The resulting optimized networks are shown in figure \ref{}. For $\delta=0$, it resembles a road network, as switching roads is essentially free, whereas $\delta=1$ looks like airplane routes, because waiting times at airports can constitute a significant amount of the travel time.
+The resulting optimized networks are shown in figure \ref{}. For
+$\delta=0$, it resembles a road network, as switching roads is essentially
+free, whereas $\delta=1$ looks like airplane routes, because waiting times
+at airports can constitute a significant amount of the travel time.
+
+
+
+\clearpage 
+
+\section{Search and Traffic on Networks}
+For this section our interest lies on networks with nodes that are
+understood as persons in a social graph. In this situation, a \emph{social
+distance} between two persons can be implemented by comparing how
+\enquote{near} these persons are in different social categories
+(Are they in the same sports clubs or classes? Do they have similar hobbies
+and music preferences?). 
+
+As an application one can use the social distance
+to implement a message passing system that works by iteratively relaying
+the message to persons that have the same or similar social characteristics
+as the target person.
+
+\subsection{Creating Artificial Social Networks}
+\subsection{Decomposing Artifical Social Networks}
+\subsection{Message Passing}
+\subsection{Relevance of Certain Nodes for Message Passing}
+
+
+\begin{figure}
+    \centering
+    \def\svgwidth{0.9\textwidth}
+    \input{311.pdf_tex}
+    \caption{The generated social graphs for $S=1$ and \textbf{(a)} $\alpha = 1$
+    as well as \textbf{(b)} $\alpha = 5$. The other parameters were $g = 5,
+    l = 3$, and $k = 4$. The colors represent the different
+    social groups that are given by the single characteristic $s$ to be
+    used.  The two topmost graphs (\enquote{original}) are the full
+    networks containing all edges, whereas the middle ($h = 4$) and
+    lowermost ($h=8$) graphs represent the community structure derived by
+    the decomposition algorithm of C1 when dividing the graph in
+    4 respectively 8 communities.
+    The layout was calculated anew for each plot so that the resulting
+    communities can be discerned easily.}
+    \label{fig:331}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \def\svgwidth{0.9\textwidth}
+    \input{312.pdf_tex}
+    \caption{The generated social graphs for $S=2$ and \textbf{(a)} $\alpha
+    = 1$ as well as \textbf{(b)} $\alpha = 5$. The other parameters were 
+    $g = 5, l = 3$, and $k = 4$. The two characteristics of
+    the social graphs are represented by colors and numbers (between 0 and
+    7).  As in figure \ref{fig:331}, the two topmost graphs correspond to
+    the full networks, while the other graphs correspond to decompositions
+    in $h = 4$ and $h = 8$ communities, using the algorithm introduced in C1.
+    Again, the positions of the nodes were chosen to be variable so that
+    the community structures can be seen esier.}
+    \label{fig:332}
+\end{figure}
+
+
+\begin{figure}[bcht]
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.5,4.0}]{pictures/33.gp}
+    \caption{Relative frequencies of the path lengths that occur when
+        transferring messages between persons with a shortest path of
+        length $d$ between them. To obtain the data, $50$ social graphs
+        with parameters $g = 5, l = 3, k = 4, s = 2, \alpha = 1$ were
+        created and were then used to conduct $200$ message transferes each
+        for $d\in\{1, 2, 3, 4\}$.  Only graphs with a maximum shortest path
+        length of 4 or more (which happened very seldomly) were used. }
+    \label{fig:12_mod}
+\end{figure}
+
 
 \end{document}
 
