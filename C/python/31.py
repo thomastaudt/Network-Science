@@ -2,6 +2,7 @@ import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+import os
 
 def random_pick(some_list, probabilities):
     x = random.uniform(0, sum(probabilities))
@@ -80,7 +81,7 @@ def random_social_graph(g, l, S, k, a):
     # collect all distances in a matrix
     social_matrix = social_distance_matrix(vs)
     # now add edges until the average degree is greater or equal to k
-    while nx.number_of_edges(G) < N*k:
+    while nx.number_of_edges(G) < N*k/2:
         # choose random node
         node1 = np.random.randint(N)
         # and random characteristic
@@ -95,45 +96,75 @@ def random_social_graph(g, l, S, k, a):
     # done constructing the graph
     return G, social_matrix, vs
 
+
 # produce the graphs
 plt.figure(figsize=(6,6))
 plt.axis("off")
-#
-g = 5 
-l = 3
-k = 4
-## graphs with only one characteristicum
-S = 1
-a = 1
-
+g = 5; l = 3; k = 4;
+S = 2; a = 1;
+complist = []
 G, mat, vs = random_social_graph(g,l,S,k,a)
 nodes = G.nodes()
-
-groups = []
+labels = {}
+# color the nodes
 i = 0
-while nodes:
-    node = nodes[1]
-    group = [ n for n in nodes if mat[0, node, n] == 0 ]
-    for n in group: nx.set_node_attributes(G, 'color', { n : i })
-    nodes = [ node for node in nodes if node not in group ]
-    # color is great!
-    groups.append(group)
-    i += 1
+r = 0
+for s in range(S):
+    nodes = G.nodes()
+    while nodes:
+        node = nodes[1]
+        group = [ n for n in nodes if mat[s, node, n] == 0 ]
+        if s == 0:
+            for n in group: nx.set_node_attributes(G, 'color', { n : i })
+        if s == 1:
+            for n in group: labels[n] = "%d" % r
+            r += 1
+        nodes = [ node for node in nodes if node not in group ]
+        i += 1
 
 #colorful graphs!
-#colors = list(nx.get_node_attributes(G, 'color').values())
-#nx.draw(G, node_color=colors)
-#plt.show()
+colors = list(nx.get_node_attributes(G, 'color').values())
+nx.draw_networkx(G, node_color=colors, vmin=0, vmax=8, labels=labels)
+#nx.draw(G, node_color=colors, vmin=0, vmax=8)
+directory = "pics/s%ia%i/" % (S,a)
+os.system("mkdir %s" % directory)
+plt.savefig( directory + "orig.svg" )
+plt.clf()
+plt.axis("off")
+
 for comps in disintegrate(G):
-    colors = list(nx.get_node_attributes(G, 'color').values())
-    nx.draw(G, node_color=colors)
-    #plt.savefig("pictures/31_S%ia%i_%02i.svg" % (S,a,i))
-    plt.savefig("pictures/31_S%ia%i_%02i_or.svg" % (S,a,len(comps)))
-    plt.clf()
+    if len(comps) > 12: break
+    i = 0
+    for comp in comps:
+        i += 1
+        subgr = nx.subgraph(G, comp)
+        lay = nx.spring_layout(subgr, scale = (len(comp)/40.)**1.75)
+        nx.draw_networkx(subgr, 
+        #nx.draw(subgr, 
+                pos = lay,
+                node_color = [colors[n] for n in comp], 
+                vmin=0, vmax=8,
+                #vmin=0, vmax=8)
+                labels={n : labels[n] for n in comp})
+        plt.savefig( directory + "comps%i_%i.svg" % (len(comps), i) )
+        plt.clf()
+        plt.axis("off")
+
+        
+    
+#plt.show()
+#for comps in disintegrate(G):
+    #colors = list(nx.get_node_attributes(G, 'color').values())
+    #nx.draw(G, node_color=colors, pos=lay)
+    ##plt.savefig("pictures/31_S%ia%i_%02i.svg" % (S,a,i))
+    #plt.savefig("pictures/31_S%ia%i_%02i_or.svg" % (S,a,len(comps)))
+    #plt.clf()
+    #complist.append(comps)
+
+#print(complist)
 
 
-
-# graphs with two characteristicas
+#graphs with two characteristicas
 #S = 2
 #a = 5
 
@@ -162,12 +193,25 @@ for comps in disintegrate(G):
 ## colorful graphs!
 ##colors = list(nx.get_node_attributes(G, 'color').values())
 ##nx.draw_networkx(G, node_color=colors, labels=labels)
-##lay = nx.spring_layout(G)
+#lay = nx.spring_layout(G)
 
+#plt.figure(figsize=(6,6))
+#complist = []
 #for comps in disintegrate(G):
+    #plt.axis("off")
     #colors = list(nx.get_node_attributes(G, 'color').values())
-    #nx.draw(G, node_color=colors, labels=labels)
-    ##plt.savefig("pictures/31_S%ia%i_%02i.svg" % (S,a,i))
+    #print(colors)
+    #nx.draw_networkx(G, node_color=colors, labels=labels)
     #plt.savefig("pictures/31_S%ia%i_%02i_or.svg" % (S,a,len(comps)))
     #plt.clf()
+    #complist.append(comps)
 
+
+
+#while nodes:
+    #node = nodes[1]
+    #group = [ n for n in nodes if mat[0, node, n] == 0 ]
+    #for n in group: nx.set_node_attributes(G, 'color', { n : i })
+    #nodes = [ node for node in nodes if node not in group ]
+    ## color is great!
+    #i += 1

@@ -57,6 +57,7 @@ def small_word_effect(generator, size):
   
   clusters /= counts
   avgl /= counts
+  np.savetxt("small_world_2d.dat", np.array([clusters, avgl]).T, header="clustering\t avg length")
   print(clusters)
   print( avgl, counts)
   plt.figure()
@@ -65,6 +66,7 @@ def small_word_effect(generator, size):
 
   plt.scatter(prob[1:], clusters[1:]/clusters[0], color="b")
   plt.scatter(prob[1:], avgl[1:]/avgl[0], color="g")
+  plt.show()
   
 def strogatz2d(size, k, p):
   # generate regualr grid
@@ -83,9 +85,18 @@ def strogatz2d(size, k, p):
       if distance(i,j) <= k:
         if rnd.random() < p:
           rnode = rnd.choice(graph.nodes())
-          graph.add_edge(i, rnode)
+          graph.add_edge(i, rnode, {"weight": 1})
         else:
-          graph.add_edge(i, j)
+          graph.add_edge(i, j, {"weight": 0.5})
         
   draw = {n : np.array(n) + (rnd.uniform(-0.1, 0.1), rnd.uniform(-0.1, 0.1)) for n in graph.nodes()}
-  return graph#, draw
+  return graph#,draw
+
+#graph_orig, draw_orig = strogatz2d(5*5, 1, 0)
+#graph, draw = strogatz2d(5*5, 1, 0.2)
+
+#nx.draw(graph_orig, pos=draw, style='dashed', width=0.8, node_color='#646464')
+#nx.draw(graph, pos=draw, edge_color=[d['weight'] for e,f,d in graph.edges_iter(data=True)], node_color='#646464')
+#plt.show()
+
+small_word_effect(lambda x,y: strogatz2d(x, 2, y), 500)

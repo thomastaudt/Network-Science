@@ -21,8 +21,11 @@ def ij_pair(G, distance):
     i = np.random.randint(N)
     j_list = []
     for j in G.nodes_iter():
-        if nx.shortest_path_length(G, i, j) == distance:
-            j_list += [j]
+        try:
+            if nx.shortest_path_length(G, i, j) == distance:
+                j_list += [j]
+        except:
+            pass
     if j_list != []:
         return i, random.choice(j_list)
     else:
@@ -32,7 +35,10 @@ def ij_pair(G, distance):
 def message_passing(distance, G, l, x, relay):
     (i, j) = ij_pair(G, distance)
     print(i, "-->", j)
-    for t in range(25):
+    for t in range(26):
+        if t == 25:
+            t = 29
+            break
         x_max = l+1 #l is maximal possible distance
         k_max = [] #node,s k with minimal distance
         for e in G.edges([i]):
@@ -75,23 +81,26 @@ s = 2
 a = 1
 mat = []
 
+#G, mat, vs = random_social_graph(g,l,s,k,a)
+
+
 # create the graphs
 graphs = []
 j = 0
-while j < 50:
+while j < 200:
     G = random_social_graph(g,l,s,k,a)
-    if maximum_shortest_path(G[0]) > 3:
+    if maximum_shortest_path(G[0]) > 4:
         graphs.append(G)
         j += 1
-# calculate the histogram_data
+## calculate the histogram_data
 
-p, relay = message_passing_hist(graphs, 4, 200)
+p, relay = message_passing_hist(graphs, 5, 250)
 
-#Plot Histogram
-for d in range(4):
+##Plot Histogram
+for d in range(5):
     distr = p[d,:]
-    np.savetxt("p_dist_%i_new.dat" % d, distr)
-    #plt.hist([i-0.5 for i in distr], max(distr) - min(distr), normed=0.5, facecolor='green', alpha=1)
-    #plt.xlabel('message time')
-    #plt.ylabel('frequency')
-    #plt.show()
+    np.savetxt("p_%i_newest.dat" % d, distr)
+    ##plt.hist([i-0.5 for i in distr], max(distr) - min(distr), normed=0.5, facecolor='green', alpha=1)
+    ##plt.xlabel('message time')
+    ##plt.ylabel('frequency')
+    ##plt.show()

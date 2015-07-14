@@ -11,11 +11,11 @@ eqns = {
        }
 
 pars = {
-        'tau'    : 1.6,
+        'tau'    : 0.0,
         'gamma'  : 0.25,
         'dP'     : 2.0,
         'alpha'  : 0.1,
-        'K'      : 1.5,
+        'K'      : 8.,
        }
 
 dde = dde23(eqns=eqns, params=pars)
@@ -33,4 +33,4 @@ dde.run()
 t = dde.sol['t']
 theta = dde.sol['theta']
 w = dde.sol['w']
-np.savetxt("13_16.dat", np.array([t, theta, w]).T)
+np.savetxt("latex/pictures/data/23_0.dat", np.array([t, theta, w]).T)

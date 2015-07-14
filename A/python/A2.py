@@ -20,7 +20,7 @@ def weigh_edges(g):
 	for i in g.nodes_iter():
 		# find shortest path from i to all other nodes
 		paths = nx.single_source_shortest_path(g, i)
-		for shortest in paths.itervalues():
+		for shortest in paths.values():
 			for k in range(0, len(shortest)-1):
 				# increase counter for all edges 
 				g[shortest[k]][shortest[k+1]]['importance'] += 1
@@ -33,7 +33,7 @@ def weigh_edges(g):
 	
 	return g
 
-NUM_NODES = 200
+NUM_NODES = 100
 
 g = nx.barabasi_albert_graph(NUM_NODES, 5)
 #g = nx.erdos_renyi_graph(NUM_NODES, 0.1)
@@ -54,10 +54,10 @@ def test_network(graph, N, selector):
     Svals[i] = float(len(components[0])) / len(network)
     if len(components[0]) > 1:
       pl[i] = nx.average_shortest_path_length(components[0])
-    if len(components) > 0:
+    if len(components) > 1:
       for j in range(1, len(components)): #largest included now
-        s_vals[i] += len(components[j])
-      s_vals[i] /= float(len(components)-1)
+        s_vals[i] += len(components[j]) * len(components[j])
+      s_vals[i] /= float(len(components)-1) * float(len(network.nodes()))
     num_of_cmp[i] = len(components)
   return network, Svals, pl, s_vals, num_of_cmp
 
@@ -65,7 +65,7 @@ def random_selector(g):
   return rnd.choice(g.nodes())
 
 def hub_selector(g):
-  st = sorted(g.degree_iter(), cmp = lambda x, y: 1 if x[1] < y[1] else -1)
+  st = sorted(g.degree_iter(), cmp = lambda x,y: 1 if x[1] < y[1] else -1)
   return st[0][0]
 
 def evil_selector(g):
