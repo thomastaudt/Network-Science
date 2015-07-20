@@ -103,11 +103,11 @@ def Q_95(K, K_):
 measures = [mean_difference, maximum_difference, Q_95]
 
 
-N = 12
-M = 200
-Tend = 4
+#N = 12
+#M = 200
+#Tend = 4
 
-print(take_measures(measures, N=N, M=M, Tend=Tend))
+#print(take_measures(measures, N=N, M=M, Tend=Tend))
 
 
 # Dependency on M

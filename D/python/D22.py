@@ -1,6 +1,6 @@
 
 N = 10
-M = 200
+M = 100
 Tend = 4
 
 # create adjacency-matrices
@@ -37,4 +37,5 @@ plt.clf()
 # plot the difference graph
 nx.draw(nx.compose(G, G_), pos=pos, edge_color="gray", width = edgewidth_diff, node_size=300, node_color="black")
 plt.savefig("pictures/N%d_M%d_T%d_Q%f_diff.svg" % (N,M,Tend,Q))
+plt.show()
 plt.clf()
