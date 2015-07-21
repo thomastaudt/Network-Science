@@ -40,7 +40,11 @@
 \section{Epidemics on Networks}
 We consider an epidemic model in which each node is always in exactly one of the states \emph{susceptible}, \emph{infected} or \emph{recovered}. 
 In every timestep, each infected node infects susceptible neighbours with probability $\beta$ and each infected node recovers with probability $\gamma$. 
-The first five timesteps of evolving these dynamics on a BA network of 50 nodes and $k=3$ are shown in figure \ref{}.
+The first five timesteps of evolving these dynamics on a BA network of $N=50$ nodes and $k=3$ are shown in figure \ref{}.
+
+If all nodes connected to a susceptible node recover before they infect it, that node will never become infected (upper left node in figure \ref{}). How likely this is to happen depends on the infection and recovery probabilities $\beta$ and $\gamma$. 
+It therefore seems sensible to define $q$ as the percentage of nodes that ever were infected. 
+It can be calculated by simulating the network dynamics until there are no more infected nodes and is then given by the percentage of recovered nodes. 
 
 
 
