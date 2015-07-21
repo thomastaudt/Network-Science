@@ -75,13 +75,29 @@ results are:
         10000 trials.
 \end{itemize}
 
+The obtained results for different combinations of $(N, M, T\ix{max})$ are
+presented and visualized in figure \ref{fig:D211}. The reconstructions
+obtained for $N = 5$ have a good quality that is confirmed by both the high
+$Q_{95}$ values and the given visualizations, where the difference networks
+have very thin edges. As expected, higher values of $M$ potentially
+increase the quality while lower values decrease it.
+
+The reconstruction quality for $N = 10$ is worse, 
+
+
+
+
 \subsection{Reconstructing Larger Networks}
 When trying to reconstruct larger networks, the applied method in the
-considered parameter space seemes to get increasingly unsuitable. While for
-$N=12$ and  $M = 100, T = 2$ the average quality was around
-$\bar{Q}_{95}\approx 0.3$ it dropped to for $N=12$
-
-
+considered parameter space seems to get increasingly unsuitable. While for
+$N=12$ and  $M = 100, T\ix{max} = 2$ the average quality was around
+$\bar{Q}_{95}\approx 0.35$ it dropped to values lower then $0.3$ for even
+higher $N$. One can, however, apparently increase the reconstruction
+quality by taking more measurements (possibly over a longer period of
+time): For example, $N=12, M=200$, and $T\ix{max}=4$ yields
+$\bar{Q}_{95}\approx 0.59$. Nevertheless, the quality could not be
+arbitrarily improved with higher values for $M$ and/or $T\ix{max}$ in our
+attempts and in fact never really got much higher than $0.6$.  
 % N = 5, T = 2, M = 100 -> Q_ = 0.94
 % N = 5, T = 4, M = 150 -> Q_ = 0.96
 % N = 5, T = 3, M = 50  -> Q_ = 0.92
@@ -95,8 +111,11 @@ $\bar{Q}_{95}\approx 0.3$ it dropped to for $N=12$
     \input{D211.pdf_tex}
     \caption{Reconstruction of oscillating networks with Kuramoto dynamics. The
         value $Q_{95}$ denotes the quality of the trial depicted in the
-        respective column, while $\bar{Q}_{95}$ is the quality of 10000
-        trials with the same $N, T$, and $M$ averaged.}
+        respective row, while $\bar{Q}_{95}$ is the quality of 10000
+        trials with the same $N, T$, and $M$ averaged. The line widths of
+        the edges are proportional to the respective weights and the
+        difference graph (last column) was obtained by taking the
+        difference $|ω\ix{orig} - ω\ix{rec}|$ as weight matrix.}
     \label{fig:211}
 \end{figure}
 
