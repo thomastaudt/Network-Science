@@ -1,12 +1,21 @@
 
 N = 10
-M = 100
-Tend = 4
+M = 300
+Tend = 5
 
 # create adjacency-matrices
 K, K_ = trial(Tend=Tend, N=N, M=M)
+print("Uncorrected:")
+print(K)
+print()
+print(K_)
 K_[K_ < 0.05] = 0
-K_[K_ > 1] = 1.0
+K_[K_ > 1] = 1.1515
+
+print("Corrected:")
+print(K)
+print()
+print(K_)
 
 K_diff = np.abs(K - K_)
 

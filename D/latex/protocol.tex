@@ -13,7 +13,7 @@
 \vspace*{2cm}
 
 \rule{\textwidth}{1pt}\\[0.5cm]
-{\bfseries \huge Block D: \\[0.5cm] \huge \bfseries (???)\\[0.5cm]}
+{\bfseries \huge Block D: \\[0.5cm] \huge \bfseries Additional Topics\\[0.5cm]}
 \rule{\textwidth}{1pt}
 
 \vspace*{4cm}
@@ -26,7 +26,7 @@
 
        \textbf{Tutors:}        & Xiaozhu Zhang, Nora Molkenthin, Benjamin Schäfer, \\
                                & Malte Schröder                                    \\[1.0cm]
-       \textbf{Deadline:}      & 21.07.2015 (??)
+       \textbf{Deadline:}      & 28.07.2015
 \end{tabular}\end{Large}
 
 \vspace*{1.5cm}
@@ -69,13 +69,43 @@ results are:
         Kuramoto dynamic was $\dif t = 0.01$.
     \item Linearly spaced values $(T\ix{i})\ix{i=0}\Ix{M+2} \subset [0,
         T\ix{max}]$ were used as sample times. $M+2$ sample times had to be
-        used in order to calculate the approximate derivatives. 
+        used in order to calculate the approximate derivatives for the border values. 
     \item The quality of the reconstructed adjacency matrix $\bar{K}$
         compared to the original matrix $K$ was measured by the quantity $Q_{95}$
-        that was also used in a figure of the handout.
-    \item The quality measures for one set $(N, M, T\ix{max})$ of
-        parameters were calculated for 1000 trials and then averaged.
+        that was also used in a figure of the handout. It is defined
+        in the publication of M. Timme and J. Casadiego, J. Phys. A: Math.
+        Theor. 47 343001 (2014).
+    \item The quality measures $\bar{Q_{95}}$ given below for one set $(N,
+        M, T\ix{max})$ of parameters are the averaged $Q_{95}$ values for
+        10000 trials.
 \end{itemize}
+
+\subsection{Reconstructing Larger Networks}
+When trying to reconstruct larger networks, the applied method in the
+considered parameter space seemes to get increasingly unsuitable. While for
+$N=12$ and  $M = 100, T = 2$ the average quality was around
+$\bar{Q}_{95}\approx 0.3$ it dropped to for $N=12$
+
+
+% N = 5, T = 2, M = 100 -> Q_ = 0.94
+% N = 5, T = 4, M = 150 -> Q_ = 0.96
+% N = 5, T = 3, M = 50  -> Q_ = 0.92
+
+% N = 10, 
+
+
+\begin{figure}
+    \centering
+    \def\svgwidth{0.75\textwidth}
+    \input{D211.pdf_tex}
+    \caption{Reconstruction of oscillating networks with Kuramoto dynamics. The
+        value $Q_{95}$ denotes the quality of the trial depicted in the
+        respective column, while $\bar{Q}_{95}$ is the quality of 10000
+        trials with the same $N, T$, and $M$ averaged.}
+    \label{fig:211}
+\end{figure}
+
+
 %The dependencies of the reconstruction quality $Q_{95}$ on the parameters $N, M,$ and
 %$T\ix{max}$ are presented in figures \ref{fig:??} to \ref{fig:??}.
 
@@ -85,8 +115,7 @@ results are:
 
 
 
-\section{D3,D4:???}
-
+\section{D4}
 
 \end{document}
 

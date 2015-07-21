@@ -109,6 +109,11 @@ measures = [mean_difference, maximum_difference, Q_95]
 
 #print(take_measures(measures, N=N, M=M, Tend=Tend))
 
+res = []
+for m in np.linspace(100, 200, 51):
+    print(m,":",end=" ", flush=True)
+    res.append(take_measures([Q_95], N=12, M=m, Tend=4)[0])
+    print(res[-1])
 
 # Dependency on M
 #results1 = {}
