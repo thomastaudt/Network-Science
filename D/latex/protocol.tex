@@ -41,11 +41,21 @@
 \label{sec:eponnet}
 We consider an epidemic model in which each node is always in exactly one of the states \emph{susceptible}, \emph{infected} or \emph{recovered}. 
 In every timestep, each infected node infects susceptible neighbours with probability $\beta$ and each infected node recovers with probability $\gamma$. 
-The first five timesteps of evolving these dynamics on a BA network of $N=50$ nodes and $k=3$ are shown in figure \ref{fig:D41}.
+The first five timesteps of evolving these dynamics on a BA network of $N=50$ nodes and $k=3$ are shown in figure \ref{fig:D11}.
 
-If all nodes connected to a susceptible node recover before they infect it, that node will never become infected (upper left node in figure \ref{fig:D41}). How likely this is to happen depends on the infection and recovery probabilities $\beta$ and $\gamma$. 
+If all nodes connected to a susceptible node recover before they infect it, that node will never become infected (upper left node in figure \ref{fig:D11}). How likely this is to happen depends on the infection and recovery probabilities $\beta$ and $\gamma$. 
 It therefore seems sensible to define $q$ as the percentage of nodes that ever were infected (i.e., not necessarily at the same time). 
 It can be calculated by simulating the network dynamics until there are no more infected nodes and is then given by the percentage of recovered nodes. 
+
+The results are shown in figure \ref{fig:D12}. 
+It turns out that in the model evaluated, the chance that the whole 
+population gets infected rises quite fast if the infectiousness surpasses
+a certain critical value, and then more slowly approaches $1$. It is also 
+notable that for $\beta > 0.6$, more than $90\%$ get infected even if
+the recovery rate is at an extremely high value of $95\%$.
+
+From these results, one can conclude that, to contain the spread of a disease following the SIR model, 
+ it is much more important to reduce infections of susceptible individuals than to heal already ill ones.
 
 
 \begin{figure}
@@ -53,7 +63,7 @@ It can be calculated by simulating the network dynamics until there are no more 
     \def\svgwidth{0.9\textwidth}
     \input{D1_.pdf_tex}
     \caption{Initial state of a $N=50, k=3$ Barabasi-Albert network with a single infected individual, and time developmen according to the discrete SIR model describen in section \ref{sec:eponnet}. In this example, all but one node have been infected during the spread of the disease. The last remaining node can no longer be infected, because all of its neighbours are already recovered.}
-    \label{fig:D41}
+    \label{fig:D11}
 \end{figure}
 
 \begin{figure}
@@ -62,9 +72,8 @@ It can be calculated by simulating the network dynamics until there are no more 
     \caption{Percentage of nodes that were infected at some time during the disease spread, 
 		depending on the contagiosity $\beta$ for different recovery rates $\gamma$. Note that 
 		even instant recovery $\gamma=1$ cannot prevent the spread of extremly contagious diseases
-		in this model, because a node cannot recover in the same timestep it was infected.
-		}
-    \label{fig:B11}
+		in this model, because a node cannot recover in the same timestep it was infected.}
+    \label{fig:D12}
 \end{figure}
 
 
