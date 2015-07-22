@@ -38,15 +38,34 @@
 \clearpage
 
 \section{Epidemics on Networks}
+\label{sec:eponnet}
 We consider an epidemic model in which each node is always in exactly one of the states \emph{susceptible}, \emph{infected} or \emph{recovered}. 
 In every timestep, each infected node infects susceptible neighbours with probability $\beta$ and each infected node recovers with probability $\gamma$. 
-The first five timesteps of evolving these dynamics on a BA network of $N=50$ nodes and $k=3$ are shown in figure \ref{}.
+The first five timesteps of evolving these dynamics on a BA network of $N=50$ nodes and $k=3$ are shown in figure \ref{fig:D41}.
 
-If all nodes connected to a susceptible node recover before they infect it, that node will never become infected (upper left node in figure \ref{}). How likely this is to happen depends on the infection and recovery probabilities $\beta$ and $\gamma$. 
-It therefore seems sensible to define $q$ as the percentage of nodes that ever were infected. 
+If all nodes connected to a susceptible node recover before they infect it, that node will never become infected (upper left node in figure \ref{fig:D41}). How likely this is to happen depends on the infection and recovery probabilities $\beta$ and $\gamma$. 
+It therefore seems sensible to define $q$ as the percentage of nodes that ever were infected (i.e., not necessarily at the same time). 
 It can be calculated by simulating the network dynamics until there are no more infected nodes and is then given by the percentage of recovered nodes. 
 
 
+\begin{figure}
+    \centering
+    \def\svgwidth{0.9\textwidth}
+    \input{D1_.pdf_tex}
+    \caption{Initial state of a $N=50, k=3$ Barabasi-Albert network with a single infected individual, and time developmen according to the discrete SIR model describen in section \ref{sec:eponnet}. In this example, all but one node have been infected during the spread of the disease. The last remaining node can no longer be infected, because all of its neighbours are already recovered.}
+    \label{fig:D41}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 5,2.0}]{evint.plt}
+    \caption{Percentage of nodes that were infected at some time during the disease spread, 
+		depending on the contagiosity $\beta$ for different recovery rates $\gamma$. Note that 
+		even instant recovery $\gamma=1$ cannot prevent the spread of extremly contagious diseases
+		in this model, because a node cannot recover in the same timestep it was infected.
+		}
+    \label{fig:B11}
+\end{figure}
 
 
 \clearpage
@@ -59,17 +78,6 @@ distributions, determine what the network can and can't do. This section's
 task is to reverse this idea in a certain way: What can be deduced about
 the structure of a network when having access to (some of) the output it
 produces?
-
-
-
-\begin{figure}
-    \centering
-    \def\svgwidth{0.9\textwidth}
-    \input{D1_.pdf_tex}
-    \caption{DESCRIPTION HERE}
-    \label{fig:D41}
-\end{figure}
-
 
 \subsection{Reconstructing Small Networks with Kuramoto Dynamics}
 The approach used in order to reconstruct networks with oscillatory
