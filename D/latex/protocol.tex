@@ -48,6 +48,8 @@ It can be calculated by simulating the network dynamics until there are no more 
 
 
 
+
+\clearpage
 \section{Inferring Network Structure}
 The phrase \enquote{if you want to understand function, study structure}
 uttered by Francis Crick is a common credo in biochemistry, applied
@@ -79,7 +81,7 @@ results are:
         that was also used in a figure of the handout. It is defined
         in the publication of M. Timme and J. Casadiego, J. Phys. A: Math.
         Theor. 47 343001 (2014).
-    \item The quality measures $\bar{Q_{95}}$ given below for one set $(N,
+    \item The quality measures $\bar{Q}_{95}$ given below for one set $(N,
         M, T\ix{max})$ of parameters are the averaged $Q_{95}$ values for
         10000 trials.
 \end{itemize}
@@ -88,12 +90,13 @@ The obtained results for different combinations of $(N, M, T\ix{max})$ are
 presented and visualized in figure \ref{fig:D211}. The reconstructions
 obtained for $N = 5$ have a good quality that is confirmed by both the high
 $Q_{95}$ values and the given visualizations, where the difference networks
-have very thin edges. As expected, higher values of $M$ potentially
+have few and thin edges. As expected, higher values of $M$ potentially
 increase the quality while lower values decrease it.
 
-The reconstruction quality for $N = 10$ is worse, 
-
-
+The reconstruction quality is visibly worse for $N = 10$ while the values
+of $Q_{95} \approx 0.40$ for $M = 100$ and $T = 2$ as well as
+$Q_{95}\approx 0.8$ for $M = 200$ and $T = 4$ again indicate that more
+measurements improve the result visibly.
 
 
 \subsection{Reconstructing Larger Networks}
@@ -124,8 +127,8 @@ attempts and in fact never really got much higher than $0.6$.
         trials with the same $N, T$, and $M$ averaged. The line widths of
         the edges are proportional to the respective weights and the
         difference graph (last column) was obtained by taking the
-        difference $|ω\ix{orig} - ω\ix{rec}|$ as weight matrix.}
-    \label{fig:211}
+        difference $|\omega\ix{orig} - \omega\ix{rec}|$ as weight matrix.}
+    \label{fig:D211}
 \end{figure}
 
 
@@ -136,9 +139,57 @@ attempts and in fact never really got much higher than $0.6$.
 %\paragraph{Dependency on $M$:}
 %\paragraph{Dependency on $T\ix{max}$:}
 
+\clearpage
+\setcounter{section}{3}
+\section{Continuative Topics}
+\subsection{Balance in Social Networks}
+In the following the \emph{social balance model} with \emph{local triad
+dynamics} (described on the handout for D4.1) with $p = 1/3$ is applied on
+a network that supposedly represents the family structure of Romeo's and
+Juliet's families, presented in figure \ref{fig:D41} (a).  (According to
+our research, Juliet has no living siblings at the time the drama takes
+place, and Romeo never had siblings at all.)
+
+Some exemplary simulation results are given in figure \ref{fig:D41} (b),
+(c), and (d).
+An obvious and quite frequent result was the one depicted in figure \ref{fig:D41}
+(b), meaning that Romeo and Juliet turned into foes while the family
+internals remained untouched.  One could also observe that the family
+structures got broken up and mixed sometimes, building two new fractions
+(figure \ref{fig:D41} (c)). An event that was very rare (see the results for
+$P\ix{paradies}$ below) was the complete conciliation of all persons,
+figure \ref{fig:D41} (d).
+
+Having applied the local triad algorithm with $p = 1/3$ for $10000$ trials
+yielded that the probability $P\ix{love}$ of Romeo and Juliet still being together after
+the social balance has been established is approximately $P\ix{love}25\%$.
+The probability of paradise, $P\ix{paradies}$, was .
+
+The dependency of $P\ix{love}$ and $P\ix{paradies}$ on the pattern
+selection probability $p$ is shown in figure \ref{fig:D412}. One can
+see that the both probabilities increase with increasing $p$, which is
+of course expected.
 
 
-\section{D4}
+
+
+
+\begin{figure}
+    \centering
+    \def\svgwidth{0.9\textwidth}
+    \input{D41.pdf_tex}
+    \caption{Depiction of some typical situations (b, c, d) that arise when
+        balancing the original Romeo and Juliet graph (a). The red nodes
+        represent Juliet's family (including Juliet herself, marked by J.) and
+        the blue nodes consist of Romeo's family (Romeo being marked by
+        R.). If an edge is depicted, the corresponding persons are friends;
+        if an edge is missing the two corresponding persons are foes. The
+        colors of the edges in situation (c) mark the two disjoint fully
+        connected components that emerge.}
+    \label{fig:D41}
+\end{figure}
+
+
 
 \end{document}
 
