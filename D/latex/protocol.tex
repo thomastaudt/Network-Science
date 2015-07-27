@@ -57,12 +57,6 @@ the recovery rate is at an extremely high value of $95\%$.
 From these results, one can conclude that, to contain the spread of a disease following the SIR model, 
 it is much more important to reduce infections of susceptible individuals than to heal already ill ones.
 
-The average number of new infections a node can cause is $\beta \left< k \right>$, whereas it can only heal itself. A good guess for a disease spread parameter could therefore be 
-\begin{align}
- s = \frac{\beta \left< k\right>}{\gamma}.
-\end{align}
-...
-
 To investigate the world wide spread of an epidemic in more detail, we now switch to a continuous model. At each node, there is a percentage of infected $j_n$ and susceptible $s_n$ at a node $n$, which is evolved by
 \begin{align}
 \partial_t j_n &=& \overbrace{\alpha s_n j_n \sigma( j_n / \epsilon)}^{\text{local spread}} &&- \overbrace{\beta j_n}^{\text{recovery}} &+ \overbrace{\sum{\gamma P_mn (j_m - j_n)}}^{\text{network spread}}&\\
@@ -222,7 +216,33 @@ selection probability $p$ is shown in figure \ref{fig:D412}. One can
 see that the both probabilities increase with increasing $p$, which is
 of course expected.
 
+\subsection{Page Rank}
+One of the most iconic modern examples for a network is the Internet, 
+where hyperlinks connect webpages that are identified 
+by a unique URL, which constitute the nodes of the network (This is of course
+an oversimplification considering modern webpages which are hardly a static 
+html document, and often contain java script to dynamically load content. For
+the task at hand -- ranking based on a given connection graph -- this does not
+matter, but a fully fledges search engine has to account for that).
 
+The enormous wealth of information on the Internet has to be ranked according
+to its relevance if one wants to be able to use it. One such ordering algorithm 
+is \emph{Page Rank}, which is based purely on topology (i.e. it does not use 
+any semantic information). This algorithm calculates the stationar probability 
+distribution $\vec{x}$ of a random walk on the network with two additional properties:
+\begin{itemize}
+ \item To prevent trapping in dangling nodes, the walker jumps from a dangling node
+		to all other nodes with equal probability.
+ \item To prevent loops, the walker has the probabiltiy $1-\alpha$ of jumping to a random	
+	node in any step.
+\end{itemize}
+
+This can be approximated by the iterative update rule
+\begin{align}
+	\vec{x}_{k+1} = \alpha P^\mathrm{T} \vec{x}_k + \left(\alpha \vec{x}_k \cdot \vec{a} + (1 - \alpha) \right) \vec{e}/N,
+\end{align}
+where $\vec{a}$ is a vector that is one for every dangling node, $\vec{e}$ has one in each entry, $P$ is the
+adjacency matrix and $N$ the number of nodes.
 
 
 
