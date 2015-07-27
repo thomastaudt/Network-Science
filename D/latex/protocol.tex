@@ -55,9 +55,34 @@ notable that for $\beta > 0.6$, more than $90\%$ get infected even if
 the recovery rate is at an extremely high value of $95\%$.
 
 From these results, one can conclude that, to contain the spread of a disease following the SIR model, 
- it is much more important to reduce infections of susceptible individuals than to heal already ill ones.
+it is much more important to reduce infections of susceptible individuals than to heal already ill ones.
 
+The average number of new infections a node can cause is $\beta \left< k \right>$, whereas it can only heal itself. A good guess for a disease spread parameter could therefore be 
+\begin{align}
+ s = \frac{\beta \left< k\right>}{\gamma}.
+\end{align}
+...
 
+To investigate the world wide spread of an epidemic in more detail, we now switch to a continuous model. At each node, there is a percentage of infected $j_n$ and susceptible $s_n$ at a node $n$, which is evolved by
+\begin{align}
+\partial_t j_n &=& \overbrace{\alpha s_n j_n \sigma( j_n / \epsilon)}^{\text{local spread}} &&- \overbrace{\beta j_n}^{\text{recovery}} &+ \overbrace{\sum{\gamma P_mn (j_m - j_n)}}^{\text{network spread}}&\\
+\partial_t s_n &=& -\alpha s_n j_n \sigma( j_n / \epsilon)&  &&- \sum{\gamma P_mn (j_m - j_n)}&.
+\end{align}
+The first term describes how the disease spreads at one location (i.e. proportional to both susceptible and infected individuals, if $j_n > \epsilon$), the second describes the recovery with rate $\beta$ and the third how infected individuals travel from one node to another. Since each infected was susceptible before, the dgl for the susceptible contains the same terms except the recovery, but with an overall minus sign.
+
+To characterize the spread of the epidemic, the time when there are more than $\epsilon$ infected for the first time, called the \emph{arrival time} $T_A(n) = \mathrm{min}_t \sigma(j_n / \epsilon) \neq 0$ of the disease, is determiend for each node. Since the geographical distance has (in this model) no direct influence on how fast a disease can be transmitted from one country to the next, an \emph{effective distance} based on passenger flux is introduced. It is defined by
+\begin{align}
+	d_{mn} = 1 - \ln (P_mn).
+\end{align}
+
+In figure \ref{} \textbf{a)} and \textbf{b)}, the amount of infected individuals $j_n$ is plotted for times $t_1=$, $t_2 = $. Subfigure \textbf{c)} shows arrival times for all countries.
+
+To find the origin of the outbreak just by using the spread data, we look at the plots of arrival time vs. path length (with resprect to effective distance) to a potential outbreak source. 
+Ideally, this would yield a linear relation for the actual outbreak source, and no correlation at all for any other country. In practice, the graphs of neighbouring countries look alike. 
+Furthermore, the linearity between distance and time is only a trend, the data contain a lot of fluctuations.
+Still, this allows to restrict the possible outbreak sources to a few countries. One could then look which one is most closely neighboured to the other possible source countries to find the most likely origin candidate.
+
+In the simulated presented here, it is easily possible to determine that out of South Africa, Peru, and Indonesia, only South Africa can be the epidemic's origin, as shown by figure \ref{}.
 \begin{figure}
     \centering
     \def\svgwidth{0.9\textwidth}
