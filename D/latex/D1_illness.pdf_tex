@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{3163.89088191bp}%
+    \setlength{\unitlength}{826.36352539bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,10 +48,12 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.96354127)%
+  \begin{picture}(1,0.99734835)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{D1_illness.pdf}}%
-    \put(0.40306316,0.91893117){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{\textbf{(a)}}}}%
-    \put(0.90927537,0.91893117){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{\textbf{(b)}}}}%
-    \put(0.64486319,0.41562685){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{\textbf{(c)}}}}%
+    \put(0.41528245,0.87782383){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{\textbf{(a)}}}}%
+    \put(0.89446597,0.87782383){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{\textbf{(b)}}}}%
+    \put(0.41528245,0.40255199){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{\textbf{(c)}}}}%
+    \put(0.89158614,0.40255199){\color[rgb]{0,0,0}\makebox(0,0)[rb]{\smash{\textbf{(d)}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{D1_illness.pdf}}%
   \end{picture}%
 \endgroup%
