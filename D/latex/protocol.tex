@@ -69,7 +69,7 @@ To characterize the spread of the epidemic, the time when there are more than $\
 	d_{mn} = 1 - \ln (P_mn).
 \end{align}
 
-In figure \ref{} \textbf{a)} and \textbf{b)}, the amount of infected individuals $j_n$ is plotted for times $t_1=$, $t_2 = $. Subfigure \textbf{c)} shows arrival times for all countries.
+In figure \ref{fig:D1spread} \textbf{a)} and \textbf{b)}, the amount of infected individuals $j_n$ is plotted for times $t_1=$, $t_2 = $. Subfigure \textbf{c)} shows arrival times for all countries.
 
 To find the origin of the outbreak just by using the spread data, we look at the plots of arrival time vs. path length (with resprect to effective distance) to a potential outbreak source. 
 Ideally, this would yield a linear relation for the actual outbreak source, and no correlation at all for any other country. In practice, the graphs of neighbouring countries look alike. 
@@ -90,8 +90,9 @@ In the simulated presented here, it is easily possible to determine that out of 
     \centering
     \def\svgwidth{1.0\textwidth}
     \input{D1_illness.pdf_tex}
-    \caption{keine Ahnung}
-    \label{fig:XXXXXX}
+    \caption{Spread of an edpidemic originating from South Africa (marked with a white cross) on a network of countries connected by airlines. The figures \textbf{a)}, \textbf{b)} and \textbf{c)} show the time development of the percentage of infected individuals (color code: red - high infection, blue - low infection} as snapshots for $t=\SI{50}{d}, t=\SI{100}{d}$ and $t=\SI{}{d}$.
+		In \textbf{d)}, the first time when the illness reached a country (i.e. the number of infected individuals exceeds $\epsilon$, so that the infection can spread inside the country on its own) is visualized, blue denoting early and red denoting late arrival. 
+    \label{fig:D1spread}
 \end{figure}
 
 \begin{figure}
