@@ -252,7 +252,7 @@ such that the whole dynamics is (in a continuum limit of infinitely many oszilla
 \end{align}
 
 To work with this numerically, the continuous variable $\theta(x, t)$ is replaced by finitely many (256) oszillators, such that the integral eq. \ref{eq:contdyn} becomes a sum. The parameter $A$ was set to $A= 0.995$ and $\alpha = \pi/2 - 0.18$. As initial conditions, each oszillator was given a random phase. 
-The development of the system for $t=0$ to $t=80$ can be seen in fig. \ref{}.
+The development of the system for $t=0$ to $t=80$ can be seen in figure \ref{fig:d42} (a).
 In some spatial region, the initially uncoordinated oszillators become phase locked, whereas elsewhere they continue to move uncorrelated: The system has entered a chimera state.
 
 To quantify this statement, the complex order parameter is calculated, which is given by (in a continuum system)
@@ -261,18 +261,18 @@ To quantify this statement, the complex order parameter is calculated, which is 
 \end{align} 
 From this we can extract the local phase coherence $R = |O|$ and the local avergage phase $\Theta = \mathrm{arg}(O)$, such that
 $O = R(x) \exp( i \Theta(x, t) )$. 
-These values can be seen in fig. \ref{}, which demonstrate that the phase coherence in the unordered region is very low, but relatively high in the ordered region, as expected. 
+These values can be seen in figures \ref{fig:d42} (b) and (c), which demonstrate that the phase coherence in the unordered region is very low, but relatively high in the ordered region, as expected. 
 The transition from unordered to ordered is much smoother than the phase plots would suggest on a first glance.
 However, in the phase plots it is already visible that the boundary oszillators of the phase locked region have a slightly different frequency than the one in the middle, indicating that the synchronization is less good, in accordance with the quantitative measurement.
 
 \subsection{Page Rank}
-One of the most iconic modern examples for a network is the Internet, 
+One of the most iconic modern examples for a network is the internet, 
 where hyperlinks connect webpages that are identified 
 by a unique URL, which constitute the nodes of the network (This is of course
 an oversimplification considering modern webpages which are hardly a static 
 html document, and often contain java script to dynamically load content. For
 the task at hand -- ranking based on a given connection graph -- this does not
-matter, but a fully fledges search engine has to account for that).
+matter, but a fully fledged search engine has to account for that).
 
 The enormous wealth of information on the Internet has to be ranked according
 to its relevance if one wants to be able to use it. One such ordering algorithm 
@@ -290,10 +290,62 @@ This can be approximated by the iterative update rule
 \begin{align}
 	\vec{x}_{k+1} = \alpha P^\mathrm{T} \vec{x}_k + \left(\alpha \vec{x}_k \cdot \vec{a} + (1 - \alpha) \right) \vec{e}/N,
 \end{align}
-where $\vec{a}$ is a vector that is one for every dangling node, $\vec{e}$ has one in each entry, $P$ is the
-adjacency matrix and $N$ the number of nodes.
+where $\vec{a}$ is a vector that is one for every dangling node, $\vec{e}$
+has one in each entry, $P$ is the adjacency matrix and $N$ the number of
+nodes.
+
+We applied this algorithm for 30 iterations on two data sets containing
+edge information of internet networks from
+\url{http://snap.stanford.edu/data/}. The nodes with the ten top ranks as
+well as their (normalized) \emph{Page Rank} measures can be found in table
+\ref{tab:D43} a) and b).
 
 
+\begin{table}[!htb]
+    \caption{Obtained Rankings with the \emph{Page Rank} algorithm
+    described above. For a better overview the given measures were linearly
+    transformed by
+    $\mathrm{max}(\vec{x}_{30})\mapsto 1,~\mathrm{mean}(\vec{x}_{30}) \mapsto 0$.}
+    \label{tab:D43}
+    \begin{subtable}{.45\linewidth}
+      \centering
+      \caption{\texttt{web-Stanford.txt}}
+      \vspace*{0.2cm}
+        \begin{tabular}{crc}
+            Rank & Node & Measure \\
+            \toprule
+            1 & 89073  & 1.000 \\
+            2 & 226411 & 0.820 \\
+            3 & 241454 & 0.734 \\
+            4 & 262860 & 0.267 \\
+            5 & 134832 & 0.265 \\
+            6 & 234704 & 0.227 \\
+            7 & 136821 & 0.217 \\
+            8 & 68889  & 0.215 \\
+            9 & 105607 & 0.211 \\
+            10 & 69358 & 0.209
+        \end{tabular}
+    \end{subtable}%
+    \begin{subtable}{.45\linewidth}
+      \centering
+      \caption{\texttt{web-Google.txt}}
+      \vspace*{0.2cm}
+        \begin{tabular}{crc}
+            Rank & Node & Measure \\
+            \toprule
+            1 & 597622  & 1.000 \\
+            2 & 41910  & 0.997 \\
+            3 & 163076 & 0.980 \\
+            4 & 537040 & 0.973 \\
+            5 & 384667 & 0.852 \\
+            6 & 504141 & 0.828 \\
+            7 & 486981 & 0.787 \\
+            8 & 605857 & 0.779 \\
+            9 & 32164  & 0.771 \\
+            10 & 558792 & 0.769
+        \end{tabular}
+    \end{subtable} 
+\end{table}
 
 \begin{figure}
     \centering
@@ -316,10 +368,17 @@ adjacency matrix and $N$ the number of nodes.
     \caption{Relative number of \enquote{Love} (Romeo and Juliet end up
     together) or \enquote{Paradies} (all family members of both families
     are friends) outcomes in dependence of the parameter $p$. For values of $p > 0.5$ nearly all
-    \enquote{Love} endings were also \enquote{Paradies} endings.}
+    \enquote{Love} endings were also \enquote{Paradies} endings. The single
+    values were obtained by averaging over 500 trials.}
     \label{fig:D412}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.35,6.35}]{d42.gp}
+    \caption{Time development of the ring of phase oscillators described in the text.}
+    \label{fig:d42}
+\end{figure}
 
 
 \end{document}
