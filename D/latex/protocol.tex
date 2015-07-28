@@ -67,7 +67,7 @@ The first term describes how the disease spreads at one location (i.e. proportio
 For the following simulation, these were chosen to be $R_0 = 1.5$, $\beta = \SI{0.285}{d^{-1}}$ and $\gamma = \SI{2.8e-3}{d^{-1}}$.
 The threshold $\epsilon$ was $\num{1e-6}$, and the initial outbreak was set to be in South Africa with $j_{\mathrm{SA}} = \num{1e-3}$. The simuation used Euler integration with a stepsize of \SI{0.05}{d}, running for a total of \SI{300}{d}.
 
-To characterize the spread of the epidemic, the time when there are more than $\epsilon$ infected for the first time, called the \emph{arrival time} $T_A(n) = \mathrm{min}_t \, \sigma(j_n / \epsilon) \neq 0$ of the disease, is determiend for each node. Since the geographical distance has (in this model) no direct influence on how fast a disease can be transmitted from one country to the next, an \emph{effective distance} based on passenger flux is introduced. It is defined by
+To characterize the spread of the epidemic, the time when there are more than $\epsilon$ infected for the first time, called the \emph{arrival time} $T_A(n) = \mathrm{min}_t \, \{ \sigma(j_n / \epsilon) \neq 0 \}$ of the disease, is determiend for each node. Since the geographical distance has (in this model) no direct influence on how fast a disease can be transmitted from one country to the next, an \emph{effective distance} based on passenger flux is introduced. It is defined by
 \begin{align}
 	d_{mn} = 1 - \ln (P_mn). \label{eq:epl}
 \end{align}
@@ -79,24 +79,14 @@ Ideally, this would yield a linear relation for the actual outbreak source, and 
 Furthermore, the linearity between distance and time is only a trend, the data contain a lot of fluctuations.
 Still, this allows to restrict the possible outbreak sources to a few countries. One could then look which one is most closely neighboured to the other possible source countries to find the most likely origin candidate.
 
-In the simulated presented here, it is easily possible to determine that out of South Africa, Peru, and Indonesia, only South Africa can be the epidemic's origin, as shown by figure \ref{fig:arrival}. The linear relation is not as good as in the paper \footnote{D. Brockmann, D. Helbing (2013): The Hidden Geometry of Complex, Network-Driven Contagion Phenomena.}, which can probabliy be attributed to the lower resolution (on country level, highly discretized passenger flux) of the data used to generate the plots.
+In the simulation presented here, it is easily possible to determine that out of South Africa, Peru, and Indonesia, only South Africa can be the epidemic's origin, as shown by figure \ref{fig:arrival}. The linear relation is not as good as in the paper \footnote{D. Brockmann, D. Helbing (2013): The Hidden Geometry of Complex, Network-Driven Contagion Phenomena.}, which can probably be attributed to the lower resolution (on country level, highly discretized passenger flux) of the data used to generate the plots.
 
 \begin{figure}
     \centering
     \def\svgwidth{0.9\textwidth}
     \input{D1_.pdf_tex}
-    \caption{Initial state of a $N=50, k=3$ Barabasi-Albert network with a single infected individual, and time developmen according to the discrete SIR model describen in section \ref{sec:eponnet}. In this example, all but one node have been infected during the spread of the disease. The last remaining node can no longer be infected, because all of its neighbours are already recovered.}
+    \caption{Initial state of a $N=50, k=3$ Barabasi-Albert network with a single infected individual, and time developmen according to the discrete SIR model described in section \ref{sec:eponnet}. In this example, all but one node have been infected during the spread of the disease. The last remaining node can no longer be infected, because all of its neighbours are already recovered.}
     \label{fig:D11}
-\end{figure}
-
-
-\begin{figure}
-    \centering
-    \def\svgwidth{1.0\textwidth}
-    \input{D1_illness.pdf_tex}
-    \caption{Spread of an edpidemic originating from South Africa (marked with a white cross) on a network of countries connected by airlines. The figures \textbf{a)}, \textbf{b)} and \textbf{c)} show the time development of the percentage of infected individuals (color code: red - high infection, blue - low infection} as snapshots for $t=\SI{50}{d}, t=\SI{100}{d}$ and $t=\SI{200}{d}$, when all countries that were infected during the first 50 days have already recovered.
-		In \textbf{d)}, the first time when the illness reached a country (i.e. the number of infected individuals exceeds $\epsilon$, so that the infection can spread inside the country on its own) is visualized, blue denoting early and red denoting late arrival. 
-    \label{fig:D1spread}
 \end{figure}
 
 \begin{figure}
@@ -111,8 +101,17 @@ In the simulated presented here, it is easily possible to determine that out of 
 
 \begin{figure}
     \centering
+    \def\svgwidth{1.0\textwidth}
+    \input{D1_illness.pdf_tex}
+    \caption{Spread of an edpidemic originating from South Africa (marked with a white cross) on a network of countries connected by airlines. The figures \textbf{a)}, \textbf{b)} and \textbf{c)} show the time development of the percentage of infected individuals (color code: red - high infection, blue - low infection) as snapshots for $t=\SI{50}{d}, t=\SI{100}{d}$ and $t=\SI{200}{d}$, when all countries that were infected during the first 50 days have already recovered.
+		In \textbf{d)}, the first time when the illness reached a country (i.e. the number of infected individuals exceeds $\epsilon$, so that the infection can spread inside the country on its own) is visualized, blue denoting early and red denoting late arrival. }
+    \label{fig:D1spread}
+\end{figure}
+
+\begin{figure}
+    \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.35,3.0}]{arrival.plt}
-    \caption{Arrival time of the illness plotted against the effective path (as per eqn. \ref{eq:epl}) length between 
+    \caption{Arrival time of the illness plotted against the effective path length  (as per eqn. \ref{eq:epl}) between 
 		a potential country of origin and the node. For the actual origin (South Africa), a correlation is visible, whereas the other two graphs show no correlation. One problem of the simulation that is clearly visible is the low resolution of the network data, both spatially (i.e. USA and Switzerland are both represented by a single node) and in connection resolution (discretization on x axis is clearly visible).}
     \label{fig:arrival}
 \end{figure}
@@ -168,9 +167,9 @@ measurements improve the result visibly.
 
 \subsection{Reconstructing Larger Networks}
 When trying to reconstruct larger networks, the applied method in the
-considered parameter space seems to get increasingly unsuitable. While for
+considered parameter space seems to become increasingly unsuitable. While for
 $N=12$ and  $M = 100, T\ix{max} = 2$ the average quality was around
-$\bar{Q}_{95}\approx 0.35$ it dropped to values lower then $0.3$ for even
+$\bar{Q}_{95}\approx 0.35$ it dropped to values lower than $0.3$ for even
 higher $N$. One can, however, apparently increase the reconstruction
 quality by taking more measurements (possibly over a longer period of
 time): For example, $N=12, M=200$, and $T\ix{max}=4$ yields
@@ -230,9 +229,9 @@ figure \ref{fig:D41} (d).
 Having applied the local triad algorithm with $p = 1/3$ for $10000$ trials
 yielded that the probability $P\ix{love}$ of Romeo and Juliet still being together after
 the social balance has been established is $P\ix{love} = 0.2488\%$.
-The probability of paradise, $P\ix{paradies}$, was $P\ix{paradies} = 0.0013$.
+The probability of paradise was $P\ix{paradise} = 0.0013$.
 
-The dependency of $P\ix{love}$ and $P\ix{paradies}$ on the pattern
+The dependency of $P\ix{love}$ and $P\ix{paradise}$ on the pattern
 selection probability $p$ is shown in figure \ref{fig:D412}. One can
 see that the both probabilities increase with increasing $p$, which is
 of course expected.
@@ -259,7 +258,7 @@ To quantify this statement, the complex order parameter is calculated, which is 
 \begin{align}
  O(x, t) = \int_{-\pi}^{\pi} K(x-x^\prime) \exp( \theta(x^\prime, t)) \, \mathrm{d} x^\prime. \label{eq:orderparameter}
 \end{align} 
-From this we can extract the local phase coherence $R = |O|$ and the local avergage phase $\Theta = \mathrm{arg}(O)$, such that
+From this we can extract the \emph{local phase coherence} $R = |O|$ and the \emph{local avergage phase} $\Theta = \mathrm{arg}(O)$, such that
 $O = R(x) \exp( i \Theta(x, t) )$. 
 These values can be seen in figures \ref{fig:d42} (b) and (c), which demonstrate that the phase coherence in the unordered region is very low, but relatively high in the ordered region, as expected. 
 The transition from unordered to ordered is much smoother than the phase plots would suggest on a first glance.
@@ -354,7 +353,7 @@ well as their (normalized) \emph{Page Rank} measures can be found in table
     \caption{Depiction of some typical situations (b, c, d) that arise when
         balancing the original Romeo and Juliet graph (a). The red nodes
         represent Juliet's family (including Juliet herself, marked by J.) and
-        the blue nodes consist of Romeo's family (Romeo being marked by
+        the blue nodes comprise Romeo's family (Romeo being marked by
         R.). If an edge is depicted, the corresponding persons are friends;
         if an edge is missing the two corresponding persons are foes. The
         colors of the edges in situation (c) mark the two disjoint fully
