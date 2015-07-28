@@ -62,12 +62,12 @@ To investigate the world wide spread of an epidemic in more detail, we now switc
 \partial_t j_n &=& \overbrace{\alpha s_n j_n \sigma( j_n / \epsilon)}^{\text{local spread}} &&- \overbrace{\beta j_n}^{\text{recovery}} &+ \overbrace{\sum{\gamma P_mn (j_m - j_n)}}^{\text{network spread}}&\\
 \partial_t s_n &=& -\alpha s_n j_n \sigma( j_n / \epsilon)&  &&- \sum{\gamma P_mn (j_m - j_n)}.&
 \end{align}
-The first term describes how the disease spreads at one location (i.e. proportional to both susceptible and infected individuals, if $j_n > \epsilon$, otherwise zero, as $\sigma$ is a shifted heaviside), the second describes the recovery with rate $\beta$ and the third how infected individuals travel from one node to another. Since each infected was susceptible before, the dgl for the susceptible contains the same terms except the recovery, but with an overall minus sign. The parameters are the infectiousness $\alpha$ and recovery rate $\beta$ which determine the \emph{basic reproductive number} of the disease $R_0= \alpha / \beta$ and the spreading speed $\gamma$. 
+The first term describes how the disease spreads at one location (i.e. proportional to both susceptible and infected individuals, if $j_n > \epsilon$, otherwise zero, as $\sigma$ is a shifted heaviside function), the second describes the recovery with rate $\beta$ and the third how infected individuals travel from one node to another. Since each infected was susceptible before, the dgl for the susceptible contains the same terms except the recovery, but with an overall minus sign. The parameters are the infectiousness $\alpha$ and recovery rate $\beta$ which determine the \emph{basic reproductive number} of the disease $R_0= \alpha / \beta$ and the spreading speed $\gamma$. 
 
 For the following simulation, these were chosen to be $R_0 = 1.5$, $\beta = \SI{0.285}{d^{-1}}$ and $\gamma = \SI{2.8e-3}{d^{-1}}$.
-The threshold $\epsilon$ was $\num{1e-6}$, and the initial outbreak was set to be in South Africa with $j_{\mathrm{SA}} = \num{1e-3}$. The simuation used Euler integration with a stepsize of \SI{0.05}{d}, running for a total of \SI{300}{d}.
+The threshold $\epsilon$ was $\num{1e-6}$, and the initial outbreak was set to be in South Africa with $j_{\mathrm{SA}} = \num{1e-3}$. The simulation used Euler integration with a stepsize of \SI{0.05}{d}, running for a total of \SI{300}{d}.
 
-To characterize the spread of the epidemic, the time when there are more than $\epsilon$ infected for the first time, called the \emph{arrival time} $T_A(n) = \mathrm{min}_t \, \{ \sigma(j_n / \epsilon) \neq 0 \}$ of the disease, is determiend for each node. Since the geographical distance has (in this model) no direct influence on how fast a disease can be transmitted from one country to the next, an \emph{effective distance} based on passenger flux is introduced. It is defined by
+To characterize the spread of the epidemic, the time when there are more than $\epsilon$ infected for the first time, called the \emph{arrival time} $T_A(n) = \mathrm{min}_t \, \{ \sigma(j_n / \epsilon) \neq 0 \}$ of the disease, is determined for each node. Since the geographical distance has (in this model) no direct influence on how fast a disease can be transmitted from one country to the next, an \emph{effective distance} based on passenger flux is introduced. It is defined by
 \begin{align}
 	d_{mn} = 1 - \ln (P_mn). \label{eq:epl}
 \end{align}
@@ -85,18 +85,26 @@ In the simulation presented here, it is easily possible to determine that out of
     \centering
     \def\svgwidth{0.9\textwidth}
     \input{D1_.pdf_tex}
-    \caption{Initial state of a $N=50, k=3$ Barabasi-Albert network with a single infected individual, and time developmen according to the discrete SIR model described in section \ref{sec:eponnet}. In this example, all but one node have been infected during the spread of the disease. The last remaining node can no longer be infected, because all of its neighbours are already recovered.}
+    \caption{Initial state of a $N=50, k=3$ Barabasi-Albert network with a single infected individual, and time development according to the discrete SIR model described in section \ref{sec:eponnet}. In this example, all but one node have been infected during the spread of the disease. The last remaining node can no longer be infected, because all of its neighbours are already recovered.}
     \label{fig:D11}
 \end{figure}
 
 \begin{figure}
     \centering
-    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 5,2.0}]{evint.plt}
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 5,2.5}]{evinf.plt}
     \caption{Percentage of nodes that were infected at some time during the disease spread, 
 		depending on the contagiosity $\beta$ for different recovery rates $\gamma$. Note that 
 		even instant recovery $\gamma=1$ cannot prevent the spread of extremly contagious diseases
 		in this model, because a node cannot recover in the same timestep it was infected.}
     \label{fig:D12}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.35,3.0}]{arrival.plt}
+    \caption{Arrival time of the illness plotted against the effective path length  (as per eqn. \ref{eq:epl}) between 
+		a potential country of origin and the node. For the actual origin (South Africa), a correlation is visible, whereas the other two graphs show no correlation. One problem of the simulation that is clearly visible is the low resolution of the network data, both spatially (i.e. USA and Switzerland are both represented by a single node) and in connection resolution (discretization on x axis is clearly visible).}
+    \label{fig:arrival}
 \end{figure}
 
 \begin{figure}
@@ -108,20 +116,12 @@ In the simulation presented here, it is easily possible to determine that out of
     \label{fig:D1spread}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.35,3.0}]{arrival.plt}
-    \caption{Arrival time of the illness plotted against the effective path length  (as per eqn. \ref{eq:epl}) between 
-		a potential country of origin and the node. For the actual origin (South Africa), a correlation is visible, whereas the other two graphs show no correlation. One problem of the simulation that is clearly visible is the low resolution of the network data, both spatially (i.e. USA and Switzerland are both represented by a single node) and in connection resolution (discretization on x axis is clearly visible).}
-    \label{fig:arrival}
-\end{figure}
-
 \clearpage
 \section{Inferring Network Structure}
 The phrase \enquote{if you want to understand function, study structure}
 uttered by Francis Crick is a common credo in biochemistry, applied
 successfully to analyze and understand the function of large molecules. For
-networks too, their structure, meaning the topology and the weigth
+networks too, their structure, meaning the topology and the weight
 distributions, determine what the network can and can't do. This section's
 task is to reverse this idea in a certain way: What can be deduced about
 the structure of a network when having access to (some of) the output it
@@ -131,7 +131,7 @@ produces?
 The approach used in order to reconstruct networks with oscillatory
 Kuramoto dynamics can be found in the uploaded instruction and the
 formulation of the task. The notation used in the following also coincides
-with the notation of the instruction, if not introduced elsewise. The
+with the notation of the instruction, if not introduced otherwise. The
 pseudo inverse matrix was calculated with the function
 \texttt{numpy.linalg.pinv()} provided by the \texttt{numpy} library.
 The most important remarks regarding the simulation and the obtained
@@ -156,26 +156,27 @@ The obtained results for different combinations of $(N, M, T\ix{max})$ are
 presented and visualized in figure \ref{fig:D211}. The reconstructions
 obtained for $N = 5$ have a good quality that is confirmed by both the high
 $Q_{95}$ values and the given visualizations, where the difference networks
-have few and thin edges. As expected, higher values of $M$ potentially
-increase the quality while lower values decrease it.
+have few and thin edges. As expected, higher values of $M$ increase the
+quality while lower values decrease it.
 
 The reconstruction quality is visibly worse for $N = 10$ while the values
 of $Q_{95} \approx 0.40$ for $M = 100$ and $T = 2$ as well as
 $Q_{95}\approx 0.8$ for $M = 200$ and $T = 4$ again indicate that more
-measurements improve the result visibly.
+measurements would improve the result visibly.
 
 
 \subsection{Reconstructing Larger Networks}
 When trying to reconstruct larger networks, the applied method in the
-considered parameter space seems to become increasingly unsuitable. While for
-$N=12$ and  $M = 100, T\ix{max} = 2$ the average quality was around
+considered parameter space seems to become increasingly unsuitable. While
+for $N=12$ and  $M = 100, T\ix{max} = 2$ the average quality was around
 $\bar{Q}_{95}\approx 0.35$ it dropped to values lower than $0.3$ for even
-higher $N$. One can, however, apparently increase the reconstruction
-quality by taking more measurements (possibly over a longer period of
-time): For example, $N=12, M=200$, and $T\ix{max}=4$ yields
-$\bar{Q}_{95}\approx 0.59$. Nevertheless, the quality could not be
-arbitrarily improved with higher values for $M$ and/or $T\ix{max}$ in our
-attempts and in fact never really got much higher than $0.6$.  
+higher $N$.
+One can increase the reconstruction quality by taking more measurements
+(possibly over a longer period of time): For example, $N=12, M=200$, and
+$T\ix{max}=4$ yields $\bar{Q}_{95}\approx 0.59$. Nevertheless, the quality
+could not be improved arbitrarily with higher values for $M$ and/or
+$T\ix{max}$ in our attempts. In fact $Q_{95}$ never got significantly
+higher than $0.6$.  
 % N = 5, T = 2, M = 100 -> Q_ = 0.94
 % N = 5, T = 4, M = 150 -> Q_ = 0.96
 % N = 5, T = 3, M = 50  -> Q_ = 0.92
@@ -223,7 +224,7 @@ An obvious and quite frequent result was the one depicted in figure \ref{fig:D41
 internals remained untouched.  One could also observe that the family
 structures got broken up and mixed sometimes, building two new fractions
 (figure \ref{fig:D41} (c)). An event that was very rare (see the results for
-$P\ix{paradies}$ below) was the complete conciliation of all persons,
+$P\ix{paradise}$ below) was the complete conciliation of all persons,
 figure \ref{fig:D41} (d).
 
 Having applied the local triad algorithm with $p = 1/3$ for $10000$ trials
@@ -236,7 +237,7 @@ selection probability $p$ is shown in figure \ref{fig:D412}. One can
 see that the both probabilities increase with increasing $p$, which is
 of course expected.
 
-\subsection{Chimera States}
+\subsection{Chimera States in Oscillator Networks}
 In a network that consists of identical, non-locally coupled oszillators, it is possible 
 that a part of the oszillators will become phase locked while the others remain uncorrelated.
 The resulting state is called a \emph{chimera state}.
@@ -258,7 +259,7 @@ To quantify this statement, the complex order parameter is calculated, which is 
 \begin{align}
  O(x, t) = \int_{-\pi}^{\pi} K(x-x^\prime) \exp( \theta(x^\prime, t)) \, \mathrm{d} x^\prime. \label{eq:orderparameter}
 \end{align} 
-From this we can extract the \emph{local phase coherence} $R = |O|$ and the \emph{local avergage phase} $\Theta = \mathrm{arg}(O)$, such that
+From this we can extract the \emph{local phase coherence} $R = |O|$ and the \emph{local average phase} $\Theta = \mathrm{arg}(O)$, such that
 $O = R(x) \exp( i \Theta(x, t) )$. 
 These values can be seen in figures \ref{fig:d42} (b) and (c), which demonstrate that the phase coherence in the unordered region is very low, but relatively high in the ordered region, as expected. 
 The transition from unordered to ordered is much smoother than the phase plots would suggest on a first glance.
@@ -276,12 +277,12 @@ matter, but a fully fledged search engine has to account for that).
 The enormous wealth of information on the Internet has to be ranked according
 to its relevance if one wants to be able to use it. One such ordering algorithm 
 is \emph{Page Rank}, which is based purely on topology (i.e. it does not use 
-any semantic information). This algorithm calculates the stationar probability 
+any semantic information). This algorithm calculates the stationary probability 
 distribution $\vec{x}$ of a random walk on the network with two additional properties:
 \begin{itemize}
  \item To prevent trapping in dangling nodes, the walker jumps from a dangling node
 		to all other nodes with equal probability.
- \item To prevent loops, the walker has the probabiltiy $1-\alpha$ of jumping to a random	
+ \item To prevent loops, the walker has the probability $1-\alpha$ of jumping to a random	
 	node in any step.
 \end{itemize}
 
@@ -365,9 +366,9 @@ well as their (normalized) \emph{Page Rank} measures can be found in table
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 5,2.5}]{pictures/D41.gp}
     \caption{Relative number of \enquote{Love} (Romeo and Juliet end up
-    together) or \enquote{Paradies} (all family members of both families
+    together) or \enquote{Paradise} (all family members of both families
     are friends) outcomes in dependence of the parameter $p$. For values of $p > 0.5$ nearly all
-    \enquote{Love} endings were also \enquote{Paradies} endings. The single
+    \enquote{Love} endings were also \enquote{Paradise} endings. The single
     values were obtained by averaging over 500 trials.}
     \label{fig:D412}
 \end{figure}
@@ -375,7 +376,10 @@ well as their (normalized) \emph{Page Rank} measures can be found in table
 \begin{figure}
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.35,6.35}]{d42.gp}
-    \caption{Time development of the ring of phase oscillators described in the text.}
+    \caption{Time snapshots of the ring of phase oscillators described in
+    the text. Here row (a) shows the phase $\theta(x)$, row (b) the local
+    phase coherence $R(x)$, and row (c) the average local phase $\Theta(x)$
+    for the time. The dynamic for higher times ($t > 80$) is conceptionally similar.}
     \label{fig:d42}
 \end{figure}
 

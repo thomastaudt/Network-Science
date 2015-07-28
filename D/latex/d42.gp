@@ -13,6 +13,7 @@ bborder = 0.05
 
 unset key
 
+set xtics 0, 64, 256
 set xrange [-24:280]
 set ytics ('0'  0, '$\pi$' pi, '$2\pi$' 2*pi)
 set yrange [-1:8]
