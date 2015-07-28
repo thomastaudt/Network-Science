@@ -66,7 +66,7 @@ The first term describes how the disease spreads at one location (i.e. proportio
 
 To characterize the spread of the epidemic, the time when there are more than $\epsilon$ infected for the first time, called the \emph{arrival time} $T_A(n) = \mathrm{min}_t \sigma(j_n / \epsilon) \neq 0$ of the disease, is determiend for each node. Since the geographical distance has (in this model) no direct influence on how fast a disease can be transmitted from one country to the next, an \emph{effective distance} based on passenger flux is introduced. It is defined by
 \begin{align}
-	d_{mn} = 1 - \ln (P_mn).
+	d_{mn} = 1 - \ln (P_mn). \label{eq:epl}
 \end{align}
 
 In figure \ref{fig:D1spread} \textbf{a)}--\textbf{c)}, the amount of infected individuals $j_n$ is plotted for times $t_1=\SI{50}{d}$, $t_2 = \SI{100}{d}$, and $t_3 = \SI{200}{d}$. Subfigure \textbf{d)} shows the arrival times for all countries.
@@ -76,7 +76,8 @@ Ideally, this would yield a linear relation for the actual outbreak source, and 
 Furthermore, the linearity between distance and time is only a trend, the data contain a lot of fluctuations.
 Still, this allows to restrict the possible outbreak sources to a few countries. One could then look which one is most closely neighboured to the other possible source countries to find the most likely origin candidate.
 
-In the simulated presented here, it is easily possible to determine that out of South Africa, Peru, and Indonesia, only South Africa can be the epidemic's origin, as shown by figure \ref{}.
+In the simulated presented here, it is easily possible to determine that out of South Africa, Peru, and Indonesia, only South Africa can be the epidemic's origin, as shown by figure \ref{fig:arrival}. The linear relation is not as good as in the paper \footnote{D. Brockmann, D. Helbing (2013): The Hidden Geometry of Complex, Network-Driven Contagion Phenomena.}, which can probabliy be attributed to the lower resolution (on country level, highly discretized passenger flux) of the data used to generate the plots.
+
 \begin{figure}
     \centering
     \def\svgwidth{0.9\textwidth}
@@ -108,7 +109,8 @@ In the simulated presented here, it is easily possible to determine that out of 
 \begin{figure}
     \centering
     \gnuplotloadfile[terminal=epslatex, terminaloptions={color size 6.35,3.0}]{arrival.plt}
-    \caption{}
+    \caption{Arrival time of the illness plotted against the effective path (as per eqn. \ref{eq:epl}) length between 
+		a potential country of origin and the node. For the actual origin (South Africa), a correlation is visible, whereas the other two graphs show no correlation. One problem of the simulation that is clearly visible is the low resolution of the network data, both spatially (i.e. USA and Switzerland are both represented by a single node) and in connection resolution (discretization on x axis is clearly visible).}
     \label{fig:arrival}
 \end{figure}
 
@@ -231,6 +233,34 @@ The dependency of $P\ix{love}$ and $P\ix{paradies}$ on the pattern
 selection probability $p$ is shown in figure \ref{fig:D412}. One can
 see that the both probabilities increase with increasing $p$, which is
 of course expected.
+
+\subsection{Chimera States}
+In a network that consists of identical, non-locally coupled oszillators, it is possible 
+that a part of the oszillators will become phase locked while the others remain uncorrelated.
+The resulting state is called a \emph{chimera state}.
+
+It can be generated e.g. by a coupling kernel 
+\begin{align}
+K(\Delta) = (1 + A \cos{\Delta}) / (2 \pi),
+\end{align}
+such that the whole dynamics is (in a continuum limit of infinitely many oszillators $\theta(x)$)
+\begin{align}
+ \frac{\partial \theta(x, t)}{\partial t} = - \int_{-\pi}^{\pi} K(x-x^\prime) \sin \left( \theta(x, t) - \theta(x^\prime, t) + \alpha \right) \, \mathrm{d} x^\prime. \label{eq:contdyn}
+\end{align}
+
+To work with this numerically, the continuous variable $\theta(x, t)$ is replaced by finitely many (256) oszillators, such that the integral eq. \ref{eq:contdyn} becomes a sum. The parameter $A$ was set to $A= 0.995$ and $\alpha = \pi/2 - 0.18$. As initial conditions, each oszillator was given a random phase. 
+The development of the system for $t=0$ to $t=80$ can be seen in fig. \ref{}.
+In some spatial region, the initially uncoordinated oszillators become phase locked, whereas elsewhere they continue to move uncorrelated: The system has entered a chimera state.
+
+To quantify this statement, the complex order parameter is calculated, which is given by (in a continuum system)
+\begin{align}
+ O(x, t) = \int_{-\pi}^{\pi} K(x-x^\prime) \exp( \theta(x^\prime, t)) \, \mathrm{d} x^\prime. \label{eq:orderparameter}
+\end{align} 
+From this we can extract the local phase coherence $R = |O|$ and the local avergage phase $\Theta = \mathrm{arg}(O)$, such that
+$O = R(x) \exp( i \Theta(x, t) )$. 
+These values can be seen in fig. \ref{}, which demonstrate that the phase coherence in the unordered region is very low, but relatively high in the ordered region, as expected. 
+The transition from unordered to ordered is much smoother than the phase plots would suggest on a first glance.
+However, in the phase plots it is already visible that the boundary oszillators of the phase locked region have a slightly different frequency than the one in the middle, indicating that the synchronization is less good, in accordance with the quantitative measurement.
 
 \subsection{Page Rank}
 One of the most iconic modern examples for a network is the Internet, 
