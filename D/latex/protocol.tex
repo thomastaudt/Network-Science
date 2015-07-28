@@ -39,37 +39,40 @@
 
 \section{Epidemics on Networks}
 \label{sec:eponnet}
-We consider an epidemic model in which each node is always in exactly one of the states \emph{susceptible}, \emph{infected} or \emph{recovered}. 
-In every timestep, each infected node infects susceptible neighbours with probability $\beta$ and each infected node recovers with probability $\gamma$. 
+We consider an epidemic model on a network in which each node is always in exactly one of the states \emph{susceptible}, \emph{infected} or \emph{recovered}. 
+In every timestep, each infected node infects susceptible neighbours with probability $\beta$ and recovers with probability $\gamma$. 
 The first five timesteps of evolving these dynamics on a BA network of $N=50$ nodes and $k=3$ are shown in figure \ref{fig:D11}.
 
 If all nodes connected to a susceptible node recover before they infect it, that node will never become infected (upper left node in figure \ref{fig:D11}). How likely this is to happen depends on the infection and recovery probabilities $\beta$ and $\gamma$. 
-It therefore seems sensible to define $q$ as the percentage of nodes that ever were infected (i.e., not necessarily at the same time). 
+One therefore defines $q$ as the percentage of nodes that ever were infected (i.e. not necessarily at the same time). 
 It can be calculated by simulating the network dynamics until there are no more infected nodes and is then given by the percentage of recovered nodes. 
 
 The results are shown in figure \ref{fig:D12}. 
 It turns out that in the model evaluated, the chance that the whole 
 population gets infected rises quite fast if the infectiousness surpasses
 a certain critical value, and then more slowly approaches $1$. It is also 
-notable that for $\beta > 0.6$, more than $90\%$ get infected even if
+notable that for an infection rate of $\beta > 0.6$, more than $90\%$ get infected even if
 the recovery rate is at an extremely high value of $95\%$.
 
 From these results, one can conclude that, to contain the spread of a disease following the SIR model, 
-it is much more important to reduce infections of susceptible individuals than to heal already ill ones.
+it is much more important to reduce infections of susceptible individuals than to speed up the recovery of already ill ones.
 
-To investigate the world wide spread of an epidemic in more detail, we now switch to a continuous model. At each node, there is a percentage of infected $j_n$ and susceptible $s_n$ at a node $n$, which is evolved by
+To investigate the world wide spread of an epidemic in more detail, we now switch to a continuous model. At each node $n$, there is a percentage of infected $j_n$ and susceptible individuals, which is evolved by
 \begin{align}
 \partial_t j_n &=& \overbrace{\alpha s_n j_n \sigma( j_n / \epsilon)}^{\text{local spread}} &&- \overbrace{\beta j_n}^{\text{recovery}} &+ \overbrace{\sum{\gamma P_mn (j_m - j_n)}}^{\text{network spread}}&\\
-\partial_t s_n &=& -\alpha s_n j_n \sigma( j_n / \epsilon)&  &&- \sum{\gamma P_mn (j_m - j_n)}&.
+\partial_t s_n &=& -\alpha s_n j_n \sigma( j_n / \epsilon)&  &&- \sum{\gamma P_mn (j_m - j_n)}.&
 \end{align}
-The first term describes how the disease spreads at one location (i.e. proportional to both susceptible and infected individuals, if $j_n > \epsilon$), the second describes the recovery with rate $\beta$ and the third how infected individuals travel from one node to another. Since each infected was susceptible before, the dgl for the susceptible contains the same terms except the recovery, but with an overall minus sign.
+The first term describes how the disease spreads at one location (i.e. proportional to both susceptible and infected individuals, if $j_n > \epsilon$, otherwise zero, as $\sigma$ is a shifted heaviside), the second describes the recovery with rate $\beta$ and the third how infected individuals travel from one node to another. Since each infected was susceptible before, the dgl for the susceptible contains the same terms except the recovery, but with an overall minus sign. The parameters are the infectiousness $\alpha$ and recovery rate $\beta$ which determine the \emph{basic reproductive number} of the disease $R_0= \alpha / \beta$ and the spreading speed $\gamma$. 
 
-To characterize the spread of the epidemic, the time when there are more than $\epsilon$ infected for the first time, called the \emph{arrival time} $T_A(n) = \mathrm{min}_t \sigma(j_n / \epsilon) \neq 0$ of the disease, is determiend for each node. Since the geographical distance has (in this model) no direct influence on how fast a disease can be transmitted from one country to the next, an \emph{effective distance} based on passenger flux is introduced. It is defined by
+For the following simulation, these were chosen to be $R_0 = 1.5$, $\beta = \SI{0.285}{d^{-1}}$ and $\gamma = \SI{2.8e-3}{d^{-1}}$.
+The threshold $\epsilon$ was $\num{1e-6}$, and the initial outbreak was set to be in South Africa with $j_{\mathrm{SA}} = \num{1e-3}$. The simuation used Euler integration with a stepsize of \SI{0.05}{d}, running for a total of \SI{300}{d}.
+
+To characterize the spread of the epidemic, the time when there are more than $\epsilon$ infected for the first time, called the \emph{arrival time} $T_A(n) = \mathrm{min}_t \, \sigma(j_n / \epsilon) \neq 0$ of the disease, is determiend for each node. Since the geographical distance has (in this model) no direct influence on how fast a disease can be transmitted from one country to the next, an \emph{effective distance} based on passenger flux is introduced. It is defined by
 \begin{align}
 	d_{mn} = 1 - \ln (P_mn). \label{eq:epl}
 \end{align}
 
-In figure \ref{fig:D1spread} \textbf{a)}--\textbf{c)}, the amount of infected individuals $j_n$ is plotted for times $t_1=\SI{50}{d}$, $t_2 = \SI{100}{d}$, and $t_3 = \SI{200}{d}$. Subfigure \textbf{d)} shows the arrival times for all countries.
+In figure \ref{fig:D1spread}, \textbf{a)} -- \textbf{c)}, the amount of infected individuals $j_n$ is plotted for times $t_1=\SI{50}{d}$, $t_2 = \SI{100}{d}$, and $t_3 = \SI{200}{d}$. Subfigure \textbf{d)} shows the arrival times for all countries.
 
 To find the origin of the outbreak just by using the spread data, we look at the plots of arrival time vs. path length (with respect to effective distance) to a potential outbreak source. 
 Ideally, this would yield a linear relation for the actual outbreak source, and no correlation at all for any other country. In practice, the graphs of neighbouring countries look alike. 
